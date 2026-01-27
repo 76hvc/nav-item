@@ -198,6 +198,19 @@ app.delete('/friends/:id', authMiddleware, async (c) => {
 });
 
 // Icon Fetcher API
+// Get all menus and submenus for quick add
+app.get('/quick-add/menus', async (c) => {
+  const { results: menus } = await c.env.DB.prepare('SELECT id, name FROM menus ORDER BY "order"').all();
+  const { results: subMenus } = await c.env.DB.prepare('SELECT id, menu_id, name FROM sub_menus ORDER BY "order"').all();
+  
+  const data = menus.map(m => ({
+    ...m,
+    subMenus: subMenus.filter(s => s.menu_id === m.id)
+  }));
+  
+  return c.json(data);
+});
+
 app.get('/fetch-icon', async (c) => {
   const url = c.req.query('url');
   if (!url) return c.json({ error: 'URL is required' }, 400);

@@ -1,0 +1,209 @@
+<template>
+  <div class="toolbox">
+    <div class="tool-card">
+      <h3 class="tool-title">浏览器快捷添加书签</h3>
+      <p class="tool-desc">将下面的按钮拖动到您的浏览器书签栏。在任何网页点击该书签，即可快速将该网页添加到您的导航站。</p>
+      
+      <div class="bookmarklet-container">
+        <a :href="bookmarkletCode" class="bookmarklet-btn" @click.prevent="alertDrag">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M19 21l-7-5-7 5V5a2 2 0 0 1 2-2h10a2 2 0 0 1 2 2z"/>
+          </svg>
+          拖我到书签栏
+        </a>
+      </div>
+
+      <div class="instructions">
+        <h4>使用说明：</h4>
+        <ol>
+          <li>确保您的浏览器显示了<strong>书签栏</strong>（Ctrl+Shift+B）。</li>
+          <li>将上方的蓝色按钮<strong>拖动</strong>到书签栏。</li>
+          <li>访问您想收藏的网站，点击书签栏上的这个书签。</li>
+          <li>在弹出的窗口中选择分类并提交即可。</li>
+        </ol>
+      </div>
+    </div>
+  </div>
+</template>
+
+<script setup>
+import { computed } from 'vue';
+
+const bookmarkletCode = computed(() => {
+  const baseUrl = window.location.origin;
+  const script = `
+    (function() {
+      const title = document.title;
+      const url = window.location.href;
+      const icon = (document.querySelector('link[rel*="icon"]') || {href: window.location.origin + '/favicon.ico'}).href;
+      
+      const container = document.createElement('div');
+      container.id = 'nav-item-quick-add';
+      container.style.cssText = 'position:fixed;top:20px;right:20px;width:350px;background:#fff;box-shadow:0 10px 25px rgba(0,0,0,0.2);border-radius:12px;z-index:999999;padding:20px;font-family:sans-serif;border:1px solid #eee;';
+      
+      container.innerHTML = \`
+        <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:15px;">
+          <h3 style="margin:0;font-size:18px;color:#333;">添加到导航站</h3>
+          <span id="ni-close" style="cursor:pointer;font-size:20px;color:#999;">&times;</span>
+        </div>
+        <div style="margin-bottom:12px;">
+          <label style="display:block;font-size:12px;color:#666;margin-bottom:4px;">标题</label>
+          <input id="ni-title" type="text" value="\${title}" style="width:100%;padding:8px;border:1px solid #ddd;border-radius:6px;box-sizing:border-box;">
+        </div>
+        <div style="margin-bottom:12px;">
+          <label style="display:block;font-size:12px;color:#666;margin-bottom:4px;">分类</label>
+          <select id="ni-menu" style="width:100%;padding:8px;border:1px solid #ddd;border-radius:6px;box-sizing:border-box;">
+            <option>加载中...</option>
+          </select>
+        </div>
+        <button id="ni-submit" style="width:100%;padding:10px;background:#2566d8;color:#fff;border:none;border-radius:6px;cursor:pointer;font-weight:bold;">立即提交</button>
+        <div id="ni-msg" style="margin-top:10px;font-size:12px;text-align:center;display:none;"></div>
+      \`;
+      
+      document.body.appendChild(container);
+      
+      const close = () => document.body.removeChild(container);
+      document.getElementById('ni-close').onclick = close;
+      
+      // Fetch menus
+      fetch('\${baseUrl}/api/quick-add/menus')
+        .then(r => r.json())
+        .then(data => {
+          const select = document.getElementById('ni-menu');
+          select.innerHTML = '';
+          data.forEach(m => {
+            const opt = document.createElement('option');
+            opt.value = m.id;
+            opt.textContent = m.name;
+            select.appendChild(opt);
+            m.subMenus.forEach(s => {
+              const sOpt = document.createElement('option');
+              sOpt.value = m.id + ':' + s.id;
+              sOpt.textContent = '  └ ' + s.name;
+              select.appendChild(sOpt);
+            });
+          });
+        });
+        
+      document.getElementById('ni-submit').onclick = function() {
+        const btn = this;
+        const msg = document.getElementById('ni-msg');
+        const val = document.getElementById('ni-menu').value;
+        const [mId, sId] = val.includes(':') ? val.split(':') : [val, null];
+        
+        btn.disabled = true;
+        btn.textContent = '提交中...';
+        
+        fetch('\${baseUrl}/api/cards', {
+          method: 'POST',
+          headers: {'Content-Type': 'application/json', 'Authorization': 'Bearer ' + localStorage.getItem('token')},
+          body: JSON.stringify({
+            menu_id: Number(mId),
+            sub_menu_id: sId ? Number(sId) : null,
+            title: document.getElementById('ni-title').value,
+            url: url,
+            logo_url: icon,
+            desc: '',
+            order: 0
+          })
+        }).then(r => {
+          if(r.status === 401) throw new Error('请先登录导航站后台');
+          if(!r.ok) throw new Error('提交失败');
+          return r.json();
+        }).then(() => {
+          msg.style.display = 'block';
+          msg.style.color = 'green';
+          msg.textContent = '✅ 添加成功！';
+          setTimeout(close, 1500);
+        }).catch(e => {
+          btn.disabled = false;
+          btn.textContent = '立即提交';
+          msg.style.display = 'block';
+          msg.style.color = 'red';
+          msg.textContent = '❌ ' + e.message;
+        });
+      };
+    })();
+  `.replace(/\\n/g, '').replace(/\\s+/g, ' ');
+  return 'javascript:' + encodeURIComponent(script);
+});
+
+function alertDrag() {
+  alert('请直接将此按钮拖动到您的浏览器书签栏，而不是点击它。');
+}
+</script>
+
+<style scoped>
+.toolbox {
+  max-width: 800px;
+  margin: 0 auto;
+  padding: 20px;
+}
+
+.tool-card {
+  background: white;
+  border-radius: 16px;
+  padding: 30px;
+  box-shadow: 0 4px 20px rgba(0,0,0,0.08);
+}
+
+.tool-title {
+  margin-top: 0;
+  color: #2566d8;
+  font-size: 1.5rem;
+}
+
+.tool-desc {
+  color: #666;
+  line-height: 1.6;
+  margin-bottom: 25px;
+}
+
+.bookmarklet-container {
+  display: flex;
+  justify-content: center;
+  margin: 30px 0;
+}
+
+.bookmarklet-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  background: #2566d8;
+  color: white;
+  padding: 12px 24px;
+  border-radius: 50px;
+  text-decoration: none;
+  font-weight: bold;
+  box-shadow: 0 4px 15px rgba(37, 102, 216, 0.3);
+  transition: all 0.3s;
+  cursor: move;
+}
+
+.bookmarklet-btn:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 20px rgba(37, 102, 216, 0.4);
+}
+
+.instructions {
+  background: #f8f9fa;
+  padding: 20px;
+  border-radius: 12px;
+  border-left: 4px solid #2566d8;
+}
+
+.instructions h4 {
+  margin-top: 0;
+  margin-bottom: 10px;
+}
+
+.instructions ol {
+  margin: 0;
+  padding-left: 20px;
+  color: #555;
+}
+
+.instructions li {
+  margin-bottom: 8px;
+}
+</style>
