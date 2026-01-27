@@ -201,3 +201,38 @@ bash <(curl -Ls https://github.com/eooce/nav-item/releases/download/ct8-and-serv
 
 
 
+
+## ☁️ Cloudflare Pages 部署指南 (推荐)
+
+本项目已适配 Cloudflare Pages + Functions + D1，可实现零成本全自动化部署。
+
+### 1. 准备工作
+- 一个 Cloudflare 账号
+- 在 Cloudflare 控制台创建一个 D1 数据库，命名为 `nav_db`
+
+### 2. 初始化数据库
+在 Cloudflare D1 控制台中，执行项目根目录下的 `schema.sql` 文件中的 SQL 语句，以初始化表结构。
+
+### 3. 部署步骤
+1. 将本项目 Fork 到你的 GitHub 账号。
+2. 在 Cloudflare Pages 控制台点击 "Connect to Git"，选择该仓库。
+3. **构建设置**：
+   - **Framework preset**: `Vite`
+   - **Build command**: `cd web && npm install && npm run build`
+   - **Build output directory**: `web/dist`
+4. **环境变量**：
+   - 在 "Settings" -> "Functions" -> "Variable bindings" 中添加：
+     - `JWT_SECRET`: 你的随机字符串（用于登录认证）
+   - 在 "Settings" -> "Functions" -> "D1 database bindings" 中添加：
+     - **Variable name**: `DB`
+     - **D1 database**: 选择你创建的 `nav_db`
+5. 点击 "Save and Deploy"。
+
+### 4. 注意事项
+- **文件上传**：Cloudflare Pages Functions 不支持本地文件系统，因此原有的本地图标上传功能已禁用。建议在添加卡片时直接使用外部图片链接。
+- **默认账号**：由于 D1 数据库初始为空，你需要手动在 D1 中插入一个管理员账号，或在 `schema.sql` 中添加初始数据。
+  ```sql
+  -- 插入默认管理员 (用户名: admin, 密码: 123456)
+  INSERT INTO users (username, password) VALUES ('admin', '$2b$10$o00N7nM4nux5.UzcTQBLOeq9FWFtaaasf4f2/3qGPLb2RpB8yWfZa');
+  ```
+  *注：由于 bcrypt 盐值随机，建议部署后通过 D1 控制台或 API 注册/初始化。*

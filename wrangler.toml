@@ -1,0 +1,10 @@
+name = "nav-item"
+pages_build_output_dir = "web/dist"
+
+[[d1_databases]]
+binding = "DB"
+database_name = "nav_db"
+database_id = "your-d1-database-id" # 部署时需替换或在 Cloudflare 控制台绑定
+
+[vars]
+JWT_SECRET = "your_jwt_secret_key"

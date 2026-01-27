@@ -30,9 +30,9 @@ export const updateCard = (id, data) => axios.put(`${BASE}/cards/${id}`, data, {
 export const deleteCard = (id) => axios.delete(`${BASE}/cards/${id}`, { headers: authHeaders() });
 
 export const uploadLogo = (file) => {
-  const formData = new FormData();
-  formData.append('logo', file);
-  return axios.post(`${BASE}/upload`, formData, { headers: { ...authHeaders(), 'Content-Type': 'multipart/form-data' } });
+  // Cloudflare Pages Functions 不支持本地文件存储，建议使用外部图床或 R2
+  alert('Cloudflare 部署版暂不支持本地上传，请使用外部图片链接');
+  return Promise.reject('Upload not supported on Cloudflare Pages version');
 };
 
 // 广告API
