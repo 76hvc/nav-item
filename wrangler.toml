@@ -6,5 +6,7 @@ binding = "DB"
 database_name = "nav_db"
 database_id = "your-d1-database-id" # 部署时需替换或在 Cloudflare 控制台绑定
 
+compatibility_flags = [ "nodejs_compat" ]
+
 [vars]
 JWT_SECRET = "your_jwt_secret_key"
