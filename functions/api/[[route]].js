@@ -28,7 +28,7 @@ app.post('/login', async (c) => {
   const user = await c.env.DB.prepare('SELECT * FROM users WHERE username = ?').bind(username).first();
   
   if (!user || !bcrypt.compareSync(password, user.password)) {
-    return c.json({ error: '用户名或密码错误' }, 401);
+    return c.json({ message: '用户名或密码错误' }, 401);
   }
   
   const JWT_SECRET = c.env.JWT_SECRET || 'your_jwt_secret_key';
