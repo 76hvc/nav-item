@@ -1,7 +1,7 @@
 import { Hono } from 'hono';
 import { handle } from 'hono/cloudflare-pages';
 import bcrypt from 'bcryptjs';
-import jwt from 'jsonwebtoken';
+import jwt from './jwt.js';
 
 const app = new Hono().basePath('/api');
 
@@ -14,7 +14,7 @@ const authMiddleware = async (c, next) => {
   const token = auth.slice(7);
   try {
     const JWT_SECRET = c.env.JWT_SECRET || 'your_jwt_secret_key';
-    const payload = jwt.verify(token, JWT_SECRET);
+    const payload = await jwt.verify(token, JWT_SECRET);
     c.set('user', payload);
     await next();
   } catch (e) {
@@ -32,7 +32,7 @@ app.post('/login', async (c) => {
   }
   
   const JWT_SECRET = c.env.JWT_SECRET || 'your_jwt_secret_key';
-  const token = jwt.sign({ id: user.id, username: user.username }, JWT_SECRET, { expiresIn: '24h' });
+  const token = await jwt.sign({ id: user.id, username: user.username, exp: Math.floor(Date.now() / 1000) + (24 * 60 * 60) }, JWT_SECRET);
   return c.json({ token });
 });
 
