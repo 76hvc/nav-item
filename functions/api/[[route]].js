@@ -212,16 +212,22 @@ app.get('/fetch-icon', async (c) => {
     const html = await response.text();
     let iconUrl = '';
 
-    // 1. Try to find link rel="icon" or "shortcut icon" or "apple-touch-icon"
-    const iconMatch = html.match(/<link[^>]+rel=["'](?:shortcut )?icon["'][^>]+href=["']([^"']+)["']/i) ||
-                      html.match(/<link[^>]+href=["']([^"']+)["'][^>]+rel=["'](?:shortcut )?icon["']/i) ||
-                      html.match(/<link[^>]+rel=["']apple-touch-icon["'][^>]+href=["']([^"']+)["']/i);
+    // 1. Try to find high quality icons first (apple-touch-icon or large icons)
+    const appleTouchIcon = html.match(/<link[^>]+rel=["']apple-touch-icon["'][^>]+href=["']([^"']+)["']/i);
+    const largeIcon = html.match(/<link[^>]+sizes=["'](?:192x192|512x512|180x180|144x144)["'][^>]+href=["']([^"']+)["']/i);
+    const genericIcon = html.match(/<link[^>]+rel=["'](?:shortcut )?icon["'][^>]+href=["']([^"']+)["']/i) ||
+                        html.match(/<link[^>]+href=["']([^"']+)["'][^>]+rel=["'](?:shortcut )?icon["']/i);
 
-    if (iconMatch && iconMatch[1]) {
-      iconUrl = iconMatch[1];
+    if (appleTouchIcon) {
+      iconUrl = appleTouchIcon[1];
+    } else if (largeIcon) {
+      iconUrl = largeIcon[1];
+    } else if (genericIcon) {
+      iconUrl = genericIcon[1];
     } else {
-      // 2. Fallback to /favicon.ico
-      iconUrl = '/favicon.ico';
+      // 2. Use Google's high-quality favicon service as a powerful fallback
+      // This service returns a 128x128 icon if available
+      return c.json({ iconUrl: `https://www.google.com/s2/favicons?sz=128&domain=${targetUrl.hostname}` });
     }
 
     // Convert relative URL to absolute
