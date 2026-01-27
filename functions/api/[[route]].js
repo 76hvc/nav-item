@@ -197,4 +197,46 @@ app.delete('/friends/:id', authMiddleware, async (c) => {
   return c.json({ success: true });
 });
 
+// Icon Fetcher API
+app.get('/fetch-icon', async (c) => {
+  const url = c.req.query('url');
+  if (!url) return c.json({ error: 'URL is required' }, 400);
+
+  try {
+    const targetUrl = new URL(url.startsWith('http') ? url : `https://${url}`);
+    const response = await fetch(targetUrl.origin, {
+      headers: { 'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/91.0.4472.124 Safari/537.36' },
+      redirect: 'follow'
+    });
+
+    const html = await response.text();
+    let iconUrl = '';
+
+    // 1. Try to find link rel="icon" or "shortcut icon" or "apple-touch-icon"
+    const iconMatch = html.match(/<link[^>]+rel=["'](?:shortcut )?icon["'][^>]+href=["']([^"']+)["']/i) ||
+                      html.match(/<link[^>]+href=["']([^"']+)["'][^>]+rel=["'](?:shortcut )?icon["']/i) ||
+                      html.match(/<link[^>]+rel=["']apple-touch-icon["'][^>]+href=["']([^"']+)["']/i);
+
+    if (iconMatch && iconMatch[1]) {
+      iconUrl = iconMatch[1];
+    } else {
+      // 2. Fallback to /favicon.ico
+      iconUrl = '/favicon.ico';
+    }
+
+    // Convert relative URL to absolute
+    if (iconUrl.startsWith('//')) {
+      iconUrl = targetUrl.protocol + iconUrl;
+    } else if (iconUrl.startsWith('/')) {
+      iconUrl = targetUrl.origin + iconUrl;
+    } else if (!iconUrl.startsWith('http')) {
+      iconUrl = targetUrl.origin + '/' + iconUrl;
+    }
+
+    return c.json({ iconUrl });
+  } catch (e) {
+    return c.json({ error: 'Failed to fetch icon', details: e.message }, 500);
+  }
+});
+
 export const onRequest = handle(app);

@@ -13,8 +13,11 @@
           <option v-for="subMenu in currentSubMenus" :value="subMenu.id" :key="subMenu.id">{{ subMenu.name }}</option>
         </select>
         <input v-model="newCardTitle" placeholder="卡片标题" class="input narrow" />
-        <input v-model="newCardUrl" placeholder="卡片链接" class="input wide" />
-        <input v-model="newCardLogo" placeholder="logo链接(可选)" class="input wide" />
+        <input v-model="newCardUrl" placeholder="卡片链接" class="input wide" @blur="autoFetchIcon" />
+        <div class="logo-input-wrapper">
+          <input v-model="newCardLogo" placeholder="logo链接(可选)" class="input wide" />
+          <div v-if="fetchingIcon" class="fetching-loader"></div>
+        </div>
         <button class="btn" @click="addCard">
           <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
             <path d="M12 5v14M5 12h14"/>
@@ -64,7 +67,8 @@ import {
   getCards, 
   addCard as apiAddCard, 
   updateCard as apiUpdateCard, 
-  deleteCard as apiDeleteCard 
+  deleteCard as apiDeleteCard,
+  fetchIcon
 } from '../../api';
 
 const menus = ref([]);
@@ -74,6 +78,7 @@ const selectedSubMenuId = ref('');
 const newCardTitle = ref('');
 const newCardUrl = ref('');
 const newCardLogo = ref('');
+const fetchingIcon = ref(false);
 
 const currentSubMenus = computed(() => {
   if (!selectedMenuId.value) return [];
@@ -109,6 +114,21 @@ async function loadCards() {
   if (!selectedMenuId.value) return;
   const res = await getCards(selectedMenuId.value, selectedSubMenuId.value || null);
   cards.value = res.data;
+}
+
+async function autoFetchIcon() {
+  if (!newCardUrl.value || newCardLogo.value) return;
+  fetchingIcon.value = true;
+  try {
+    const res = await fetchIcon(newCardUrl.value);
+    if (res.data.iconUrl) {
+      newCardLogo.value = res.data.iconUrl;
+    }
+  } catch (e) {
+    console.error('自动获取图标失败:', e);
+  } finally {
+    fetchingIcon.value = false;
+  }
 }
 
 async function addCard() {
@@ -271,6 +291,28 @@ async function deleteCard(id) {
 /* 宽输入框 - 卡片链接、logo链接 */
 .input.wide {
   width: 200px;
+}
+
+.logo-input-wrapper {
+  position: relative;
+  display: flex;
+  align-items: center;
+}
+
+.fetching-loader {
+  position: absolute;
+  right: 10px;
+  width: 16px;
+  height: 16px;
+  border: 2px solid #e2e8f0;
+  border-top: 2px solid #399dff;
+  border-radius: 50%;
+  animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
 }
 
 /* 表格内输入框 */

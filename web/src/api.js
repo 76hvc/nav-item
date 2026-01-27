@@ -47,6 +47,8 @@ export const addFriend = (data) => axios.post(`${BASE}/friends`, data, { headers
 export const updateFriend = (id, data) => axios.put(`${BASE}/friends/${id}`, data, { headers: authHeaders() });
 export const deleteFriend = (id) => axios.delete(`${BASE}/friends/${id}`, { headers: authHeaders() });
 
+export const fetchIcon = (url) => axios.get(`${BASE}/fetch-icon`, { params: { url } });
+
 // 用户API
 export const getUserProfile = () => axios.get(`${BASE}/users/profile`, { headers: authHeaders() });
 export const changePassword = (oldPassword, newPassword) => axios.put(`${BASE}/users/password`, { oldPassword, newPassword }, { headers: authHeaders() });
