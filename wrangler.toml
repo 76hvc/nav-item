@@ -1,12 +1,5 @@
 name = "nav-item"
 pages_build_output_dir = "web/dist"
 
-[[d1_databases]]
-binding = "DB"
-database_name = "nav_db"
-database_id = "your-d1-database-id" # 部署时需替换或在 Cloudflare 控制台绑定
-
-# compatibility_flags = [ "nodejs_compat" ] # 移除此标志，已改用 Web Crypto 实现 JWT 以提高兼容性
-
-[vars]
-JWT_SECRET = "your_jwt_secret_key"
+# 注意：D1 数据库绑定建议直接在 Cloudflare Pages 控制台的 Settings -> Functions 中进行手动绑定
+# 变量名必须为 DB
