@@ -1,5 +1,10 @@
 name = "nav-item"
 pages_build_output_dir = "web/dist"
 
-# 注意：D1 数据库绑定建议直接在 Cloudflare Pages 控制台的 Settings -> Functions 中进行手动绑定
-# 变量名必须为 DB
+[[d1_databases]]
+binding = "DB"
+database_name = "nav_db"
+database_id = "6d21c18c-e2aa-4842-a6c5-850745e09a6a"
+
+[vars]
+JWT_SECRET = "your_jwt_secret_key"
