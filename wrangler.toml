@@ -6,5 +6,5 @@ binding = "DB"
 database_name = "nav_db"
 database_id = "6d21c18c-e2aa-4842-a6c5-850745e09a6a"
 
-[vars]
-JWT_SECRET = "your_jwt_secret_key"
+# 环境变量建议统一在 Cloudflare Pages 控制台的 Settings -> Environment variables 中设置
+# 以避免与 wrangler.toml 冲突
