@@ -132,18 +132,28 @@ async function autoFetchIcon() {
 }
 
 async function addCard() {
-  if (!newCardTitle.value || !newCardUrl.value) return;
-  await apiAddCard({ 
-    menu_id: selectedMenuId.value, 
-    sub_menu_id: selectedSubMenuId.value || null,
-    title: newCardTitle.value, 
-    url: newCardUrl.value, 
-    logo_url: newCardLogo.value 
-  });
-  newCardTitle.value = '';
-  newCardUrl.value = '';
-  newCardLogo.value = '';
-  loadCards();
+  if (!newCardTitle.value || !newCardUrl.value) {
+    alert('请填写标题和网址');
+    return;
+  }
+  try {
+    await apiAddCard({ 
+      menu_id: Number(selectedMenuId.value), 
+      sub_menu_id: selectedSubMenuId.value ? Number(selectedSubMenuId.value) : null,
+      title: newCardTitle.value, 
+      url: newCardUrl.value, 
+      logo_url: newCardLogo.value || '',
+      desc: '',
+      order: 0
+    });
+    newCardTitle.value = '';
+    newCardUrl.value = '';
+    newCardLogo.value = '';
+    await loadCards();
+  } catch (error) {
+    console.error('添加卡片失败:', error);
+    alert('添加失败: ' + (error.response?.data?.message || error.message));
+  }
 }
 
 async function updateCard(card) {
