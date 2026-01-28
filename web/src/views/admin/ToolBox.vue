@@ -94,9 +94,19 @@ const bookmarkletCode = computed(() => {
         btn.disabled = true;
         btn.textContent = '提交中...';
         
-        fetch('\${baseUrl}/api/cards', {
+         const token = localStorage.getItem('token');
+        if (!token) {
+          btn.disabled = false;
+          btn.textContent = '立即提交';
+          msg.style.display = 'block';
+          msg.style.color = 'red';
+          msg.textContent = '❌ 请先在导航站后台登录';
+          return;
+        }
+
+        fetch(`${baseUrl}/api/cards`, {
           method: 'POST',
-          headers: {'Content-Type': 'application/json', 'Authorization': 'Bearer ' + localStorage.getItem('token')},
+          headers: {'Content-Type': 'application/json', 'Authorization': 'Bearer ' + token},
           body: JSON.stringify({
             menu_id: Number(mId),
             sub_menu_id: sId ? Number(sId) : null,

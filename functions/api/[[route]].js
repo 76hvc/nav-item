@@ -1,9 +1,19 @@
 import { Hono } from 'hono';
 import { handle } from 'hono/cloudflare-pages';
+import { cors } from 'hono/cors';
 import bcrypt from 'bcryptjs';
 import jwt from './jwt.js';
 
 const app = new Hono().basePath('/api');
+
+// Enable CORS for bookmarklet
+app.use('*', cors({
+  origin: '*',
+  allowMethods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
+  allowHeaders: ['Content-Type', 'Authorization'],
+  exposeHeaders: ['Content-Length'],
+  maxAge: 600,
+}));
 
 // Middleware for authentication
 const authMiddleware = async (c, next) => {
