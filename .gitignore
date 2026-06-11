@@ -5,3 +5,4 @@ database/
 .env
 .DS_Store
 wrangler.toml
+USERPROFILE.sshknown_hosts
