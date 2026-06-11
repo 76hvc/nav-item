@@ -186,34 +186,34 @@ async function deleteCard(id) {
 }
 
 .card-header {
-  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  background: linear-gradient(135deg, #1e293b 0%, #334155 100%);
   border-radius: 16px;
-  padding: 24px;
+  padding: 20px 28px;
   margin-bottom: 20px;
   color: white;
-  box-shadow: 0 8px 32px rgba(102, 126, 234, 0.3);
-  width: 95%;
+  box-shadow: 0 4px 24px rgba(0, 0, 0, 0.08);
+  width: 100%;
   text-align: center;
+  box-sizing: border-box;
 }
 
 .header-content {
-  margin-bottom: 15px;
+  margin-bottom: 14px;
   text-align: center;
 }
 
 .page-title {
-  font-size: 1.5rem;
-  font-weight: 700;
-  margin: 0 0 8px 0;
-  letter-spacing: -0.5px;
+  font-size: 1.1rem;
+  font-weight: 600;
+  margin: 0;
+  letter-spacing: -0.3px;
+  opacity: 0.9;
 }
-
-
 
 .card-add {
   margin: 0 auto;
   display: flex;
-  gap: 5px;
+  gap: 6px;
   flex-wrap: wrap;
   align-items: center;
   justify-content: center;
@@ -222,83 +222,78 @@ async function deleteCard(id) {
 .card-card {
   background: white;
   border-radius: 16px;
-  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
-  overflow: hidden;
+  box-shadow: 0 2px 16px rgba(0, 0, 0, 0.04);
+  overflow-x: auto;
   width: 100%;
 }
 
 .card-table {
   width: 100%;
   border-collapse: collapse;
-  padding: 24px;
+  min-width: 700px;
 }
 
 .card-table th,
 .card-table td {
-  padding: 8px 12px;
+  padding: 10px 14px;
   text-align: left;
-  border-bottom: 1px solid #e5e7eb;
+  border-bottom: 1px solid #f1f5f9;
+  white-space: nowrap;
 }
 
 .card-table th {
-  background: #f9fafb;
+  background: #f8fafc;
   font-weight: 600;
-  color: #374151;
+  color: #475569;
+  font-size: 13px;
+  text-transform: uppercase;
+  letter-spacing: 0.3px;
 }
 
-/* 表格列宽度设置 */
-.card-table th:nth-child(1), /* 标题列 */
-.card-table td:nth-child(1) {
-  width: 12%;
+.card-table th:nth-child(1),
+.card-table td:nth-child(1) { width: 12%; }
+.card-table th:nth-child(2),
+.card-table td:nth-child(2) { width: 25%; }
+.card-table th:nth-child(3),
+.card-table td:nth-child(3) { width: 22%; }
+.card-table th:nth-child(4),
+.card-table td:nth-child(4) { width: 14%; }
+.card-table th:nth-child(5),
+.card-table td:nth-child(5) { width: 8%; }
+.card-table th:nth-child(6),
+.card-table td:nth-child(6) { width: 10%; text-align: center; }
+
+.card-table tr:last-child td {
+  border-bottom: none;
 }
 
-.card-table th:nth-child(2), /* 网址列 */
-.card-table td:nth-child(2) {
-  width: 25%;
+.card-table tr:hover td {
+  background: #f8fafc;
 }
 
-.card-table th:nth-child(3), /* Logo链接列 */
-.card-table td:nth-child(3) {
-  width: 25%;
-}
-
-.card-table th:nth-child(4), /* 描述列 */
-.card-table td:nth-child(4) {
-  width: 15%;
-}
-
-.card-table th:nth-child(5), /* 排序列 */
-.card-table td:nth-child(5) {
-  width: 8%;
-}
-
-.card-table th:nth-child(6), /* 操作列 */
-.card-table td:nth-child(6) {
-  width: 15%;
-  text-align: center;
-}
-
+/* ========== 输入框 ========== */
 .input {
-  padding: 10px 12px;
+  padding: 9px 12px;
   border-radius: 8px;
-  border: 1px solid #d0d7e2;
+  border: 1.5px solid #e2e8f0;
   background: #fff;
-  color: #222;
-  font-size: 0.9rem;
+  color: #1e293b;
+  font-size: 0.88rem;
   transition: all 0.2s ease;
+  box-sizing: border-box;
+  height: 38px;
 }
-
-/* 窄输入框 - 主菜单、子菜单、卡片标题 */
+.input:focus {
+  outline: none;
+  border-color: #3b82f6;
+  box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.08);
+}
 .input.narrow {
-  width: 140px;
+  width: 130px;
 }
-
-/* 中等输入框 - 添加卡片按钮 */
 .input.medium {
-  width: 140px;
+  width: 150px;
 }
-
-/* 宽输入框 - 卡片链接、logo链接 */
 .input.wide {
   width: 200px;
 }
@@ -312,12 +307,12 @@ async function deleteCard(id) {
 .fetching-loader {
   position: absolute;
   right: 10px;
-  width: 16px;
-  height: 16px;
+  width: 14px;
+  height: 14px;
   border: 2px solid #e2e8f0;
-  border-top: 2px solid #399dff;
+  border-top: 2px solid #3b82f6;
   border-radius: 50%;
-  animation: spin 1s linear infinite;
+  animation: spin 0.8s linear infinite;
 }
 
 @keyframes spin {
@@ -328,107 +323,99 @@ async function deleteCard(id) {
 /* 表格内输入框 */
 .table-input {
   width: 100%;
-  padding: 8px 4px;
+  min-width: 40px;
+  padding: 6px 8px;
   border-radius: 6px;
-  border: 1px solid #e2e8f0;
-  background: #fff;
-  color: #222;
-  font-size: 0.85rem;
+  border: 1.5px solid transparent;
+  background: transparent;
+  color: #1e293b;
+  font-size: 13px;
   transition: all 0.2s ease;
 }
-
+.table-input:hover {
+  background: #f8fafc;
+  border-color: #e2e8f0;
+}
 .table-input:focus {
   outline: none;
-  border-color: #399dff;
-  box-shadow: 0 0 0 2px rgba(57, 157, 255, 0.1);
-}
-
-.input:focus {
-  outline: none;
-  border-color: #399dff;
-  box-shadow: 0 0 0 3px rgba(57, 157, 255, 0.1);
+  border-color: #3b82f6;
+  background: #fff;
+  box-shadow: 0 0 0 2px rgba(59, 130, 246, 0.06);
 }
 
 .order-input {
   width: 60px;
+  text-align: center;
 }
 
+/* ========== 按钮 ========== */
 .btn {
-  padding: 10px 8px;
+  padding: 9px 18px;
   border: none;
   border-radius: 8px;
-  background: #399dff;
+  background: #3b82f6;
   color: white;
   cursor: pointer;
   font-weight: 500;
-  font-size: 0.9rem;
+  font-size: 0.88rem;
   transition: all 0.2s;
   display: inline-flex;
   align-items: center;
   gap: 6px;
+  white-space: nowrap;
+  height: 38px;
+}
+.btn:hover {
+  background: #2563eb;
+  transform: translateY(-1px);
+  box-shadow: 0 4px 12px rgba(59, 130, 246, 0.2);
 }
 
 .btn-icon {
-  width: 32px;
-  height: 32px;
+  width: 34px;
+  height: 34px;
   padding: 0;
   justify-content: center;
-  border-radius: 6px;
-}
-
-.btn:hover {
-  background: #2d7dd2;
-  transform: translateY(-1px);
+  border-radius: 8px;
 }
 
 .btn-danger {
-  background: #ef4444;
+  background: #fee2e2;
+  color: #ef4444;
 }
-
 .btn-danger:hover {
-  background: #dc2626;
+  background: #ef4444;
+  color: #fff;
+  box-shadow: 0 4px 12px rgba(239, 68, 68, 0.25);
 }
 
 @media (max-width: 768px) {
   .card-manage {
-    width: 94%;
+    width: 100%;
+  }
+  .card-header {
     padding: 16px;
+    border-radius: 12px;
   }
-  
-  .card-card {
-    padding: 16px 12px;
+  .page-title {
+    font-size: 1rem;
   }
-  
   .card-add {
     flex-direction: column;
-    align-items: stretch;
     gap: 8px;
   }
-  
   .input.narrow,
   .input.medium,
   .input.wide {
     width: 100%;
   }
-  
-  .order-input {
-    width: 60px;
+  .card-table th,
+  .card-table td {
+    padding: 8px 10px;
+    font-size: 12px;
   }
-  
-  /* 移动端表格列宽度调整 */
-  .card-table th:nth-child(1),
-  .card-table td:nth-child(1),
-  .card-table th:nth-child(2),
-  .card-table td:nth-child(2),
-  .card-table th:nth-child(3),
-  .card-table td:nth-child(3),
-  .card-table th:nth-child(4),
-  .card-table td:nth-child(4),
-  .card-table th:nth-child(5),
-  .card-table td:nth-child(5),
-  .card-table th:nth-child(6),
-  .card-table td:nth-child(6) {
-    width: auto;
+  .order-input {
+    width: 50px;
   }
 }
 </style> 

@@ -155,31 +155,31 @@ function truncate(str) {
   width: 100%;
   display: grid;
   grid-template-columns: repeat(6, 1fr);
-  gap: 15px;
+  gap: 14px;
   opacity: 1;
   transition: opacity 0.2s ease;
+  padding: 0 1rem;
+  box-sizing: border-box;
 }
 @media (max-width: 1200px) {
-  .container {
-    grid-template-columns: repeat(4, 1fr);
-  }
+  .container { grid-template-columns: repeat(4, 1fr); }
 }
 @media (max-width: 768px) {
-  .container {
-    grid-template-columns: repeat(3, 1fr);
-  }
+  .container { grid-template-columns: repeat(3, 1fr); gap: 10px; padding: 0 0.6rem; }
 }
 @media (max-width: 480px) {
-  .container {
-    grid-template-columns: repeat(3, 1fr);
-  }
+  .container { grid-template-columns: repeat(3, 1fr); gap: 8px; }
 }
+
 .link-item {
-  background-color: rgba(255, 255, 255, 0.15);
-  border-radius: 15px;
+  background: rgba(255, 255, 255, 0.1);
+  backdrop-filter: blur(6px);
+  -webkit-backdrop-filter: blur(6px);
+  border: 1px solid rgba(255, 255, 255, 0.06);
+  border-radius: 16px;
   padding: 0;
-  transition: all 0.2s;
-  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  box-shadow: 0 2px 12px rgba(0, 0, 0, 0.06);
   text-align: center;
   min-height: 85px;
   height: 85px;
@@ -187,14 +187,15 @@ function truncate(str) {
   flex-direction: column;
   justify-content: center;
   align-items: center;
+  overflow: hidden;
 }
 .link-item:hover {
-  background-color: rgba(255, 255, 255, 0.3);
-  transform: translateY(-2px);
-  box-shadow: 0 3px 6px rgba(0, 0, 0, 0.15);
+  background: rgba(255, 255, 255, 0.18);
+  border-color: rgba(255, 255, 255, 0.12);
+  transform: translateY(-3px);
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.12);
 }
 .link-item a {
-  /* margin-top: 8px; */
   text-decoration: none;
   color: #ffffff;
   font-weight: 500;
@@ -204,19 +205,23 @@ function truncate(str) {
   justify-content: center;
   width: 100%;
   height: 100%;
-  padding: 0;
+  padding: 0 6px;
   box-sizing: border-box;
 }
 .link-icon {
-  width: 25px;
-  height: 25px;
+  width: 26px;
+  height: 26px;
   margin: 4px auto;
   object-fit: contain;
+  border-radius: 4px;
+  transition: transform 0.3s ease;
+}
+.link-item:hover .link-icon {
+  transform: scale(1.12);
 }
 .link-text {
-  padding-right: 4px;
-  padding-left: 4px;
-  font-size: 14px;
+  padding: 0 2px;
+  font-size: 13px;
   text-align: center;
   word-break: break-all;
   max-width: 100%;
@@ -226,214 +231,118 @@ function truncate(str) {
   overflow: hidden;
   text-overflow: ellipsis;
   white-space: normal;
-  line-height: 1;
-  min-height: 1.5em;
+  line-height: 1.2;
+  min-height: 1.4em;
+  color: rgba(255, 255, 255, 0.9);
 }
 
-/* 动画样式 */
-/* 从下往上滑入动画 */
+/* ========== 动画样式 ========== */
 .animate-slideUp .link-item {
   animation: slideUpIn 0.6s ease-out forwards;
   opacity: 0;
   transform: translateY(30px);
 }
-
 @keyframes slideUpIn {
-  0% {
-    opacity: 0;
-    transform: translateY(30px);
-  }
-  100% {
-    opacity: 1;
-    transform: translateY(0);
-  }
+  0% { opacity: 0; transform: translateY(30px); }
+  100% { opacity: 1; transform: translateY(0); }
 }
 
-/* 从中心扩散动画 */
 .animate-radial .link-item {
   animation: radialIn 0.5s ease-out forwards;
   opacity: 0;
   transform: scale(0.3);
 }
-
 @keyframes radialIn {
-  0% {
-    opacity: 0;
-    transform: scale(0.3);
-  }
-  50% {
-    opacity: 1;
-    transform: scale(1.1);
-  }
-  100% {
-    opacity: 1;
-    transform: scale(1);
-  }
+  0% { opacity: 0; transform: scale(0.3); }
+  50% { opacity: 1; transform: scale(1.1); }
+  100% { opacity: 1; transform: scale(1); }
 }
 
-/* 淡入动画 */
 .animate-fadeIn .link-item {
   animation: fadeIn 0.6s ease-out forwards;
   opacity: 0;
 }
-
 @keyframes fadeIn {
-  0% {
-    opacity: 0;
-    transform: translateY(10px);
-  }
-  100% {
-    opacity: 1;
-    transform: translateY(0);
-  }
+  0% { opacity: 0; transform: translateY(10px); }
+  100% { opacity: 1; transform: translateY(0); }
 }
 
-/* 从左滑入动画 */
 .animate-slideLeft .link-item {
   animation: slideLeftIn 0.6s ease-out forwards;
   opacity: 0;
   transform: translateX(-50px);
 }
-
 @keyframes slideLeftIn {
-  0% {
-    opacity: 0;
-    transform: translateX(-50px);
-  }
-  100% {
-    opacity: 1;
-    transform: translateX(0);
-  }
+  0% { opacity: 0; transform: translateX(-50px); }
+  100% { opacity: 1; transform: translateX(0); }
 }
 
-/* 从右滑入动画 */
 .animate-slideRight .link-item {
   animation: slideRightIn 0.6s ease-out forwards;
   opacity: 0;
   transform: translateX(50px);
 }
-
 @keyframes slideRightIn {
-  0% {
-    opacity: 0;
-    transform: translateX(50px);
-  }
-  100% {
-    opacity: 1;
-    transform: translateX(0);
-  }
+  0% { opacity: 0; transform: translateX(50px); }
+  100% { opacity: 1; transform: translateX(0); }
 }
 
-/* 从两边往中间靠拢动画 */
 .animate-convergeIn .link-item {
   animation: convergeIn 0.7s ease-out forwards;
   opacity: 0;
 }
-
 .animate-convergeIn .link-item:nth-child(6n+1),
 .animate-convergeIn .link-item:nth-child(6n+6) {
-  /* 最边缘的列（第1列和第6列） */
   transform: translateX(-80px);
 }
-
 .animate-convergeIn .link-item:nth-child(6n+2),
 .animate-convergeIn .link-item:nth-child(6n+5) {
-  /* 次边缘的列（第2列和第5列） */
   transform: translateX(-40px);
 }
-
 .animate-convergeIn .link-item:nth-child(6n+3),
 .animate-convergeIn .link-item:nth-child(6n+4) {
-  /* 中间的列（第3列和第4列） */
   transform: translateY(-30px);
 }
-
-/* 在中等屏幕上（4列布局） */
 @media (max-width: 1200px) and (min-width: 769px) {
   .animate-convergeIn .link-item:nth-child(4n+1),
-  .animate-convergeIn .link-item:nth-child(4n+4) {
-    transform: translateX(-60px);
-  }
-  
+  .animate-convergeIn .link-item:nth-child(4n+4) { transform: translateX(-60px); }
   .animate-convergeIn .link-item:nth-child(4n+2),
-  .animate-convergeIn .link-item:nth-child(4n+3) {
-    transform: translateY(-30px);
-  }
+  .animate-convergeIn .link-item:nth-child(4n+3) { transform: translateY(-30px); }
 }
-
-/* 在小屏幕上（3列布局） */
 @media (max-width: 768px) {
   .animate-convergeIn .link-item:nth-child(3n+1),
-  .animate-convergeIn .link-item:nth-child(3n+3) {
-    transform: translateX(-50px);
-  }
-  
-  .animate-convergeIn .link-item:nth-child(3n+2) {
-    transform: translateY(-30px);
-  }
+  .animate-convergeIn .link-item:nth-child(3n+3) { transform: translateX(-50px); }
+  .animate-convergeIn .link-item:nth-child(3n+2) { transform: translateY(-30px); }
 }
-
 @keyframes convergeIn {
-  0% {
-    opacity: 0;
-  }
-  100% {
-    opacity: 1;
-    transform: translate(0, 0);
-  }
+  0% { opacity: 0; }
+  100% { opacity: 1; transform: translate(0, 0); }
 }
 
-/* 翻转入场动画 */
 .animate-flipIn .link-item {
   animation: flipIn 0.7s ease-out forwards;
   opacity: 0;
   transform: rotateY(-90deg);
 }
-
 @keyframes flipIn {
-  0% {
-    opacity: 0;
-    transform: rotateY(-90deg);
-  }
-  50% {
-    opacity: 1;
-    transform: rotateY(-45deg);
-  }
-  100% {
-    opacity: 1;
-    transform: rotateY(0deg);
-  }
+  0% { opacity: 0; transform: rotateY(-90deg); }
+  50% { opacity: 1; transform: rotateY(-45deg); }
+  100% { opacity: 1; transform: rotateY(0deg); }
 }
 
-/* 优化过渡效果 */
 .container:not(.animate-slideUp):not(.animate-radial):not(.animate-fadeIn) .link-item {
   opacity: 1;
   transform: translateY(0) scale(1);
 }
 
-/* 响应式动画调整 */
 @media (max-width: 768px) {
-  .animate-slideUp .link-item {
-    animation-duration: 0.4s;
-  }
-  
-  .animate-radial .link-item {
-    animation-duration: 0.4s;
-  }
+  .animate-slideUp .link-item,
+  .animate-radial .link-item { animation-duration: 0.4s; }
 }
-
-/* 减少动画延迟在移动设备上 */
 @media (max-width: 480px) {
-  .animate-slideUp .link-item {
-    animation-delay: 0s !important;
-  }
-  
-  .animate-radial .link-item {
-    animation-delay: 0s !important;
-  }
+  .animate-slideUp .link-item,
+  .animate-radial .link-item { animation-delay: 0s !important; }
 }
-
-/* 为移动设备提供更快的动画 */
 @media (prefers-reduced-motion: reduce) {
   .animate-slideUp .link-item,
   .animate-radial .link-item {

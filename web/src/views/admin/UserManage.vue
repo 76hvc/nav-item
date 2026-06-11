@@ -105,140 +105,126 @@ function showMessage(text, type) {
 
 <style scoped>
 .user-manage {
-  max-width: 1400px;
-  width: 90%;
+  max-width: 700px;
+  width: 95%;
   margin: 0 auto;
-}
-
-.page-title {
-  text-align: center;
-  font-size: 1.6rem;
-  font-weight: 500;
-  margin: 32px 0 32px 0;
-  letter-spacing: 2px;
-  color: #222;
 }
 
 .user-card {
-  width: 50%;
-  margin: 0 auto;
-  background: linear-gradient(135deg,#667eea,#764ba2);
-  border-radius: 12px;
-  box-shadow: 0 2px 12px rgba(0,0,0,0.06);
-  padding: 10px 24px;
+  background: #fff;
+  border-radius: 16px;
+  box-shadow: 0 2px 16px rgba(0, 0, 0, 0.04);
+  padding: 28px 32px;
 }
 
 .section-title {
   text-align: center;
-  font-size: 1.5rem;
-  font-weight: 500;
-  color: #222;
-  margin-bottom: 20px;
-  border-bottom: 2px solid #eaf1ff;
-  padding-bottom: 8px;
+  font-size: 1.25rem;
+  font-weight: 600;
+  color: #1e293b;
+  margin-bottom: 24px;
+  padding-bottom: 12px;
+  border-bottom: 2px solid #f1f5f9;
 }
 
 .password-section {
-  margin-bottom: 40px;
+  margin-bottom: 16px;
 }
 
 .password-form {
   max-width: 500px;
+  margin: 0 auto;
 }
 
 .form-group {
-  margin-bottom: 16px;
+  margin-bottom: 18px;
 }
 
 .form-group label {
   display: block;
   margin-bottom: 6px;
   font-weight: 500;
-  color: #222;
+  color: #374151;
+  font-size: 14px;
 }
 
 .input {
   width: 100%;
-  padding: 12px 12px;
-  border-radius: 8px;
-  border: 1px solid #d0d7e2;
-  background: #fff;
-  color: #222;
-  font-size: 1rem;
+  padding: 11px 14px;
+  border-radius: 10px;
+  border: 1.5px solid #e2e8f0;
+  background: #f8fafc;
+  color: #1e293b;
+  font-size: 0.95rem;
+  transition: all 0.2s ease;
   box-sizing: border-box;
 }
-
 .input:focus {
-  outline: 2px solid #2566d8;
-  border-color: #2566d8;
+  outline: none;
+  border-color: #3b82f6;
+  box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.08);
+  background: #fff;
 }
 
 .form-actions {
   text-align: center;
-  margin-top: 24px;
+  margin-top: 28px;
 }
 
 .btn {
-  background: #2566d8;
+  background: #3b82f6;
   color: #fff;
   border: none;
-  border-radius: 8px;
-  padding: 12px 24px;
+  border-radius: 10px;
+  padding: 12px 32px;
   cursor: pointer;
-  font-size: 1rem;
-  font-weight: 500;
-  transition: background 0.2s;
+  font-size: 0.95rem;
+  font-weight: 600;
+  transition: all 0.2s;
 }
-
 .btn:hover:not(:disabled) {
-  background: #174ea6;
+  background: #2563eb;
+  transform: translateY(-1px);
+  box-shadow: 0 4px 12px rgba(59, 130, 246, 0.25);
 }
-
 .btn:disabled {
-  background: #ccc;
+  background: #94a3b8;
   cursor: not-allowed;
+  transform: none;
+  box-shadow: none;
 }
 
 .message {
   margin-top: 16px;
-  padding: 12px;
-  border-radius: 8px;
+  padding: 12px 16px;
+  border-radius: 10px;
   font-size: 14px;
+  text-align: center;
 }
-
 .message.success {
-  background: #d4edda;
-  color: #155724;
-  border: 1px solid #c3e6cb;
+  background: #dcfce7;
+  color: #166534;
+  border: 1px solid #bbf7d0;
 }
-
 .message.error {
-  background: #f8d7da;
-  color: #721c24;
-  border: 1px solid #f5c6cb;
+  background: #fef2f2;
+  color: #991b1b;
+  border: 1px solid #fecaca;
 }
 
 @media (max-width: 768px) {
   .user-manage {
-    padding: 0 2vw;
+    width: 100%;
   }
   .user-card {
-    width: 80%;
-    padding: 12px 2vw;
+    padding: 20px 16px;
+    border-radius: 12px;
   }
-  .password-form {
-    max-width: 100%;
-  }
-  .input {
-    width: 100%;
-    min-width: 0;
-    font-size: 14px;
-    padding: 8px 8px;
+  .section-title {
+    font-size: 1.1rem;
   }
   .btn {
     width: 100%;
-    padding: 10px 0;
-    font-size: 14px;
   }
 }
 </style> 

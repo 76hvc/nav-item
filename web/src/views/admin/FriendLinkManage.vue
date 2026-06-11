@@ -58,150 +58,163 @@ async function deleteFriend(id) {
 
 <style scoped>
 .friend-manage {
-  max-width: 1400px;
-  width: 90%;
+  max-width: 1200px;
+  width: 95%;
   margin: 0 auto;
   display: flex;
   flex-direction: column;
   align-items: center;
 }
-.page-title {
-  text-align: center;
-  font-size: 2rem;
-  font-weight: bold;
-  margin: 32px 0 32px 0;
-  letter-spacing: 2px;
-  color: #222;
-}
+
 .friend-header {
-  height: 32px;
+  height: 16px;
 }
+
 .friend-add {
   display: flex;
   gap: 8px;
-  margin-bottom: 12px;
+  margin-bottom: 16px;
   justify-content: center;
   align-items: center;
   width: 100%;
+  flex-wrap: wrap;
+  background: linear-gradient(135deg, #1e293b 0%, #334155 100%);
+  border-radius: 16px;
+  padding: 18px 24px;
+  box-shadow: 0 4px 24px rgba(0, 0, 0, 0.08);
+  box-sizing: border-box;
 }
+
 .friend-card {
   width: 100%;
   background: #fff;
-  border-radius: 12px;
-  box-shadow: 0 2px 12px rgba(0,0,0,0.06);
-  padding: 32px 24px;
+  border-radius: 14px;
+  box-shadow: 0 2px 16px rgba(0, 0, 0, 0.04);
+  padding: 20px;
+  box-sizing: border-box;
+  overflow-x: auto;
 }
+
 .input {
-  width: 15rem;
-  padding: 8px 12px;
+  padding: 9px 12px;
   border-radius: 8px;
-  border: 1px solid #d0d7e2;
+  border: 1.5px solid #e2e8f0;
   background: #fff;
-  color: #222;
-  margin-right: 8px;
-  height: 25px;
-  font-size: 1rem;
+  color: #1e293b;
+  font-size: 0.88rem;
+  transition: all 0.2s ease;
+  height: 38px;
+  min-width: 160px;
+  box-sizing: border-box;
 }
 .input:focus {
-  outline: 2px solid #2566d8;
+  outline: none;
+  border-color: #3b82f6;
+  box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.08);
 }
+
 .btn {
-  background: #2566d8;
+  background: #3b82f6;
   color: #fff;
   border: none;
-  border-radius: 4px;
-  padding: 8px 18px;
+  border-radius: 8px;
+  padding: 9px 20px;
+  font-size: 0.88rem;
+  font-weight: 500;
   cursor: pointer;
-  margin-right: 8px;
-  transition: background 0.2s;
+  transition: all 0.2s;
+  white-space: nowrap;
+  height: 38px;
 }
 .btn:hover {
-  background: #174ea6;
+  background: #2563eb;
+  transform: translateY(-1px);
+  box-shadow: 0 4px 12px rgba(59, 130, 246, 0.2);
 }
+
 .btn-danger {
-  background: #e74c3c;
-  display: inline-block;
-  margin: 0 auto;
+  background: #fee2e2;
+  color: #ef4444;
 }
 .btn-danger:hover {
-  background: #c0392b;
+  background: #ef4444;
+  color: #fff;
+  box-shadow: 0 4px 12px rgba(239, 68, 68, 0.2);
 }
+
 .friend-table {
   width: 100%;
   border-collapse: collapse;
   background: #fff;
-  color: #222;
-  border-radius: 8px;
+  color: #1e293b;
+  border-radius: 10px;
   overflow: hidden;
+  min-width: 500px;
 }
-.friend-table th, .friend-table td {
+.friend-table th,
+.friend-table td {
   padding: 10px 14px;
-  border: 1px solid #e3e6ef;
-  height: 30px;
+  border-bottom: 1px solid #f1f5f9;
+  height: auto;
 }
 .friend-table th {
-  background: #f5f7fa;
-  color: #222;
-  font-weight: bold;
+  background: #f8fafc;
+  font-weight: 600;
+  color: #475569;
+  font-size: 13px;
+  text-transform: uppercase;
+  letter-spacing: 0.3px;
 }
 .friend-table td input {
-  width: 97%;
-  background: #f9f9f9;
-  color: #222;
-  border: 1px solid #d0d7e2;
-  border-radius: 4px;
-  padding: 4px 4px;
-  height: 30px;
-  font-size: 1rem;
+  width: 95%;
+  min-width: 100px;
+  background: #f8fafc;
+  color: #1e293b;
+  border: 1.5px solid #e2e8f0;
+  border-radius: 6px;
+  padding: 6px 10px;
+  font-size: 13px;
+  height: 32px;
+  transition: all 0.2s;
+  box-sizing: border-box;
+}
+.friend-table td input:focus {
+  outline: none;
+  border-color: #3b82f6;
+  background: #fff;
+  box-shadow: 0 0 0 2px rgba(59, 130, 246, 0.06);
 }
 .friend-table th:last-child,
 .friend-table td:last-child {
   text-align: center;
   vertical-align: middle;
 }
+
 @media (max-width: 768px) {
   .friend-manage {
-    width: 92%;
-    padding: 0 2vw;
+    width: 100%;
   }
   .friend-add {
     flex-direction: column;
-    align-items: stretch;
     gap: 8px;
-    width: 100%;
+    padding: 16px;
+    border-radius: 12px;
   }
   .friend-card {
-    width: 100%;
-    padding: 12px 2vw;
-  }
-  .friend-table {
-    display: block;
-    width: 100%;
-    overflow-x: auto;
-    font-size: 14px;
-  }
-  .friend-table thead, .friend-table tbody, .friend-table tr {
-    display: table;
-    width: 100%;
-    table-layout: fixed;
-  }
-  .friend-table th, .friend-table td {
-    padding: 8px 6px;
-    font-size: 13px;
+    padding: 12px;
+    border-radius: 12px;
   }
   .input {
-    width: 95%;
+    width: 100%;
     min-width: 0;
-    margin-right: 0;
-    font-size: 14px;
-    padding: 8px 8px;
-    height: 32px !important;
   }
   .btn {
     width: 100%;
-    margin-right: 0;
-    padding: 8px 0;
-    font-size: 14px;
+  }
+  .friend-table th,
+  .friend-table td {
+    padding: 8px 10px;
+    font-size: 12px;
   }
 }
 </style> 

@@ -190,44 +190,42 @@ function toggleSubMenu(menuId) {
   align-items: center;
 }
 
-
-
 .menu-header {
-  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  background: linear-gradient(135deg, #1e293b 0%, #334155 100%);
   border-radius: 16px;
-  padding: 32px;
+  padding: 24px 28px;
   margin-bottom: 20px;
   color: white;
-  box-shadow: 0 8px 32px rgba(102, 126, 234, 0.3);
-  width: 94%;
+  box-shadow: 0 4px 24px rgba(0, 0, 0, 0.08);
+  width: 100%;
   text-align: center;
+  box-sizing: border-box;
 }
 
 .header-content {
-  margin-bottom: 15px;
+  margin-bottom: 14px;
   text-align: center;
 }
 
 .page-title {
-  font-size: 1.5rem;
-  font-weight: 700;
-  margin: 0 0 8px 0;
-  letter-spacing: -0.5px;
+  font-size: 1.1rem;
+  font-weight: 600;
+  margin: 0;
+  opacity: 0.9;
 }
-
-
 
 .menu-add {
   display: flex;
-  gap: 12px;
+  gap: 10px;
   align-items: center;
   justify-content: center;
+  flex-wrap: wrap;
 }
 
 .menu-content {
   background: white;
   border-radius: 16px;
-  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+  box-shadow: 0 2px 16px rgba(0, 0, 0, 0.04);
   overflow: hidden;
   width: 100%;
 }
@@ -238,103 +236,85 @@ function toggleSubMenu(menuId) {
 
 .menu-item {
   border-bottom: 1px solid #f1f5f9;
-  transition: all 0.3s ease;
+  transition: all 0.2s ease;
 }
-
 .menu-item:last-child {
   border-bottom: none;
 }
-
 .menu-item:hover {
-  background: #f8fafc;
+  background: #fafbfc;
 }
 
+/* ========== 主菜单行 ========== */
 .main-menu {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  padding: 24px 32px;
+  padding: 18px 28px;
   background: white;
-  transition: all 0.3s ease;
 }
 
 .menu-info {
   display: flex;
   align-items: center;
-  gap: 16px;
+  gap: 14px;
   flex: 1;
 }
 
 .menu-icon {
-  width: 40px;
-  height: 40px;
-  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-  border-radius: 12px;
+  width: 38px;
+  height: 38px;
+  background: linear-gradient(135deg, #3b82f6, #6366f1);
+  border-radius: 10px;
   display: flex;
   align-items: center;
   justify-content: center;
   color: white;
   flex-shrink: 0;
+  font-size: 16px;
 }
 
 .menu-name-input {
-  font-size: 1.1rem;
+  font-size: 1rem;
   font-weight: 600;
-  border: 2px solid transparent;
+  border: 1.5px solid transparent;
   background: transparent;
-  padding: 8px 12px;
-  border-radius: 8px;
+  padding: 6px 10px;
+  border-radius: 6px;
   color: #1e293b;
-  min-width: 200px;
+  min-width: 160px;
   transition: all 0.2s ease;
 }
-
 .menu-name-input:focus {
   outline: none;
-  border-color: #667eea;
+  border-color: #3b82f6;
   background: #f8fafc;
 }
 
 .menu-order {
   display: flex;
   align-items: center;
-  gap: 8px;
+  gap: 6px;
 }
-
 .order-label {
-  font-size: 0.9rem;
-  color: #64748b;
+  font-size: 13px;
+  color: #94a3b8;
   font-weight: 500;
-}
-
-.order-input {
-  width: 60px;
-  padding: 6px 8px;
-  border: 1px solid #e2e8f0;
-  border-radius: 6px;
-  text-align: center;
-  font-size: 0.9rem;
-}
-
-.order-input:focus {
-  outline: none;
-  border-color: #667eea;
-  box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.1);
 }
 
 .menu-actions {
   display: flex;
-  gap: 8px;
+  gap: 6px;
 }
 
+/* ========== 子菜单区域 ========== */
 .sub-menu-section {
   background: #f8fafc;
   border-top: 1px solid #e2e8f0;
   max-height: 0;
   overflow: hidden;
-  transition: all 0.3s ease;
+  transition: max-height 0.35s ease;
 }
-
 .sub-menu-section.expanded {
   max-height: 1000px;
 }
@@ -343,7 +323,7 @@ function toggleSubMenu(menuId) {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  padding: 8px 32px;
+  padding: 8px 28px;
   background: #f1f5f9;
   border-bottom: 1px solid #e2e8f0;
 }
@@ -354,39 +334,36 @@ function toggleSubMenu(menuId) {
   gap: 8px;
   font-weight: 600;
   color: #475569;
-  font-size: 0.95rem;
+  font-size: 13px;
 }
 
 .sub-menu-list {
-  padding: 16px 32px 16px 48px;
+  padding: 12px 28px 12px 44px;
   position: relative;
 }
-
 .sub-menu-list::before {
   content: '';
   position: absolute;
-  left: 32px;
+  left: 28px;
   top: 0;
   bottom: 0;
   width: 2px;
-  background: linear-gradient(to bottom, #e2e8f0, #cbd5e1);
-  border-radius: 1px;
+  background: #e2e8f0;
 }
 
 .sub-menu-item {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  padding: 8px 20px;
+  padding: 8px 16px;
   background: white;
-  border-radius: 12px;
-  margin-bottom: 5px;
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.04);
+  border-radius: 10px;
+  margin-bottom: 4px;
+  box-shadow: 0 1px 4px rgba(0, 0, 0, 0.02);
   border: 1px solid #e2e8f0;
   transition: all 0.2s ease;
   position: relative;
 }
-
 .sub-menu-item::before {
   content: '';
   position: absolute;
@@ -396,14 +373,11 @@ function toggleSubMenu(menuId) {
   height: 2px;
   background: #cbd5e1;
   transform: translateY(-50%);
-  border-radius: 1px;
 }
-
 .sub-menu-item:hover {
-  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.08);
-  transform: translateY(-1px);
+  box-shadow: 0 2px 12px rgba(0, 0, 0, 0.04);
+  border-color: #cbd5e1;
 }
-
 .sub-menu-item:last-child {
   margin-bottom: 0;
 }
@@ -411,252 +385,222 @@ function toggleSubMenu(menuId) {
 .sub-menu-info {
   display: flex;
   align-items: center;
-  gap: 12px;
+  gap: 10px;
   flex: 1;
 }
 
 .sub-menu-icon {
-  width: 32px;
-  height: 32px;
-  background: linear-gradient(135deg, #10b981 0%, #059669 100%);
+  width: 30px;
+  height: 30px;
+  background: linear-gradient(135deg, #10b981, #059669);
   border-radius: 8px;
   display: flex;
   align-items: center;
   justify-content: center;
   color: white;
   flex-shrink: 0;
+  font-size: 14px;
 }
 
 .sub-menu-name-input {
-  font-size: 1rem;
-  border: 2px solid transparent;
+  font-size: 14px;
+  border: 1.5px solid transparent;
   background: transparent;
-  padding: 6px 10px;
+  padding: 5px 8px;
   border-radius: 6px;
   color: #374151;
-  min-width: 150px;
+  min-width: 130px;
   transition: all 0.2s ease;
 }
-
 .sub-menu-name-input:focus {
   outline: none;
   border-color: #10b981;
   background: #f0fdf4;
 }
 
-.sub-menu-order {
-  display: flex;
-  align-items: center;
-}
-
 .sub-menu-actions {
   display: flex;
-  gap: 6px;
+  gap: 4px;
 }
 
 .empty-sub-menu {
-  padding: 10px 0px 10px 0px;
+  padding: 20px;
   text-align: center;
-  color: #64748b;
+  color: #94a3b8;
 }
-
 .empty-sub-menu p {
-  color: #079f1e;
-  margin: 0 0 16px 0;
-  font-size: 1rem;
+  color: #10b981;
+  margin: 0 0 12px;
+  font-size: 14px;
 }
 
-/* 按钮样式 */
+/* ========== 通用按钮 ========== */
 .btn {
   display: inline-flex;
   align-items: center;
   gap: 6px;
-  padding: 10px 16px;
+  padding: 8px 16px;
   border: none;
   border-radius: 8px;
-  font-size: 0.9rem;
+  font-size: 0.88rem;
   font-weight: 500;
   cursor: pointer;
   transition: all 0.2s ease;
   text-decoration: none;
+  white-space: nowrap;
 }
 
 .btn-primary {
-  background: linear-gradient(82deg, #667eea, #2f025d);
+  background: #3b82f6;
   color: white;
 }
-
 .btn-primary:hover {
+  background: #2563eb;
   transform: translateY(-1px);
-  box-shadow: 0 4px 12px rgba(102, 126, 234, 0.4);
+  box-shadow: 0 4px 12px rgba(59, 130, 246, 0.25);
 }
 
 .btn-outline {
   background: transparent;
-  color: #667eea;
-  border: 2px solid #667eea;
+  color: #3b82f6;
+  border: 1.5px solid #3b82f6;
 }
-
 .btn-outline:hover {
-  background: #667eea;
+  background: #3b82f6;
   color: white;
 }
 
 .btn-danger {
-  background: linear-gradient(135deg, #ef4444 0%, #dc2626 100%);
-  color: white;
+  background: #fee2e2;
+  color: #ef4444;
 }
-
 .btn-danger:hover {
-  transform: translateY(-1px);
-  box-shadow: 0 4px 12px rgba(239, 68, 68, 0.4);
+  background: #ef4444;
+  color: #fff;
+  box-shadow: 0 4px 12px rgba(239, 68, 68, 0.2);
 }
 
 .btn-icon {
-  width: 36px;
-  height: 36px;
+  width: 34px;
+  height: 34px;
   padding: 0;
   justify-content: center;
   border-radius: 8px;
 }
 
-/* 展开子菜单按钮样式 */
 .btn-icon.expand-btn {
-  width: 200px;
-  height: 36px;
+  width: 34px;
 }
 
 .btn-sm {
-  padding: 6px 12px;
+  padding: 5px 10px;
   font-size: 0.8rem;
 }
-
 .btn-icon.btn-sm {
-  width: 35px;
-  height: 30px;
+  width: 30px;
+  height: 28px;
 }
 
+/* ========== 输入框 ========== */
 .input {
-  padding: 12px 16px;
-  border: 2px solid #e2e8f0;
+  padding: 10px 14px;
+  border: 1.5px solid #e2e8f0;
   border-radius: 8px;
-  font-size: 1rem;
+  font-size: 0.95rem;
   background: white;
   color: #1e293b;
   transition: all 0.2s ease;
   min-width: 200px;
+  height: 38px;
+  box-sizing: border-box;
 }
-
 .input:focus {
   outline: none;
-  border-color: #667eea;
-  box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.1);
+  border-color: #3b82f6;
+  box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.08);
 }
-
 .input::placeholder {
   color: #94a3b8;
 }
 
-/* 响应式设计 */
+.order-input {
+  width: 52px;
+  padding: 5px 6px;
+  border: 1.5px solid #e2e8f0;
+  border-radius: 6px;
+  text-align: center;
+  font-size: 14px;
+  height: 32px;
+  box-sizing: border-box;
+}
+.order-input:focus {
+  outline: none;
+  border-color: #3b82f6;
+  box-shadow: 0 0 0 2px rgba(59, 130, 246, 0.08);
+}
+
+/* ========== 响应式 ========== */
 @media (max-width: 768px) {
   .menu-manage {
-    width: 93%;
-    padding: 16px;
+    width: 100%;
   }
-  
   .menu-header {
-    padding: 24px 20px;
+    padding: 18px 16px;
+    border-radius: 12px;
   }
-  
   .page-title {
-    font-size: 1.5rem;
+    font-size: 1rem;
   }
-  
   .menu-add {
     flex-direction: column;
-    align-items: stretch;
+    gap: 8px;
   }
-  
   .input {
     min-width: 0;
+    width: 100%;
   }
-  
   .main-menu {
-    padding: 20px;
-    flex-direction: column;
-    align-items: stretch;
-    gap: 16px;
-  }
-  
-  .menu-info {
+    padding: 16px;
     flex-direction: column;
     align-items: stretch;
     gap: 12px;
   }
-  
+  .menu-info {
+    flex-wrap: wrap;
+    gap: 10px;
+  }
   .menu-name-input {
     min-width: 0;
   }
-  
-  .menu-order {
-    justify-content: center;
-  }
-  
   .menu-actions {
-    justify-content: center;
+    justify-content: flex-start;
   }
-  
-  .btn-icon.expand-btn {
-    width: 40px;
-    height: 32px;
-  }
-  
   .sub-menu-header {
-    padding: 16px 20px;
+    padding: 10px 16px;
     flex-direction: column;
-    gap: 12px;
+    gap: 8px;
     align-items: stretch;
   }
-  
   .sub-menu-list {
-    padding: 12px 20px 12px 32px;
+    padding: 10px 16px 10px 28px;
   }
-  
   .sub-menu-list::before {
-    left: 20px;
+    left: 16px;
   }
-  
   .sub-menu-item::before {
     left: -12px;
     width: 8px;
   }
-  
   .sub-menu-item {
-    flex-direction: column;
-    align-items: stretch;
-    gap: 12px;
-  }
-  
-  .sub-menu-info {
     flex-direction: column;
     align-items: stretch;
     gap: 8px;
   }
-  
+  .sub-menu-info {
+    flex-wrap: wrap;
+  }
   .sub-menu-name-input {
     min-width: 0;
-  }
-  
-  .sub-menu-order {
-    justify-content: center;
-  }
-  
-  .sub-menu-actions {
-    justify-content: center;
-  }
-  
-  .empty-sub-menu {
-    padding: 10px 0px 10px 0px;
   }
 }
 </style> 

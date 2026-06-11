@@ -81,213 +81,174 @@ async function deleteAd(id) {
 
 <style scoped>
 .ad-manage {
-  max-width: 1400px;
-  width: 90%;
+  max-width: 1200px;
+  width: 95%;
   margin: 0 auto;
-}
-.page-title {
-  text-align: center;
-  font-size: 2rem;
-  font-weight: bold;
-  margin: 32px 0 32px 0;
-  letter-spacing: 2px;
-  color: #222;
 }
 .section-title {
   text-align: left;
-  font-size: 1.2rem;
-  font-weight: bold;
+  font-size: 1.1rem;
+  font-weight: 600;
   margin-bottom: 12px;
-  color: #2566d8;
+  color: #1e293b;
 }
 .ad-header {
-  height: 32px;
-  margin-bottom: 64px;
+  margin-bottom: 24px;
 }
 .ad-section {
-  margin-bottom: 32px;
+  margin-bottom: 28px;
 }
-.ad-add {
+
+.ad-add-row {
   display: flex;
-  gap: 8px;
-  margin-bottom: 12px;
+  gap: 10px;
+  justify-content: center;
+  align-items: center;
+  background: linear-gradient(135deg, #1e293b 0%, #334155 100%);
+  border-radius: 16px;
+  box-shadow: 0 4px 24px rgba(0, 0, 0, 0.08);
+  padding: 20px 28px;
+  flex-wrap: wrap;
 }
+.ad-add-row input {
+  width: 280px !important;
+  max-width: 100%;
+}
+
 .ad-card {
-  width: 98%;
+  width: 100%;
   background: #fff;
-  border-radius: 12px;
-  box-shadow: 0 2px 12px rgba(0,0,0,0.06);
-  padding: 20px 10px;
+  border-radius: 14px;
+  box-shadow: 0 2px 16px rgba(0, 0, 0, 0.04);
+  padding: 20px;
+  box-sizing: border-box;
+  overflow-x: auto;
 }
+
 .input {
-  padding: 12px 8px;
+  padding: 9px 12px;
   border-radius: 8px;
-  border: 1px solid #d0d7e2;
+  border: 1.5px solid #e2e8f0;
   background: #fff;
-  color: #222;
-  margin-right: 8px;
+  color: #1e293b;
+  font-size: 0.88rem;
+  transition: all 0.2s ease;
+  height: 38px;
+  box-sizing: border-box;
 }
 .input:focus {
-  outline: 2px solid #2566d8;
+  outline: none;
+  border-color: #3b82f6;
+  box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.08);
 }
+
 .btn {
-  background: #2566d8;
+  background: #3b82f6;
   color: #fff;
   border: none;
-  border-radius: 4px;
-  padding: 8px 18px;
+  border-radius: 8px;
+  padding: 9px 20px;
+  font-size: 0.88rem;
+  font-weight: 500;
   cursor: pointer;
-  margin-right: 8px;
-  transition: background 0.2s;
+  transition: all 0.2s;
+  white-space: nowrap;
+  height: 38px;
 }
 .btn:hover {
-  background: #174ea6;
+  background: #2563eb;
+  transform: translateY(-1px);
+  box-shadow: 0 4px 12px rgba(59, 130, 246, 0.2);
 }
+
 .btn-danger {
-  background: #e74c3c;
-  display: inline-block;
-  margin: 0 auto;
+  background: #fee2e2;
+  color: #ef4444;
 }
 .btn-danger:hover {
-  background: #c0392b;
+  background: #ef4444;
+  color: #fff;
+  box-shadow: 0 4px 12px rgba(239, 68, 68, 0.2);
 }
+
+.select-input {
+  min-width: 120px;
+}
+
 .ad-table {
   width: 100%;
   border-collapse: collapse;
   background: #fff;
-  color: #222;
-  border-radius: 8px;
+  color: #1e293b;
+  border-radius: 10px;
   overflow: hidden;
+  min-width: 500px;
 }
-.ad-table th, .ad-table td {
+.ad-table th,
+.ad-table td {
   padding: 10px 14px;
-  border: 1px solid #e3e6ef;
+  border-bottom: 1px solid #f1f5f9;
 }
 .ad-table th {
-  background: #f5f7fa;
-  color: #222;
-  font-weight: bold;
+  background: #f8fafc;
+  font-weight: 600;
+  color: #475569;
+  font-size: 13px;
+  text-transform: uppercase;
+  letter-spacing: 0.3px;
 }
 .ad-table td input {
   width: 95%;
-  background: #f9f9f9;
-  color: #222;
-  border: 1px solid #d0d7e2;
-  border-radius: 4px;
-  padding: 4px 8px;
+  min-width: 120px;
+  background: #f8fafc;
+  color: #1e293b;
+  border: 1.5px solid #e2e8f0;
+  border-radius: 6px;
+  padding: 6px 10px;
+  font-size: 13px;
+  transition: all 0.2s;
+}
+.ad-table td input:focus {
+  outline: none;
+  border-color: #3b82f6;
+  background: #fff;
+  box-shadow: 0 0 0 2px rgba(59, 130, 246, 0.06);
 }
 .ad-table th:last-child,
 .ad-table td:last-child {
   text-align: center;
   vertical-align: middle;
 }
-.ad-add-group {
-  display: flex;
-  gap: 32px;
-  justify-content: center;
-  align-items: flex-start;
-}
-.ad-add-block {
-  background: #f5f7fa;
-  border-radius: 12px;
-  box-shadow: 0 2px 12px rgba(0,0,0,0.06);
-  padding: 24px 32px 16px 32px;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  min-width: 320px;
-}
-.ad-add-block .section-title {
-  margin-bottom: 12px;
-  color: #2566d8;
-  font-size: 1.1rem;
-  font-weight: bold;
-}
-.ad-add-block .input {
-  margin-bottom: 12px;
-  width: 100%;
-}
-.ad-add-block .btn {
-  width: 100%;
-  font-size: 1rem;
-  padding: 10px 0;
-}
-.ad-add-row {
-  display: flex;
-  gap: 16px;
-  justify-content: center;
-  align-items: center;
-  background: linear-gradient(135deg,#667eea,#764ba2);
-  border-radius: 12px;
-  box-shadow: 0 2px 12px rgba(0,0,0,0.06);
-  padding: 24px 32px 16px 32px;
-  min-width: 600px;
-}
-.select-input {
-  min-width: 120px;
-  height: 38px;
-}
-.ad-add-row input[type="text"], .ad-add-row input.input {
-  width: 18rem !important;
-  min-width: 200px;
-  max-width: 100%;
-}
+
 @media (max-width: 768px) {
-  .admin-content{
-    width: 92%;
-  }
   .ad-manage {
     width: 100%;
-    padding: 0 2vw;
   }
-  .ad-header, .ad-add-row {
+  .ad-add-row {
     flex-direction: column;
     gap: 8px;
-    min-width: 0;
-    width: 92%;
-    margin: 0 auto;
-    padding: 8px 0 !important;
+    padding: 16px;
+    border-radius: 12px;
+  }
+  .ad-add-row input {
+    width: 100% !important;
   }
   .ad-section {
-    width: 92%;
-    padding-top: 10rem;
-    margin-bottom: -8rem;
+    width: 100%;
   }
   .ad-card {
-    width: 100%;
-    padding: 12px 2vw;
+    padding: 12px;
+    border-radius: 12px;
   }
-  .ad-table {
-    display: block;
-    width: 100%;
-    overflow-x: auto;
-    font-size: 14px;
-  }
-  .ad-table thead, .ad-table tbody, .ad-table tr {
-    display: table;
-    width: 100%;
-    table-layout: fixed;
-  }
-  .ad-table th, .ad-table td {
-    padding: 8px 6px;
-    font-size: 13px;
-  }
-  .input, .select-input {
-    width: 84%;
-    min-width: 0;
-    margin-right: 0;
-    font-size: 14px;
-    padding: 8px 8px;
-    height: 32px !important;
-  }
-  .ad-add-row input.input {
-    margin: 0 auto;
-  }
+  .input,
+  .select-input,
   .btn {
-    width: 84%;
-    margin-right: 0;
-    padding: 8px 0;
-    font-size: 14px;
+    width: 100%;
+  }
+  .ad-table th,
+  .ad-table td {
+    padding: 8px 10px;
+    font-size: 12px;
   }
 }
 </style> 

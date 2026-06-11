@@ -7,11 +7,11 @@
       @mouseenter="showSubMenu(menu.id)"
       @mouseleave="hideSubMenu(menu.id)"
     >
-      <button 
-        @click="$emit('select', menu)" 
+      <button
+        @click="$emit('select', menu)"
         :class="{active: menu.id === activeId}"
       >
-        {{ menu.name }}
+        <span class="menu-label">{{ menu.name }}</span>
       </button>
       
       <!-- 二级菜单 -->
@@ -64,8 +64,9 @@ function hideSubMenu(menuId) {
   display: flex;
   justify-content: center;
   flex-wrap: wrap;
-  padding: 0 1rem;
+  padding: 0 0.5rem;
   position: relative;
+  gap: 2px;
 }
 
 .menu-item {
@@ -73,121 +74,107 @@ function hideSubMenu(menuId) {
 }
 
 .menu-bar button {
-  background: transparent;
-  border: none;
-  color: #fff;
-  font-size: 16px;
+  background: rgba(255, 255, 255, 0.06);
+  border: 1px solid rgba(255, 255, 255, 0.06);
+  color: rgba(255, 255, 255, 0.85);
+  font-size: 15px;
   font-weight: 500;
-  padding: 0.8rem 2rem;
+  padding: 0.55rem 1.5rem;
   cursor: pointer;
-  transition: all 0.3s ease;
-  text-shadow: 0 1px 2px rgba(0, 0, 0, 0.3);
-  box-shadow: none;
-  border-radius: 8px;
+  transition: all 0.25s ease;
+  border-radius: 10px;
   position: relative;
-  overflow: hidden;
-}
-
-.menu-bar button::before {
-  content: '';
-  position: absolute;
-  bottom: 0;
-  left: 50%;
-  width: 0;
-  height: 2px;
-  background: #399dff;
-  transition: all 0.3s ease;
-  transform: translateX(-50%);
+  backdrop-filter: blur(4px);
+  letter-spacing: 0.3px;
 }
 
 .menu-bar button:hover {
-  color: #399dff;
+  color: #fff;
+  background: rgba(59, 130, 246, 0.2);
+  border-color: rgba(59, 130, 246, 0.2);
   transform: translateY(-1px);
 }
 
 .menu-bar button.active {
-  color: #399dff;
+  color: #fff;
+  background: rgba(59, 130, 246, 0.25);
+  border-color: rgba(59, 130, 246, 0.3);
+  box-shadow: 0 0 16px rgba(59, 130, 246, 0.1);
 }
 
-.menu-bar button.active::before {
-  width: 60%;
-}
-
-/* 二级菜单样式 */
+/* ========== 二级菜单 ========== */
 .sub-menu {
   position: absolute;
-  top: 100%;
+  top: calc(100% + 4px);
   left: 50%;
-  transform: translateX(-50%);
-  background: #5c595900;
-  backdrop-filter: blur(8px);
-  border-radius: 6px;
-  min-width: 120px;
+  transform: translateX(-50%) translateY(-4px);
+  background: rgba(30, 30, 40, 0.75);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border-radius: 12px;
+  min-width: 130px;
   opacity: 0;
   visibility: hidden;
   transition: all 0.2s ease;
   z-index: 1000;
-  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.4);
-  border: 1px solid rgba(255, 255, 255, 0.15);
-  margin-top: -2px; 
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.35);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  padding: 6px;
 }
 
 .sub-menu.show {
   opacity: 1;
   visibility: visible;
-  transform: translateX(-50%) translateY(2px);
+  transform: translateX(-50%) translateY(0);
 }
 
 .sub-menu-item {
   display: block !important;
   width: 100% !important;
   text-align: center !important;
-  padding: 0.4rem 1rem !important;
+  padding: 0.5rem 1.2rem !important;
   border: none !important;
   background: transparent !important;
-  color: #fff !important;
+  color: rgba(255, 255, 255, 0.8) !important;
   font-size: 14px !important;
   font-weight: 400 !important;
   cursor: pointer !important;
   transition: all 0.2s ease !important;
-  border-radius: 0 !important;
+  border-radius: 8px !important;
   text-shadow: none !important;
   line-height: 1.5 !important;
 }
 
 .sub-menu-item:hover {
-  background: rgba(57, 157, 255, 0.25) !important;
-  color: #399dff !important;
+  background: rgba(59, 130, 246, 0.25) !important;
+  color: #fff !important;
   transform: none !important;
 }
 
 .sub-menu-item.active {
-  background: rgba(57, 157, 255, 0.35) !important;
-  color: #399dff !important;
+  background: rgba(59, 130, 246, 0.35) !important;
+  color: #fff !important;
   font-weight: 500 !important;
 }
 
-.sub-menu-item::before {
-  display: none;
-}
-
+/* ========== 响应式 ========== */
 @media (max-width: 768px) {
   .menu-bar {
-    gap: 0.2rem;
+    gap: 4px;
+    padding: 0 0.4rem;
   }
-  
   .menu-bar button {
-    font-size: 14px;
-    padding: .4rem .8rem;
+    font-size: 13px;
+    padding: 0.35rem 0.7rem;
+    border-radius: 8px;
   }
-  
   .sub-menu {
-    min-width: 100px;
+    min-width: 110px;
+    padding: 4px;
   }
-  
   .sub-menu-item {
-    font-size: 8px !important;
-    padding: 0.2rem 0.8rem !important;
+    font-size: 12px !important;
+    padding: 0.35rem 1rem !important;
   }
 }
 </style> 

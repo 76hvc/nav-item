@@ -71,74 +71,112 @@ function alertDrag() {
 <style scoped>
 .toolbox {
   max-width: 800px;
+  width: 95%;
   margin: 0 auto;
-  padding: 20px;
+  padding: 20px 0;
 }
 
 .tool-card {
   background: white;
   border-radius: 16px;
-  padding: 30px;
-  box-shadow: 0 4px 20px rgba(0,0,0,0.08);
+  padding: 32px;
+  box-shadow: 0 2px 16px rgba(0, 0, 0, 0.04);
+  border: 1px solid rgba(0, 0, 0, 0.04);
 }
 
 .tool-title {
   margin-top: 0;
-  color: #2566d8;
-  font-size: 1.5rem;
+  margin-bottom: 8px;
+  color: #1e293b;
+  font-size: 1.35rem;
+  font-weight: 700;
+  letter-spacing: -0.3px;
 }
 
 .tool-desc {
-  color: #666;
-  line-height: 1.6;
-  margin-bottom: 25px;
+  color: #64748b;
+  line-height: 1.7;
+  margin-bottom: 28px;
+  font-size: 14px;
 }
 
 .bookmarklet-container {
   display: flex;
   justify-content: center;
-  margin: 30px 0;
+  margin: 32px 0;
 }
 
 .bookmarklet-btn {
   display: inline-flex;
   align-items: center;
   gap: 10px;
-  background: #2566d8;
+  background: #3b82f6;
   color: white;
-  padding: 12px 24px;
+  padding: 14px 28px;
   border-radius: 50px;
   text-decoration: none;
-  font-weight: bold;
-  box-shadow: 0 4px 15px rgba(37, 102, 216, 0.3);
-  transition: all 0.3s;
+  font-weight: 600;
+  font-size: 15px;
+  box-shadow: 0 4px 20px rgba(59, 130, 246, 0.25);
+  transition: all 0.3s ease;
   cursor: move;
 }
-
 .bookmarklet-btn:hover {
-  transform: translateY(-2px);
-  box-shadow: 0 6px 20px rgba(37, 102, 216, 0.4);
+  background: #2563eb;
+  transform: translateY(-2px) scale(1.02);
+  box-shadow: 0 8px 28px rgba(59, 130, 246, 0.35);
 }
 
 .instructions {
-  background: #f8f9fa;
-  padding: 20px;
-  border-radius: 12px;
-  border-left: 4px solid #2566d8;
+  background: #f8fafc;
+  padding: 24px 28px;
+  border-radius: 14px;
+  border-left: 4px solid #3b82f6;
 }
 
 .instructions h4 {
   margin-top: 0;
-  margin-bottom: 10px;
+  margin-bottom: 12px;
+  font-size: 1rem;
+  color: #1e293b;
 }
 
 .instructions ol {
   margin: 0;
   padding-left: 20px;
-  color: #555;
+  color: #475569;
+  line-height: 1.8;
 }
 
 .instructions li {
-  margin-bottom: 8px;
+  margin-bottom: 6px;
+  font-size: 14px;
+}
+
+.instructions li strong {
+  color: #1e293b;
+}
+
+@media (max-width: 768px) {
+  .toolbox {
+    width: 100%;
+  }
+  .tool-card {
+    padding: 20px 16px;
+    border-radius: 12px;
+  }
+  .tool-title {
+    font-size: 1.15rem;
+  }
+  .tool-desc {
+    font-size: 13px;
+  }
+  .bookmarklet-btn {
+    padding: 12px 20px;
+    font-size: 14px;
+  }
+  .instructions {
+    padding: 16px;
+  }
 }
 </style>
