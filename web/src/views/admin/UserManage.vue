@@ -111,120 +111,113 @@ function showMessage(text, type) {
 }
 
 .user-card {
-  background: #fff;
+  background: #1E1E1E;
+  border: 1px solid rgba(255,255,255,0.04);
   border-radius: 16px;
-  box-shadow: 0 2px 16px rgba(0, 0, 0, 0.04);
-  padding: 28px 32px;
+  padding: 24px 28px;
 }
 
 .section-title {
   text-align: center;
-  font-size: 1.25rem;
+  font-size: 1.1rem;
   font-weight: 600;
-  color: #1e293b;
-  margin-bottom: 24px;
-  padding-bottom: 12px;
-  border-bottom: 2px solid #f1f5f9;
+  color: #F5F5F7;
+  margin-bottom: 20px;
+  padding-bottom: 10px;
+  border-bottom: 1px solid rgba(255,255,255,0.04);
 }
 
 .password-section {
-  margin-bottom: 16px;
+  margin-bottom: 12px;
 }
 
 .password-form {
-  max-width: 500px;
+  max-width: 450px;
   margin: 0 auto;
 }
 
 .form-group {
-  margin-bottom: 18px;
+  margin-bottom: 16px;
 }
 
 .form-group label {
   display: block;
   margin-bottom: 6px;
   font-weight: 500;
-  color: #374151;
-  font-size: 14px;
+  color: rgba(245,245,247,0.55);
+  font-size: 13px;
 }
 
 .input {
   width: 100%;
-  padding: 11px 14px;
+  padding: 10px 14px;
   border-radius: 10px;
-  border: 1.5px solid #e2e8f0;
-  background: #f8fafc;
-  color: #1e293b;
-  font-size: 0.95rem;
+  border: 1.5px solid rgba(255,255,255,0.06);
+  background: rgba(255,255,255,0.03);
+  color: #F5F5F7;
+  font-size: 0.9rem;
   transition: all 0.2s ease;
   box-sizing: border-box;
 }
+.input::placeholder { color: rgba(245,245,247,0.20); }
 .input:focus {
   outline: none;
-  border-color: #3b82f6;
-  box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.08);
-  background: #fff;
+  border-color: rgba(91,141,239,0.25);
+  background: rgba(255,255,255,0.05);
+  box-shadow: 0 0 0 3px rgba(91,141,239,0.06);
 }
 
 .form-actions {
   text-align: center;
-  margin-top: 28px;
+  margin-top: 24px;
 }
 
 .btn {
-  background: #3b82f6;
-  color: #fff;
+  background: rgba(91,141,239,0.50);
+  color: #F5F5F7;
   border: none;
   border-radius: 10px;
-  padding: 12px 32px;
+  padding: 10px 28px;
   cursor: pointer;
-  font-size: 0.95rem;
-  font-weight: 600;
+  font-size: 0.9rem;
+  font-weight: 500;
   transition: all 0.2s;
 }
 .btn:hover:not(:disabled) {
-  background: #2563eb;
+  background: #5B8DEF;
   transform: translateY(-1px);
-  box-shadow: 0 4px 12px rgba(59, 130, 246, 0.25);
+  box-shadow: 0 4px 12px rgba(91,141,239,0.20);
 }
 .btn:disabled {
-  background: #94a3b8;
+  background: rgba(255,255,255,0.04);
+  color: rgba(245,245,247,0.20);
   cursor: not-allowed;
   transform: none;
   box-shadow: none;
 }
 
 .message {
-  margin-top: 16px;
-  padding: 12px 16px;
-  border-radius: 10px;
-  font-size: 14px;
+  margin-top: 14px;
+  padding: 10px 16px;
+  border-radius: 8px;
+  font-size: 13px;
   text-align: center;
 }
 .message.success {
-  background: #dcfce7;
-  color: #166534;
-  border: 1px solid #bbf7d0;
+  background: rgba(22,163,74,0.08);
+  color: rgba(22,163,74,0.70);
+  border: 1px solid rgba(22,163,74,0.12);
 }
 .message.error {
-  background: #fef2f2;
-  color: #991b1b;
-  border: 1px solid #fecaca;
+  background: rgba(239,68,68,0.08);
+  color: rgba(239,68,68,0.70);
+  border: 1px solid rgba(239,68,68,0.12);
 }
 
 @media (max-width: 768px) {
-  .user-manage {
-    width: 100%;
-  }
-  .user-card {
-    padding: 20px 16px;
-    border-radius: 12px;
-  }
-  .section-title {
-    font-size: 1.1rem;
-  }
-  .btn {
-    width: 100%;
-  }
+  .user-manage { width: 100%; }
+  .user-card { padding: 16px; border-radius: 12px; }
+  .section-title { font-size: 1rem; }
+  .btn { width: 100%; }
 }
 </style> 

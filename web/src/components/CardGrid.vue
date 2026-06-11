@@ -172,14 +172,12 @@ function truncate(str) {
 }
 
 .link-item {
-  background: rgba(255, 255, 255, 0.1);
-  backdrop-filter: blur(6px);
-  -webkit-backdrop-filter: blur(6px);
-  border: 1px solid rgba(255, 255, 255, 0.06);
-  border-radius: 16px;
+  background: rgba(255,255,255,0.03);
+  border: 1px solid rgba(255,255,255,0.04);
+  border-radius: 14px;
   padding: 0;
   transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-  box-shadow: 0 2px 12px rgba(0, 0, 0, 0.06);
+  box-shadow: 0 2px 12px rgba(0,0,0,0.20);
   text-align: center;
   min-height: 85px;
   height: 85px;
@@ -190,14 +188,14 @@ function truncate(str) {
   overflow: hidden;
 }
 .link-item:hover {
-  background: rgba(255, 255, 255, 0.18);
-  border-color: rgba(255, 255, 255, 0.12);
+  background: rgba(255,255,255,0.05);
+  border-color: rgba(91,141,239,0.12);
   transform: translateY(-3px);
-  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.12);
+  box-shadow: 0 8px 24px rgba(0,0,0,0.35);
 }
 .link-item a {
   text-decoration: none;
-  color: #ffffff;
+  color: #F5F5F7;
   font-weight: 500;
   display: flex;
   flex-direction: column;
@@ -233,7 +231,7 @@ function truncate(str) {
   white-space: normal;
   line-height: 1.2;
   min-height: 1.4em;
-  color: rgba(255, 255, 255, 0.9);
+  color: rgba(245,245,247,0.75);
 }
 
 /* ========== 动画样式 ========== */

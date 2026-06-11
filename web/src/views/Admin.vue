@@ -196,8 +196,8 @@ function closeSider() {
   justify-content: center;
   align-items: center;
   min-height: 100vh;
-  background: linear-gradient(135deg, #0f172a 0%, #1e293b 50%, #0f172a 100%);
-  font-family: 'Segoe UI', system-ui, -apple-system, Arial, sans-serif;
+  background: #121212;
+  font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
   position: relative;
   overflow: hidden;
 }
@@ -208,8 +208,8 @@ function closeSider() {
   left: -50%;
   width: 200%;
   height: 200%;
-  background: radial-gradient(ellipse at 20% 50%, rgba(59, 130, 246, 0.08) 0%, transparent 50%),
-              radial-gradient(ellipse at 80% 50%, rgba(99, 102, 241, 0.08) 0%, transparent 50%);
+  background: radial-gradient(ellipse at 20% 50%, rgba(91,141,239,0.06) 0%, transparent 50%),
+              radial-gradient(ellipse at 80% 50%, rgba(91,141,239,0.04) 0%, transparent 50%);
   animation: loginBgShift 20s ease-in-out infinite alternate;
 }
 @keyframes loginBgShift {
@@ -218,11 +218,11 @@ function closeSider() {
 }
 
 .login-card {
-  background: rgba(255, 255, 255, 0.95);
-  backdrop-filter: blur(20px);
-  border-radius: 20px;
-  box-shadow: 0 25px 80px rgba(0, 0, 0, 0.3);
-  padding: 0 40px 40px;
+  background: #1E1E1E;
+  border: 1px solid rgba(255,255,255,0.06);
+  border-radius: 18px;
+  box-shadow: 0 25px 80px rgba(0,0,0,0.50);
+  padding: 0 36px 36px;
   width: 400px;
   max-width: 90%;
   position: relative;
@@ -235,12 +235,12 @@ function closeSider() {
 
 .login-title {
   text-align: center;
-  font-size: 1.75rem;
-  font-weight: 700;
-  color: #1e293b;
-  margin-bottom: 28px;
-  padding-top: 36px;
-  letter-spacing: -0.5px;
+  font-size: 1.5rem;
+  font-weight: 600;
+  color: #F5F5F7;
+  margin-bottom: 24px;
+  padding-top: 32px;
+  letter-spacing: 0.3px;
 }
 
 .login-form {
@@ -251,37 +251,40 @@ function closeSider() {
 
 .login-input {
   padding: 12px 16px;
-  border: 1.5px solid #e2e8f0;
+  border: 1.5px solid rgba(255,255,255,0.08);
   border-radius: 10px;
-  font-size: 15px;
-  background: #f8fafc;
-  color: #1e293b;
+  font-size: 14px;
+  background: rgba(255,255,255,0.04);
+  color: #F5F5F7;
   height: 48px;
   line-height: 48px;
   box-sizing: border-box;
   width: 100%;
   transition: all 0.2s ease;
 }
+.login-input::placeholder {
+  color: rgba(245,245,247,0.30);
+}
 .login-input:focus {
   outline: none;
-  border-color: #3b82f6;
-  box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.1);
-  background: #fff;
+  border-color: rgba(91,141,239,0.30);
+  background: rgba(255,255,255,0.06);
+  box-shadow: 0 0 0 3px rgba(91,141,239,0.06);
 }
 
 .login-buttons {
   display: flex;
-  gap: 12px;
+  gap: 10px;
   align-items: center;
 }
 
 .back-btn {
-  background: #f1f5f9;
-  color: #475569;
-  border: 1.5px solid #e2e8f0;
+  background: rgba(255,255,255,0.04);
+  color: rgba(245,245,247,0.55);
+  border: 1.5px solid rgba(255,255,255,0.06);
   border-radius: 10px;
   padding: 12px 16px;
-  font-size: 15px;
+  font-size: 14px;
   font-weight: 500;
   cursor: pointer;
   transition: all 0.2s;
@@ -292,41 +295,45 @@ function closeSider() {
   flex: 1;
 }
 .back-btn:hover {
-  background: #e2e8f0;
-  color: #3b82f6;
-  border-color: #cbd5e1;
+  background: rgba(255,255,255,0.06);
+  color: rgba(245,245,247,0.80);
+  border-color: rgba(255,255,255,0.10);
 }
 
 .login-btn {
-  background: #3b82f6;
-  color: #fff;
+  background: rgba(91,141,239,0.60);
+  color: #F5F5F7;
   border: none;
   border-radius: 10px;
   padding: 12px;
-  font-size: 15px;
+  font-size: 14px;
   font-weight: 600;
   cursor: pointer;
   transition: all 0.2s;
   flex: 2;
 }
 .login-btn:hover:not(:disabled) {
-  background: #2563eb;
+  background: #5B8DEF;
   transform: translateY(-1px);
-  box-shadow: 0 4px 12px rgba(59, 130, 246, 0.3);
+  box-shadow: 0 4px 16px rgba(91,141,239,0.25);
 }
 .login-btn:disabled {
-  background: #94a3b8;
+  background: rgba(255,255,255,0.06);
+  color: rgba(245,245,247,0.25);
   cursor: not-allowed;
+  transform: none;
+  box-shadow: none;
 }
 
 .login-error {
   color: #ef4444;
   text-align: center;
   margin: 0;
-  font-size: 14px;
-  background: #fef2f2;
+  font-size: 13px;
+  background: rgba(239,68,68,0.08);
   padding: 8px 12px;
   border-radius: 8px;
+  border: 1px solid rgba(239,68,68,0.12);
 }
 
 .password-input-wrapper {
@@ -348,29 +355,29 @@ function closeSider() {
   background: none;
   border: none;
   cursor: pointer;
-  color: #3b82f6;
+  color: rgba(91,141,239,0.60);
   margin: 0;
   padding: 0;
   z-index: 2;
   transition: color 0.2s;
 }
 .toggle-password:hover {
-  color: #2563eb;
+  color: #5B8DEF;
 }
 
 /* ========== 后台布局 ========== */
 .admin-layout {
   display: flex;
   min-height: 100vh;
-  background: #f1f5f9;
+  background: #121212;
   font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
 }
 
 /* ========== 侧边栏 ========== */
 .admin-sider {
   width: 220px;
-  background: linear-gradient(180deg, #1e293b 0%, #0f172a 100%);
-  color: #fff;
+  background: #1A1A1E;
+  color: #F5F5F7;
   display: flex;
   flex-direction: column;
   padding-top: 0;
@@ -380,58 +387,69 @@ function closeSider() {
   height: 100vh;
   z-index: 100;
   overflow-y: auto;
+  border-right: 1px solid rgba(255,255,255,0.04);
 }
 
 .logo {
-  font-size: 1.5rem;
+  font-size: 1.3rem;
   font-weight: 700;
   text-align: center;
-  padding: 24px 20px 20px;
+  padding: 22px 20px 18px;
   letter-spacing: 1px;
-  color: #fff;
+  color: #F5F5F7;
   cursor: pointer;
   user-select: none;
   transition: color 0.2s;
-  border-bottom: 1px solid rgba(255, 255, 255, 0.06);
-  background: rgba(59, 130, 246, 0.06);
+  border-bottom: 1px solid rgba(255,255,255,0.04);
 }
 .logo.clickable:hover {
-  color: #60a5fa;
+  color: #5B8DEF;
+}
+.logo-icon {
+  color: #5B8DEF;
+  margin-right: 4px;
 }
 
 .menu-list {
   list-style: none;
-  padding: 12px 0;
+  padding: 10px 0;
   margin: 0;
   flex: 1;
 }
 .menu-list li {
-  padding: 14px 24px;
-  margin: 2px 8px;
+  padding: 12px 20px;
+  margin: 2px 10px;
   cursor: pointer;
-  font-size: 14px;
-  border-radius: 10px;
+  font-size: 13px;
+  border-radius: 8px;
   transition: all 0.2s ease;
-  color: rgba(255, 255, 255, 0.65);
+  color: rgba(245,245,247,0.45);
   font-weight: 500;
   display: flex;
   align-items: center;
   gap: 10px;
 }
 .menu-list li:hover {
-  background: rgba(255, 255, 255, 0.06);
-  color: rgba(255, 255, 255, 0.9);
+  background: rgba(255,255,255,0.04);
+  color: rgba(245,245,247,0.70);
 }
 .menu-list li.active {
-  background: rgba(59, 130, 246, 0.15);
-  color: #60a5fa;
+  background: rgba(91,141,239,0.10);
+  color: #5B8DEF;
   font-weight: 600;
+}
+.menu-icon {
+  font-size: 16px;
+  opacity: 0.7;
+}
+.menu-list li.active .menu-icon {
+  opacity: 1;
 }
 
 /* ========== 主内容区 ========== */
 .admin-main {
   flex: 1;
-  background: #f1f5f9;
+  background: #121212;
   padding: 64px 0 0 220px;
   min-width: 0;
   overflow-x: auto;
@@ -447,7 +465,7 @@ function closeSider() {
   align-items: center;
   height: 64px;
   padding: 0 32px;
-  background: rgba(255, 255, 255, 0.85);
+  background: rgba(18,18,18,0.85);
   backdrop-filter: blur(12px);
   -webkit-backdrop-filter: blur(12px);
   position: fixed;
@@ -455,16 +473,16 @@ function closeSider() {
   left: 220px;
   right: 0;
   z-index: 99;
-  border-bottom: 1px solid rgba(0, 0, 0, 0.04);
+  border-bottom: 1px solid rgba(255,255,255,0.04);
 }
 
 .header-title {
   flex: 1;
   text-align: center;
-  font-size: 1.15rem;
-  font-weight: 600;
+  font-size: 1.05rem;
+  font-weight: 500;
   letter-spacing: 0.5px;
-  color: #1e293b;
+  color: rgba(245,245,247,0.60);
 }
 
 .header-actions {
@@ -477,30 +495,30 @@ function closeSider() {
   display: flex;
   align-items: center;
   cursor: pointer;
-  border-radius: 10px;
+  border-radius: 8px;
   transition: all 0.2s;
   padding: 8px;
-  color: #64748b;
+  color: rgba(245,245,247,0.35);
 }
 .home-icon:hover {
-  background: #f1f5f9;
-  color: #3b82f6;
+  background: rgba(255,255,255,0.04);
+  color: rgba(245,245,247,0.70);
 }
 
 .btn.logout-btn {
-  background: #fee2e2;
-  color: #ef4444;
-  border: 1px solid transparent;
-  border-radius: 10px;
-  padding: 8px 18px;
-  font-size: 14px;
+  background: rgba(239,68,68,0.08);
+  color: rgba(239,68,68,0.70);
+  border: 1px solid rgba(239,68,68,0.12);
+  border-radius: 8px;
+  padding: 7px 16px;
+  font-size: 13px;
   font-weight: 500;
   cursor: pointer;
   transition: all 0.2s;
 }
 .btn.logout-btn:hover {
-  background: #ef4444;
-  color: #fff;
+  background: rgba(239,68,68,0.15);
+  color: #ef4444;
 }
 
 /* ========== 内容区 ========== */
@@ -519,17 +537,17 @@ function closeSider() {
   padding: 2rem 0 1.5rem;
 }
 .admin-copyright {
-  color: #94a3b8;
-  font-size: 13px;
+  color: rgba(245,245,247,0.20);
+  font-size: 12px;
   margin: 0;
 }
 .admin-footer .footer-link {
-  color: #64748b;
+  color: rgba(245,245,247,0.25);
   text-decoration: none;
   transition: color 0.2s;
 }
 .admin-footer .footer-link:hover {
-  color: #3b82f6;
+  color: rgba(245,245,247,0.50);
 }
 
 /* ========== 欢迎页 ========== */
@@ -542,55 +560,57 @@ function closeSider() {
 }
 .welcome-title {
   text-align: center;
-  font-size: 1.6rem;
-  font-weight: 700;
-  color: #1e293b;
-  margin-bottom: 36px;
+  font-size: 1.3rem;
+  font-weight: 600;
+  color: #F5F5F7;
+  margin-bottom: 32px;
   letter-spacing: -0.3px;
 }
 .welcome-cards {
   display: flex;
-  gap: 28px;
+  gap: 24px;
   flex-wrap: wrap;
   justify-content: center;
 }
 .welcome-card {
-  background: #fff;
-  border-radius: 18px;
-  box-shadow: 0 2px 16px rgba(0, 0, 0, 0.04);
-  padding: 28px 36px;
-  min-width: 240px;
+  background: #1E1E1E;
+  border: 1px solid rgba(255,255,255,0.04);
+  border-radius: 16px;
+  box-shadow: 0 2px 16px rgba(0,0,0,0.20);
+  padding: 24px 32px;
+  min-width: 220px;
   display: flex;
   flex-direction: column;
   align-items: flex-start;
-  border: 1px solid rgba(0, 0, 0, 0.04);
   transition: all 0.2s ease;
 }
 .welcome-card:hover {
-  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.06);
+  border-color: rgba(91,141,239,0.10);
+  box-shadow: 0 8px 28px rgba(0,0,0,0.30);
   transform: translateY(-2px);
 }
 .welcome-icon {
-  width: 48px;
-  height: 48px;
-  background: #f1f5f9;
-  border-radius: 14px;
+  width: 44px;
+  height: 44px;
+  background: rgba(91,141,239,0.08);
+  border-radius: 12px;
   display: flex;
   align-items: center;
   justify-content: center;
-  margin-bottom: 16px;
+  margin-bottom: 14px;
 }
+.welcome-icon svg { opacity: 0.8; }
 .welcome-label {
-  font-size: 14px;
-  color: #64748b;
+  font-size: 13px;
+  color: rgba(245,245,247,0.45);
   margin-bottom: 6px;
   font-weight: 500;
 }
 .welcome-value {
-  font-size: 1.6rem;
-  color: #10b981;
-  font-weight: 700;
-  letter-spacing: 0.5px;
+  font-size: 1.3rem;
+  color: #5B8DEF;
+  font-weight: 600;
+  letter-spacing: 0.3px;
   word-break: break-all;
 }
 
@@ -618,13 +638,13 @@ function closeSider() {
     max-width: 280px;
     transform: translateX(-100%);
     transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-    box-shadow: 4px 0 24px rgba(0, 0, 0, 0.15);
+    box-shadow: 4px 0 24px rgba(0,0,0,0.35);
   }
   .admin-sider.open {
     transform: translateX(0);
   }
   .admin-main {
-    padding: 60px 0 0 0 !important;
+    padding: 56px 0 0 0 !important;
   }
   .admin-header {
     left: 0 !important;
@@ -633,7 +653,7 @@ function closeSider() {
     height: 56px;
   }
   .header-title {
-    font-size: 1rem !important;
+    font-size: 0.95rem !important;
     text-align: left !important;
     margin-left: 0 !important;
     white-space: nowrap;
@@ -641,27 +661,27 @@ function closeSider() {
     text-overflow: ellipsis;
   }
   .btn.logout-btn {
-    padding: 6px 12px;
-    font-size: 12px;
+    padding: 5px 10px;
+    font-size: 11px;
   }
   .menu-toggle {
     display: inline-flex !important;
     align-items: center;
     justify-content: center;
-    width: 38px;
-    height: 38px;
-    background: rgba(59, 130, 246, 0.06);
-    border: 1px solid rgba(59, 130, 246, 0.12);
-    border-radius: 10px;
-    font-size: 1.4rem;
+    width: 36px;
+    height: 36px;
+    background: rgba(255,255,255,0.04);
+    border: 1px solid rgba(255,255,255,0.06);
+    border-radius: 8px;
+    font-size: 1.3rem;
     cursor: pointer;
-    color: #3b82f6;
+    color: rgba(245,245,247,0.50);
     z-index: 300;
     transition: all 0.2s;
-    margin-right: 8px;
+    margin-right: 6px;
   }
   .menu-toggle:hover {
-    background: rgba(59, 130, 246, 0.1);
+    background: rgba(255,255,255,0.06);
   }
   .admin-content {
     padding: 16px 12px 0;
@@ -673,7 +693,7 @@ function closeSider() {
     gap: 16px;
   }
   .welcome-card {
-    padding: 20px 24px;
+    padding: 18px 20px;
     min-width: 0;
     width: 100%;
   }

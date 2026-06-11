@@ -249,73 +249,92 @@ function handleLogoError(event) {
 </script>
 
 <style scoped>
+/* ========== 配色常量 ========== */
+/*
+  暗色低调极简风格配色：
+  --bg-base: #121212    页面底色
+  --bg-raised: #1E1E1E  卡片、弹窗
+  --bg-overlay: #252525  输入框、按钮hover
+  --text-primary: #F5F5F7
+  --text-secondary: rgba(245,245,247,0.60)
+  --text-tertiary: rgba(245,245,247,0.30)
+  --border-subtle: rgba(255,255,255,0.06)
+  --border-default: rgba(255,255,255,0.10)
+  --accent: #5B8DEF
+  --accent-hover: #7BA4F9
+*/
+
 .menu-bar-fixed {
   position: fixed;
-  top: 0.8rem;
+  top: 0.6rem;
   left: 0;
   width: 100vw;
   z-index: 100;
 }
 
-/* ========== 搜索区 ========== */
+/* ========== 搜索引擎切换 ========== */
 .search-engine-select {
   display: flex;
   flex-direction: row;
   align-items: center;
   padding-bottom: 0.4rem;
-  gap: 6px;
+  gap: 4px;
   z-index: 2;
 }
 .engine-btn {
-  border: none;
-  background: rgba(255, 255, 255, 0.08);
-  color: rgba(255, 255, 255, 0.75);
-  font-size: 0.8rem;
+  border: 1px solid rgba(255,255,255,0.04);
+  background: rgba(255,255,255,0.04);
+  color: rgba(245,245,247,0.50);
+  font-size: 0.78rem;
   padding: 4px 12px;
-  border-radius: 6px;
+  border-radius: 8px;
   cursor: pointer;
   transition: all 0.25s ease;
-  backdrop-filter: blur(4px);
+  letter-spacing: 0.3px;
 }
-.engine-btn.active,
-.engine-btn:hover {
-  color: #fff;
-  background: rgba(59, 130, 246, 0.5);
-  box-shadow: 0 0 12px rgba(59, 130, 246, 0.2);
+.engine-btn.active {
+  color: #F5F5F7;
+  background: rgba(91,141,239,0.15);
+  border-color: rgba(91,141,239,0.20);
+}
+.engine-btn:hover:not(.active) {
+  color: rgba(245,245,247,0.75);
+  background: rgba(255,255,255,0.06);
 }
 
+/* ========== 搜索框 ========== */
 .search-container {
   display: flex;
   align-items: center;
-  background: rgba(255, 255, 255, 0.12);
-  border-radius: 24px;
-  padding: 0.25rem 0.25rem 0.25rem 1rem;
-  box-shadow: 0 4px 24px rgba(0, 0, 0, 0.15);
-  backdrop-filter: blur(12px);
-  -webkit-backdrop-filter: blur(12px);
-  border: 1px solid rgba(255, 255, 255, 0.1);
+  background: rgba(255,255,255,0.05);
+  border-radius: 14px;
+  padding: 0.2rem 0.2rem 0.2rem 1rem;
+  box-shadow: 0 2px 16px rgba(0,0,0,0.30);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  border: 1px solid rgba(255,255,255,0.06);
   max-width: 480px;
   width: 92%;
   position: relative;
   transition: all 0.3s ease;
 }
 .search-container:focus-within {
-  background: rgba(255, 255, 255, 0.18);
-  box-shadow: 0 4px 32px rgba(59, 130, 246, 0.15);
-  border-color: rgba(59, 130, 246, 0.25);
+  background: rgba(255,255,255,0.07);
+  border-color: rgba(91,141,239,0.15);
+  box-shadow: 0 2px 20px rgba(0,0,0,0.35), 0 0 0 1px rgba(91,141,239,0.08);
 }
 
 .search-input {
   flex: 1;
   border: none;
   background: transparent;
-  padding: 0.4rem 0.5rem;
-  font-size: 1.15rem;
-  color: #ffffff;
+  padding: 0.45rem 0.5rem;
+  font-size: 1.1rem;
+  color: #F5F5F7;
   outline: none;
 }
 .search-input::placeholder {
-  color: rgba(255, 255, 255, 0.45);
+  color: rgba(245,245,247,0.30);
 }
 
 .clear-btn {
@@ -323,26 +342,26 @@ function handleLogoError(event) {
   border: none;
   outline: none;
   cursor: pointer;
-  margin-right: 0.15rem;
+  margin-right: 0.1rem;
   display: flex;
   align-items: center;
   padding: 6px;
   border-radius: 50%;
-  color: rgba(255, 255, 255, 0.5);
+  color: rgba(245,245,247,0.30);
   transition: all 0.2s;
 }
 .clear-btn:hover {
-  background: rgba(255, 255, 255, 0.1);
-  color: #fff;
+  background: rgba(255,255,255,0.06);
+  color: rgba(245,245,247,0.70);
 }
 
 .search-btn {
-  background: rgba(59, 130, 246, 0.8);
-  color: #ffffff;
+  background: rgba(91,141,239,0.60);
+  color: #F5F5F7;
   border: none;
-  border-radius: 50%;
-  width: 42px;
-  height: 42px;
+  border-radius: 10px;
+  width: 40px;
+  height: 40px;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -350,51 +369,39 @@ function handleLogoError(event) {
   transition: all 0.25s ease;
 }
 .search-btn:hover {
-  background: #3b82f6;
-  transform: scale(1.05);
+  background: #5B8DEF;
+  transform: scale(1.04);
 }
 
 /* ========== 首页容器 ========== */
 .home-container {
   min-height: 100vh;
+  background-color: #121212;
+  display: flex;
+  flex-direction: column;
+  position: relative;
+  padding-top: 55px;
+}
+
+/* 可选背景图：如果用户设置，覆盖纯色背景 */
+.home-container.has-bg {
   background-image: url('https://main.ssss.nyc.mn/background.webp');
   background-size: cover;
   background-position: center;
   background-repeat: no-repeat;
   background-attachment: fixed;
-  display: flex;
-  flex-direction: column;
-  position: relative;
-  padding-top: 60px;
 }
 
-.home-container::before {
-  content: '';
-  position: absolute;
-  top: 0;
-  left: 0;
-  right: 0;
-  bottom: 0;
-  background: linear-gradient(
-    180deg,
-    rgba(0, 0, 0, 0.35) 0%,
-    rgba(0, 0, 0, 0.45) 40%,
-    rgba(0, 0, 0, 0.5) 100%
-  );
-  z-index: 1;
-}
-
-/* ========== 搜索区布局 ========== */
+/* 搜索区布局 */
 .search-section {
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  padding: 2.5rem 0 1.5rem;
+  padding: 2rem 0 1.5rem;
   position: relative;
   z-index: 2;
 }
-
 .search-box-wrapper {
   display: flex;
   flex-direction: column;
@@ -408,7 +415,7 @@ function handleLogoError(event) {
   position: fixed;
   top: 12rem;
   z-index: 10;
-  width: 85px;
+  width: 80px;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -417,31 +424,28 @@ function handleLogoError(event) {
   background: transparent;
   margin: 0;
 }
-.left-ad-fixed {
-  left: 0;
-}
-.right-ad-fixed {
-  right: 0;
-}
+.left-ad-fixed { left: 0; }
+.right-ad-fixed { right: 0; }
 .ad-space-fixed a {
   width: 100%;
   display: block;
   border-radius: 12px;
   overflow: hidden;
-  transition: transform 0.2s;
+  transition: transform 0.25s ease;
 }
 .ad-space-fixed a:hover {
-  transform: scale(1.05);
+  transform: scale(1.04);
 }
 .ad-space-fixed img {
   width: 100%;
-  max-width: 85px;
-  max-height: 160px;
+  max-width: 80px;
+  max-height: 150px;
   border-radius: 12px;
-  box-shadow: 0 2px 16px rgba(0, 0, 0, 0.15);
-  background: #fff;
+  box-shadow: 0 4px 16px rgba(0,0,0,0.30);
+  background: #1E1E1E;
   object-fit: contain;
   margin: 0 auto;
+  border: 1px solid rgba(255,255,255,0.04);
 }
 
 /* ========== 底部 ========== */
@@ -452,12 +456,11 @@ function handleLogoError(event) {
   position: relative;
   z-index: 2;
 }
-
 .footer-content {
   display: flex;
   align-items: center;
   justify-content: center;
-  gap: 50px;
+  gap: 40px;
   flex-wrap: wrap;
 }
 
@@ -465,35 +468,34 @@ function handleLogoError(event) {
   display: flex;
   align-items: center;
   gap: 8px;
-  background: rgba(255, 255, 255, 0.08);
-  border: 1px solid rgba(255, 255, 255, 0.12);
-  color: rgba(255, 255, 255, 0.85);
+  background: rgba(255,255,255,0.03);
+  border: 1px solid rgba(255,255,255,0.06);
+  color: rgba(245,245,247,0.50);
   cursor: pointer;
   transition: all 0.25s ease;
-  font-size: 14px;
+  font-size: 13px;
   padding: 6px 16px;
   border-radius: 20px;
-  backdrop-filter: blur(4px);
 }
 .friend-link-btn:hover {
-  color: #60a5fa;
-  background: rgba(255, 255, 255, 0.12);
-  border-color: rgba(96, 165, 250, 0.3);
+  color: rgba(245,245,247,0.80);
+  background: rgba(91,141,239,0.08);
+  border-color: rgba(91,141,239,0.15);
   transform: translateY(-1px);
 }
 
 .copyright {
-  color: rgba(255, 255, 255, 0.65);
+  color: rgba(245,245,247,0.35);
   font-size: 13px;
   margin: 0;
 }
 .footer-link {
-  color: rgba(255, 255, 255, 0.75);
+  color: rgba(245,245,247,0.40);
   text-decoration: none;
   transition: color 0.2s;
 }
 .footer-link:hover {
-  color: #60a5fa;
+  color: rgba(245,245,247,0.70);
 }
 
 /* ========== 弹窗（友链） ========== */
@@ -503,27 +505,26 @@ function handleLogoError(event) {
   left: 0;
   right: 0;
   bottom: 0;
-  background: rgba(0, 0, 0, 0.6);
+  background: rgba(0,0,0,0.65);
   display: flex;
   align-items: center;
   justify-content: center;
   z-index: 1000;
-  backdrop-filter: blur(8px);
-  -webkit-backdrop-filter: blur(8px);
+  backdrop-filter: blur(6px);
+  -webkit-backdrop-filter: blur(6px);
   animation: fadeIn 0.2s ease;
 }
 
 .modal-content {
-  background: rgba(255, 255, 255, 0.92);
-  backdrop-filter: blur(24px);
-  -webkit-backdrop-filter: blur(24px);
-  border-radius: 20px;
+  background: #1E1E1E;
+  border: 1px solid rgba(255,255,255,0.06);
+  border-radius: 18px;
   width: 55rem;
   max-width: 92vw;
   max-height: 85vh;
   display: flex;
   flex-direction: column;
-  box-shadow: 0 25px 80px rgba(0, 0, 0, 0.3);
+  box-shadow: 0 25px 80px rgba(0,0,0,0.50);
   overflow: hidden;
   animation: scaleIn 0.25s ease;
 }
@@ -532,16 +533,15 @@ function handleLogoError(event) {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  padding: 18px 28px;
-  border-bottom: 1px solid rgba(0, 0, 0, 0.06);
+  padding: 16px 24px;
+  border-bottom: 1px solid rgba(255,255,255,0.06);
 }
-
 .modal-header h3 {
   margin: 0;
-  font-size: 1.35rem;
-  font-weight: 700;
-  color: #111827;
-  letter-spacing: -0.3px;
+  font-size: 1.2rem;
+  font-weight: 600;
+  color: #F5F5F7;
+  letter-spacing: 0.3px;
 }
 
 .close-btn {
@@ -549,98 +549,92 @@ function handleLogoError(event) {
   border: none;
   cursor: pointer;
   padding: 8px;
-  border-radius: 10px;
-  color: #9ca3af;
+  border-radius: 8px;
+  color: rgba(245,245,247,0.35);
   transition: all 0.2s;
 }
 .close-btn:hover {
-  background: rgba(239, 68, 68, 0.08);
+  background: rgba(239,68,68,0.10);
   color: #ef4444;
 }
 
 .modal-body {
   flex: 1;
-  padding: 24px 28px;
+  padding: 20px 24px;
   overflow-y: auto;
 }
 
+/* 友链网格 */
 .friend-links-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(120px, 1fr));
-  gap: 12px;
+  grid-template-columns: repeat(auto-fill, minmax(110px, 1fr));
+  gap: 10px;
 }
 
 .friend-link-card {
   display: flex;
   flex-direction: column;
   align-items: center;
-  padding: 16px 12px 12px;
-  background: white;
-  border-radius: 16px;
+  padding: 14px 10px 10px;
+  background: rgba(255,255,255,0.03);
+  border-radius: 14px;
   text-decoration: none;
   color: inherit;
   transition: all 0.25s ease;
-  border: 1px solid rgba(0, 0, 0, 0.04);
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.03);
+  border: 1px solid rgba(255,255,255,0.04);
 }
 .friend-link-card:hover {
-  transform: translateY(-3px);
-  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.08);
-  border-color: rgba(59, 130, 246, 0.15);
+  transform: translateY(-2px);
+  background: rgba(255,255,255,0.05);
+  border-color: rgba(91,141,239,0.12);
+  box-shadow: 0 6px 20px rgba(0,0,0,0.25);
 }
 
 .friend-link-logo {
-  width: 52px;
-  height: 52px;
+  width: 48px;
+  height: 48px;
   border-radius: 12px;
   overflow: hidden;
   margin-bottom: 8px;
   display: flex;
   align-items: center;
   justify-content: center;
-  background: #f3f4f6;
-  box-shadow: 0 1px 4px rgba(0, 0, 0, 0.04);
+  background: #252525;
+  border: 1px solid rgba(255,255,255,0.04);
 }
 .friend-link-logo img {
   width: 100%;
   height: 100%;
   object-fit: contain;
 }
-
 .friend-link-placeholder {
   width: 100%;
   height: 100%;
   display: flex;
   align-items: center;
   justify-content: center;
-  background: linear-gradient(135deg, #667eea, #764ba2);
-  color: #fff;
-  font-size: 20px;
-  font-weight: 700;
+  background: rgba(91,141,239,0.15);
+  color: #5B8DEF;
+  font-size: 18px;
+  font-weight: 600;
   border-radius: 12px;
 }
 
 .friend-link-info h4 {
   margin: 0;
-  font-size: 12px;
+  font-size: 11px;
   font-weight: 500;
-  color: #374151;
+  color: rgba(245,245,247,0.60);
   text-align: center;
   line-height: 1.3;
   word-break: break-all;
 }
 
 /* ========== deep 穿透 ========== */
-:deep(.menu-bar) {
-  position: relative;
-  z-index: 2;
-}
-:deep(.card-grid) {
-  position: relative;
-  z-index: 2;
-}
+:deep(.menu-bar) { position: relative; z-index: 2; }
+:deep(.card-grid) { position: relative; z-index: 2; }
 
-/* ========== 动画 ========== */
+/* ========== 入场动画 ========== */
 @keyframes fadeIn {
   from { opacity: 0; }
   to { opacity: 1; }
@@ -652,60 +646,23 @@ function handleLogoError(event) {
 
 /* ========== 响应式 ========== */
 @media (max-width: 1200px) {
-  .ad-space-fixed {
-    display: none;
-  }
+  .ad-space-fixed { display: none; }
 }
 
 @media (max-width: 768px) {
-  .home-container {
-    padding-top: 70px;
-  }
-  .search-section {
-    padding: 1.8rem 0 1rem;
-  }
-  .search-container {
-    width: 94%;
-    padding: 0.15rem 0.15rem 0.15rem 0.8rem;
-  }
-  .search-input {
-    font-size: 1rem;
-    padding: 0.3rem 0.4rem;
-  }
-  .search-btn {
-    width: 38px;
-    height: 38px;
-  }
-  .footer {
-    padding: 1rem 0 1.5rem;
-  }
-  .footer-content {
-    gap: 16px;
-    flex-direction: column;
-  }
-  .friend-link-btn {
-    font-size: 0.75rem;
-    padding: 5px 12px;
-  }
-  .copyright {
-    font-size: 0.7rem;
-  }
-  .modal-header h3 {
-    font-size: 1.15rem;
-  }
-  .modal-body {
-    padding: 16px;
-  }
-  .friend-links-grid {
-    grid-template-columns: repeat(3, 1fr);
-    gap: 8px;
-  }
-  .friend-link-card {
-    padding: 10px 8px 8px;
-  }
-  .friend-link-logo {
-    width: 42px;
-    height: 42px;
-  }
+  .home-container { padding-top: 60px; }
+  .search-section { padding: 1.5rem 0 1rem; }
+  .search-container { width: 94%; padding: 0.15rem 0.15rem 0.15rem 0.8rem; }
+  .search-input { font-size: 1rem; padding: 0.3rem 0.4rem; }
+  .search-btn { width: 36px; height: 36px; }
+  .footer { padding: 1rem 0 1.5rem; }
+  .footer-content { gap: 16px; flex-direction: column; }
+  .friend-link-btn { font-size: 0.7rem; padding: 5px 12px; }
+  .copyright { font-size: 0.65rem; }
+  .modal-header h3 { font-size: 1.05rem; }
+  .modal-body { padding: 14px; }
+  .friend-links-grid { grid-template-columns: repeat(3, 1fr); gap: 8px; }
+  .friend-link-card { padding: 10px 6px 8px; }
+  .friend-link-logo { width: 40px; height: 40px; }
 }
 </style>

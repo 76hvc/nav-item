@@ -87,99 +87,99 @@ async function deleteAd(id) {
 }
 .section-title {
   text-align: left;
-  font-size: 1.1rem;
-  font-weight: 600;
-  margin-bottom: 12px;
-  color: #1e293b;
+  font-size: 0.95rem;
+  font-weight: 500;
+  margin-bottom: 10px;
+  color: rgba(245,245,247,0.60);
 }
 .ad-header {
-  margin-bottom: 24px;
+  margin-bottom: 20px;
 }
 .ad-section {
-  margin-bottom: 28px;
+  margin-bottom: 24px;
 }
 
 .ad-add-row {
   display: flex;
-  gap: 10px;
+  gap: 8px;
   justify-content: center;
   align-items: center;
-  background: linear-gradient(135deg, #1e293b 0%, #334155 100%);
-  border-radius: 16px;
-  box-shadow: 0 4px 24px rgba(0, 0, 0, 0.08);
-  padding: 20px 28px;
+  background: #1E1E1E;
+  border: 1px solid rgba(255,255,255,0.04);
+  border-radius: 14px;
+  padding: 16px 24px;
   flex-wrap: wrap;
 }
 .ad-add-row input {
-  width: 280px !important;
+  width: 260px !important;
   max-width: 100%;
 }
 
 .ad-card {
   width: 100%;
-  background: #fff;
+  background: #1E1E1E;
+  border: 1px solid rgba(255,255,255,0.04);
   border-radius: 14px;
-  box-shadow: 0 2px 16px rgba(0, 0, 0, 0.04);
-  padding: 20px;
+  padding: 16px;
   box-sizing: border-box;
   overflow-x: auto;
 }
 
 .input {
-  padding: 9px 12px;
+  padding: 8px 12px;
   border-radius: 8px;
-  border: 1.5px solid #e2e8f0;
-  background: #fff;
-  color: #1e293b;
-  font-size: 0.88rem;
+  border: 1.5px solid rgba(255,255,255,0.06);
+  background: rgba(255,255,255,0.03);
+  color: #F5F5F7;
+  font-size: 0.85rem;
   transition: all 0.2s ease;
-  height: 38px;
+  height: 36px;
   box-sizing: border-box;
 }
 .input:focus {
   outline: none;
-  border-color: #3b82f6;
-  box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.08);
+  border-color: rgba(91,141,239,0.25);
+  background: rgba(255,255,255,0.05);
+  box-shadow: 0 0 0 2px rgba(91,141,239,0.06);
 }
+.input::placeholder { color: rgba(245,245,247,0.20); }
 
 .btn {
-  background: #3b82f6;
-  color: #fff;
+  background: rgba(91,141,239,0.50);
+  color: #F5F5F7;
   border: none;
   border-radius: 8px;
-  padding: 9px 20px;
-  font-size: 0.88rem;
+  padding: 8px 18px;
+  font-size: 0.85rem;
   font-weight: 500;
   cursor: pointer;
   transition: all 0.2s;
   white-space: nowrap;
-  height: 38px;
+  height: 36px;
 }
 .btn:hover {
-  background: #2563eb;
+  background: #5B8DEF;
   transform: translateY(-1px);
-  box-shadow: 0 4px 12px rgba(59, 130, 246, 0.2);
+  box-shadow: 0 4px 12px rgba(91,141,239,0.20);
 }
 
 .btn-danger {
-  background: #fee2e2;
-  color: #ef4444;
+  background: rgba(239,68,68,0.08);
+  color: rgba(239,68,68,0.65);
 }
 .btn-danger:hover {
-  background: #ef4444;
-  color: #fff;
-  box-shadow: 0 4px 12px rgba(239, 68, 68, 0.2);
+  background: rgba(239,68,68,0.12);
+  color: #ef4444;
+  box-shadow: none;
 }
 
 .select-input {
-  min-width: 120px;
+  min-width: 110px;
 }
 
 .ad-table {
   width: 100%;
   border-collapse: collapse;
-  background: #fff;
-  color: #1e293b;
   border-radius: 10px;
   overflow: hidden;
   min-width: 500px;
@@ -187,32 +187,33 @@ async function deleteAd(id) {
 .ad-table th,
 .ad-table td {
   padding: 10px 14px;
-  border-bottom: 1px solid #f1f5f9;
+  border-bottom: 1px solid rgba(255,255,255,0.03);
+  color: rgba(245,245,247,0.65);
+  font-size: 13px;
 }
 .ad-table th {
-  background: #f8fafc;
+  background: rgba(255,255,255,0.02);
   font-weight: 600;
-  color: #475569;
-  font-size: 13px;
+  color: rgba(245,245,247,0.40);
+  font-size: 11px;
   text-transform: uppercase;
-  letter-spacing: 0.3px;
+  letter-spacing: 0.6px;
 }
 .ad-table td input {
   width: 95%;
-  min-width: 120px;
-  background: #f8fafc;
-  color: #1e293b;
-  border: 1.5px solid #e2e8f0;
+  min-width: 100px;
+  background: rgba(255,255,255,0.02);
+  color: rgba(245,245,247,0.70);
+  border: 1.5px solid rgba(255,255,255,0.06);
   border-radius: 6px;
-  padding: 6px 10px;
+  padding: 5px 8px;
   font-size: 13px;
   transition: all 0.2s;
 }
 .ad-table td input:focus {
   outline: none;
-  border-color: #3b82f6;
-  background: #fff;
-  box-shadow: 0 0 0 2px rgba(59, 130, 246, 0.06);
+  border-color: rgba(91,141,239,0.20);
+  background: rgba(255,255,255,0.04);
 }
 .ad-table th:last-child,
 .ad-table td:last-child {
@@ -221,34 +222,17 @@ async function deleteAd(id) {
 }
 
 @media (max-width: 768px) {
-  .ad-manage {
-    width: 100%;
-  }
+  .ad-manage { width: 100%; }
   .ad-add-row {
     flex-direction: column;
-    gap: 8px;
-    padding: 16px;
-    border-radius: 12px;
+    gap: 6px;
+    padding: 14px;
+    border-radius: 10px;
   }
-  .ad-add-row input {
-    width: 100% !important;
-  }
-  .ad-section {
-    width: 100%;
-  }
-  .ad-card {
-    padding: 12px;
-    border-radius: 12px;
-  }
-  .input,
-  .select-input,
-  .btn {
-    width: 100%;
-  }
-  .ad-table th,
-  .ad-table td {
-    padding: 8px 10px;
-    font-size: 12px;
-  }
+  .ad-add-row input { width: 100% !important; }
+  .ad-section { width: 100%; }
+  .ad-card { padding: 10px; border-radius: 10px; }
+  .input, .select-input, .btn { width: 100%; }
+  .ad-table th, .ad-table td { padding: 8px 10px; font-size: 11px; }
 }
 </style> 

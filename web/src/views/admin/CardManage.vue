@@ -186,12 +186,12 @@ async function deleteCard(id) {
 }
 
 .card-header {
-  background: linear-gradient(135deg, #1e293b 0%, #334155 100%);
-  border-radius: 16px;
-  padding: 20px 28px;
-  margin-bottom: 20px;
-  color: white;
-  box-shadow: 0 4px 24px rgba(0, 0, 0, 0.08);
+  background: #1E1E1E;
+  border: 1px solid rgba(255,255,255,0.04);
+  border-radius: 14px;
+  padding: 18px 24px;
+  margin-bottom: 16px;
+  color: #F5F5F7;
   width: 100%;
   text-align: center;
   box-sizing: border-box;
@@ -203,11 +203,10 @@ async function deleteCard(id) {
 }
 
 .page-title {
-  font-size: 1.1rem;
-  font-weight: 600;
+  font-size: 0.95rem;
+  font-weight: 500;
   margin: 0;
-  letter-spacing: -0.3px;
-  opacity: 0.9;
+  opacity: 0.50;
 }
 
 .card-add {
@@ -220,9 +219,9 @@ async function deleteCard(id) {
 }
 
 .card-card {
-  background: white;
-  border-radius: 16px;
-  box-shadow: 0 2px 16px rgba(0, 0, 0, 0.04);
+  background: #1E1E1E;
+  border: 1px solid rgba(255,255,255,0.04);
+  border-radius: 14px;
   overflow-x: auto;
   width: 100%;
 }
@@ -237,66 +236,57 @@ async function deleteCard(id) {
 .card-table td {
   padding: 10px 14px;
   text-align: left;
-  border-bottom: 1px solid #f1f5f9;
+  border-bottom: 1px solid rgba(255,255,255,0.03);
   white-space: nowrap;
+  color: rgba(245,245,247,0.65);
+  font-size: 13px;
 }
 
 .card-table th {
-  background: #f8fafc;
+  background: rgba(255,255,255,0.02);
   font-weight: 600;
-  color: #475569;
-  font-size: 13px;
+  color: rgba(245,245,247,0.40);
+  font-size: 11px;
   text-transform: uppercase;
-  letter-spacing: 0.3px;
+  letter-spacing: 0.6px;
 }
 
-.card-table th:nth-child(1),
-.card-table td:nth-child(1) { width: 12%; }
-.card-table th:nth-child(2),
-.card-table td:nth-child(2) { width: 25%; }
-.card-table th:nth-child(3),
-.card-table td:nth-child(3) { width: 22%; }
-.card-table th:nth-child(4),
-.card-table td:nth-child(4) { width: 14%; }
-.card-table th:nth-child(5),
-.card-table td:nth-child(5) { width: 8%; }
-.card-table th:nth-child(6),
-.card-table td:nth-child(6) { width: 10%; text-align: center; }
+.card-table th:nth-child(1), .card-table td:nth-child(1) { width: 12%; }
+.card-table th:nth-child(2), .card-table td:nth-child(2) { width: 25%; }
+.card-table th:nth-child(3), .card-table td:nth-child(3) { width: 22%; }
+.card-table th:nth-child(4), .card-table td:nth-child(4) { width: 14%; }
+.card-table th:nth-child(5), .card-table td:nth-child(5) { width: 8%; }
+.card-table th:nth-child(6), .card-table td:nth-child(6) { width: 10%; text-align: center; }
 
-.card-table tr:last-child td {
-  border-bottom: none;
-}
-
+.card-table tr:last-child td { border-bottom: none; }
 .card-table tr:hover td {
-  background: #f8fafc;
+  background: rgba(255,255,255,0.02);
 }
 
 /* ========== 输入框 ========== */
 .input {
-  padding: 9px 12px;
+  padding: 8px 12px;
   border-radius: 8px;
-  border: 1.5px solid #e2e8f0;
-  background: #fff;
-  color: #1e293b;
-  font-size: 0.88rem;
+  border: 1.5px solid rgba(255,255,255,0.06);
+  background: rgba(255,255,255,0.03);
+  color: #F5F5F7;
+  font-size: 0.85rem;
   transition: all 0.2s ease;
   box-sizing: border-box;
-  height: 38px;
+  height: 36px;
 }
 .input:focus {
   outline: none;
-  border-color: #3b82f6;
-  box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.08);
+  border-color: rgba(91,141,239,0.25);
+  background: rgba(255,255,255,0.05);
+  box-shadow: 0 0 0 2px rgba(91,141,239,0.06);
 }
-.input.narrow {
-  width: 130px;
+.input::placeholder {
+  color: rgba(245,245,247,0.20);
 }
-.input.medium {
-  width: 150px;
-}
-.input.wide {
-  width: 200px;
-}
+.input.narrow { width: 120px; }
+.input.medium { width: 140px; }
+.input.wide { width: 180px; }
 
 .logo-input-wrapper {
   position: relative;
@@ -307,10 +297,10 @@ async function deleteCard(id) {
 .fetching-loader {
   position: absolute;
   right: 10px;
-  width: 14px;
-  height: 14px;
-  border: 2px solid #e2e8f0;
-  border-top: 2px solid #3b82f6;
+  width: 12px;
+  height: 12px;
+  border: 2px solid rgba(255,255,255,0.06);
+  border-top: 2px solid #5B8DEF;
   border-radius: 50%;
   animation: spin 0.8s linear infinite;
 }
@@ -324,23 +314,23 @@ async function deleteCard(id) {
 .table-input {
   width: 100%;
   min-width: 40px;
-  padding: 6px 8px;
+  padding: 5px 6px;
   border-radius: 6px;
   border: 1.5px solid transparent;
   background: transparent;
-  color: #1e293b;
+  color: rgba(245,245,247,0.75);
   font-size: 13px;
   transition: all 0.2s ease;
 }
 .table-input:hover {
-  background: #f8fafc;
-  border-color: #e2e8f0;
+  background: rgba(255,255,255,0.03);
+  border-color: rgba(255,255,255,0.06);
 }
 .table-input:focus {
   outline: none;
-  border-color: #3b82f6;
-  background: #fff;
-  box-shadow: 0 0 0 2px rgba(59, 130, 246, 0.06);
+  border-color: rgba(91,141,239,0.20);
+  background: rgba(255,255,255,0.04);
+  box-shadow: 0 0 0 2px rgba(91,141,239,0.04);
 }
 
 .order-input {
@@ -350,72 +340,52 @@ async function deleteCard(id) {
 
 /* ========== 按钮 ========== */
 .btn {
-  padding: 9px 18px;
+  padding: 8px 16px;
   border: none;
   border-radius: 8px;
-  background: #3b82f6;
-  color: white;
+  background: rgba(91,141,239,0.50);
+  color: #F5F5F7;
   cursor: pointer;
   font-weight: 500;
-  font-size: 0.88rem;
+  font-size: 0.85rem;
   transition: all 0.2s;
   display: inline-flex;
   align-items: center;
   gap: 6px;
   white-space: nowrap;
-  height: 38px;
+  height: 36px;
 }
 .btn:hover {
-  background: #2563eb;
+  background: #5B8DEF;
   transform: translateY(-1px);
-  box-shadow: 0 4px 12px rgba(59, 130, 246, 0.2);
+  box-shadow: 0 4px 12px rgba(91,141,239,0.20);
 }
 
 .btn-icon {
-  width: 34px;
-  height: 34px;
+  width: 32px;
+  height: 32px;
   padding: 0;
   justify-content: center;
-  border-radius: 8px;
+  border-radius: 6px;
 }
 
 .btn-danger {
-  background: #fee2e2;
-  color: #ef4444;
+  background: rgba(239,68,68,0.10);
+  color: rgba(239,68,68,0.70);
 }
 .btn-danger:hover {
-  background: #ef4444;
-  color: #fff;
-  box-shadow: 0 4px 12px rgba(239, 68, 68, 0.25);
+  background: rgba(239,68,68,0.15);
+  color: #ef4444;
+  box-shadow: none;
 }
 
 @media (max-width: 768px) {
-  .card-manage {
-    width: 100%;
-  }
-  .card-header {
-    padding: 16px;
-    border-radius: 12px;
-  }
-  .page-title {
-    font-size: 1rem;
-  }
-  .card-add {
-    flex-direction: column;
-    gap: 8px;
-  }
-  .input.narrow,
-  .input.medium,
-  .input.wide {
-    width: 100%;
-  }
-  .card-table th,
-  .card-table td {
-    padding: 8px 10px;
-    font-size: 12px;
-  }
-  .order-input {
-    width: 50px;
-  }
+  .card-manage { width: 100%; }
+  .card-header { padding: 14px; border-radius: 10px; }
+  .page-title { font-size: 0.9rem; }
+  .card-add { flex-direction: column; gap: 8px; }
+  .input.narrow, .input.medium, .input.wide { width: 100%; }
+  .card-table th, .card-table td { padding: 8px 10px; font-size: 11px; }
+  .order-input { width: 50px; }
 }
 </style> 

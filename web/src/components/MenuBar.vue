@@ -66,7 +66,7 @@ function hideSubMenu(menuId) {
   flex-wrap: wrap;
   padding: 0 0.5rem;
   position: relative;
-  gap: 2px;
+  gap: 3px;
 }
 
 .menu-item {
@@ -74,52 +74,49 @@ function hideSubMenu(menuId) {
 }
 
 .menu-bar button {
-  background: rgba(255, 255, 255, 0.06);
-  border: 1px solid rgba(255, 255, 255, 0.06);
-  color: rgba(255, 255, 255, 0.85);
-  font-size: 15px;
+  background: rgba(255,255,255,0.03);
+  border: 1px solid rgba(255,255,255,0.04);
+  color: rgba(245,245,247,0.55);
+  font-size: 14px;
   font-weight: 500;
-  padding: 0.55rem 1.5rem;
+  padding: 0.5rem 1.4rem;
   cursor: pointer;
   transition: all 0.25s ease;
   border-radius: 10px;
-  position: relative;
-  backdrop-filter: blur(4px);
-  letter-spacing: 0.3px;
+  letter-spacing: 0.5px;
 }
 
 .menu-bar button:hover {
-  color: #fff;
-  background: rgba(59, 130, 246, 0.2);
-  border-color: rgba(59, 130, 246, 0.2);
+  color: rgba(245,245,247,0.80);
+  background: rgba(255,255,255,0.05);
+  border-color: rgba(255,255,255,0.08);
   transform: translateY(-1px);
 }
 
 .menu-bar button.active {
-  color: #fff;
-  background: rgba(59, 130, 246, 0.25);
-  border-color: rgba(59, 130, 246, 0.3);
-  box-shadow: 0 0 16px rgba(59, 130, 246, 0.1);
+  color: #F5F5F7;
+  background: rgba(91,141,239,0.10);
+  border-color: rgba(91,141,239,0.15);
 }
 
 /* ========== 二级菜单 ========== */
 .sub-menu {
   position: absolute;
-  top: calc(100% + 4px);
+  top: calc(100% + 6px);
   left: 50%;
   transform: translateX(-50%) translateY(-4px);
-  background: rgba(30, 30, 40, 0.75);
+  background: rgba(25,25,30,0.92);
   backdrop-filter: blur(16px);
   -webkit-backdrop-filter: blur(16px);
   border-radius: 12px;
-  min-width: 130px;
+  min-width: 120px;
   opacity: 0;
   visibility: hidden;
   transition: all 0.2s ease;
   z-index: 1000;
-  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.35);
-  border: 1px solid rgba(255, 255, 255, 0.08);
-  padding: 6px;
+  box-shadow: 0 8px 32px rgba(0,0,0,0.45);
+  border: 1px solid rgba(255,255,255,0.06);
+  padding: 5px;
 }
 
 .sub-menu.show {
@@ -132,49 +129,50 @@ function hideSubMenu(menuId) {
   display: block !important;
   width: 100% !important;
   text-align: center !important;
-  padding: 0.5rem 1.2rem !important;
+  padding: 0.45rem 1.2rem !important;
   border: none !important;
   background: transparent !important;
-  color: rgba(255, 255, 255, 0.8) !important;
-  font-size: 14px !important;
+  color: rgba(245,245,247,0.55) !important;
+  font-size: 13px !important;
   font-weight: 400 !important;
   cursor: pointer !important;
   transition: all 0.2s ease !important;
   border-radius: 8px !important;
   text-shadow: none !important;
   line-height: 1.5 !important;
+  letter-spacing: 0.3px !important;
 }
 
 .sub-menu-item:hover {
-  background: rgba(59, 130, 246, 0.25) !important;
-  color: #fff !important;
+  background: rgba(91,141,239,0.10) !important;
+  color: rgba(245,245,247,0.85) !important;
   transform: none !important;
 }
 
 .sub-menu-item.active {
-  background: rgba(59, 130, 246, 0.35) !important;
-  color: #fff !important;
+  background: rgba(91,141,239,0.15) !important;
+  color: #F5F5F7 !important;
   font-weight: 500 !important;
 }
 
 /* ========== 响应式 ========== */
 @media (max-width: 768px) {
   .menu-bar {
-    gap: 4px;
-    padding: 0 0.4rem;
+    gap: 3px;
+    padding: 0 0.3rem;
   }
   .menu-bar button {
-    font-size: 13px;
-    padding: 0.35rem 0.7rem;
+    font-size: 12px;
+    padding: 0.3rem 0.65rem;
     border-radius: 8px;
   }
   .sub-menu {
-    min-width: 110px;
+    min-width: 100px;
     padding: 4px;
   }
   .sub-menu-item {
-    font-size: 12px !important;
-    padding: 0.35rem 1rem !important;
+    font-size: 11px !important;
+    padding: 0.3rem 0.8rem !important;
   }
 }
 </style> 

@@ -66,9 +66,7 @@ async function deleteFriend(id) {
   align-items: center;
 }
 
-.friend-header {
-  height: 16px;
-}
+.friend-header { height: 12px; }
 
 .friend-add {
   display: flex;
@@ -78,75 +76,75 @@ async function deleteFriend(id) {
   align-items: center;
   width: 100%;
   flex-wrap: wrap;
-  background: linear-gradient(135deg, #1e293b 0%, #334155 100%);
-  border-radius: 16px;
-  padding: 18px 24px;
-  box-shadow: 0 4px 24px rgba(0, 0, 0, 0.08);
+  background: #1E1E1E;
+  border: 1px solid rgba(255,255,255,0.04);
+  border-radius: 14px;
+  padding: 16px 24px;
   box-sizing: border-box;
 }
 
 .friend-card {
   width: 100%;
-  background: #fff;
+  background: #1E1E1E;
+  border: 1px solid rgba(255,255,255,0.04);
   border-radius: 14px;
-  box-shadow: 0 2px 16px rgba(0, 0, 0, 0.04);
-  padding: 20px;
+  padding: 16px;
   box-sizing: border-box;
   overflow-x: auto;
 }
 
 .input {
-  padding: 9px 12px;
+  padding: 8px 12px;
   border-radius: 8px;
-  border: 1.5px solid #e2e8f0;
-  background: #fff;
-  color: #1e293b;
-  font-size: 0.88rem;
+  border: 1.5px solid rgba(255,255,255,0.06);
+  background: rgba(255,255,255,0.03);
+  color: #F5F5F7;
+  font-size: 0.85rem;
   transition: all 0.2s ease;
-  height: 38px;
-  min-width: 160px;
+  height: 36px;
+  min-width: 140px;
   box-sizing: border-box;
 }
 .input:focus {
   outline: none;
-  border-color: #3b82f6;
-  box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.08);
+  border-color: rgba(91,141,239,0.25);
+  background: rgba(255,255,255,0.05);
+  box-shadow: 0 0 0 2px rgba(91,141,239,0.06);
 }
+.input::placeholder { color: rgba(245,245,247,0.20); }
 
 .btn {
-  background: #3b82f6;
-  color: #fff;
+  background: rgba(91,141,239,0.50);
+  color: #F5F5F7;
   border: none;
   border-radius: 8px;
-  padding: 9px 20px;
-  font-size: 0.88rem;
+  padding: 8px 18px;
+  font-size: 0.85rem;
   font-weight: 500;
   cursor: pointer;
   transition: all 0.2s;
   white-space: nowrap;
-  height: 38px;
+  height: 36px;
 }
 .btn:hover {
-  background: #2563eb;
+  background: #5B8DEF;
   transform: translateY(-1px);
-  box-shadow: 0 4px 12px rgba(59, 130, 246, 0.2);
+  box-shadow: 0 4px 12px rgba(91,141,239,0.20);
 }
 
 .btn-danger {
-  background: #fee2e2;
-  color: #ef4444;
+  background: rgba(239,68,68,0.08);
+  color: rgba(239,68,68,0.65);
 }
 .btn-danger:hover {
-  background: #ef4444;
-  color: #fff;
-  box-shadow: 0 4px 12px rgba(239, 68, 68, 0.2);
+  background: rgba(239,68,68,0.12);
+  color: #ef4444;
+  box-shadow: none;
 }
 
 .friend-table {
   width: 100%;
   border-collapse: collapse;
-  background: #fff;
-  color: #1e293b;
   border-radius: 10px;
   overflow: hidden;
   min-width: 500px;
@@ -154,35 +152,36 @@ async function deleteFriend(id) {
 .friend-table th,
 .friend-table td {
   padding: 10px 14px;
-  border-bottom: 1px solid #f1f5f9;
+  border-bottom: 1px solid rgba(255,255,255,0.03);
   height: auto;
+  color: rgba(245,245,247,0.65);
+  font-size: 13px;
 }
 .friend-table th {
-  background: #f8fafc;
+  background: rgba(255,255,255,0.02);
   font-weight: 600;
-  color: #475569;
-  font-size: 13px;
+  color: rgba(245,245,247,0.40);
+  font-size: 11px;
   text-transform: uppercase;
-  letter-spacing: 0.3px;
+  letter-spacing: 0.6px;
 }
 .friend-table td input {
   width: 95%;
-  min-width: 100px;
-  background: #f8fafc;
-  color: #1e293b;
-  border: 1.5px solid #e2e8f0;
+  min-width: 80px;
+  background: rgba(255,255,255,0.02);
+  color: rgba(245,245,247,0.70);
+  border: 1.5px solid rgba(255,255,255,0.06);
   border-radius: 6px;
-  padding: 6px 10px;
+  padding: 5px 8px;
   font-size: 13px;
-  height: 32px;
+  height: 30px;
   transition: all 0.2s;
   box-sizing: border-box;
 }
 .friend-table td input:focus {
   outline: none;
-  border-color: #3b82f6;
-  background: #fff;
-  box-shadow: 0 0 0 2px rgba(59, 130, 246, 0.06);
+  border-color: rgba(91,141,239,0.20);
+  background: rgba(255,255,255,0.04);
 }
 .friend-table th:last-child,
 .friend-table td:last-child {
@@ -191,30 +190,17 @@ async function deleteFriend(id) {
 }
 
 @media (max-width: 768px) {
-  .friend-manage {
-    width: 100%;
-  }
+  .friend-manage { width: 100%; }
   .friend-add {
     flex-direction: column;
-    gap: 8px;
-    padding: 16px;
-    border-radius: 12px;
+    gap: 6px;
+    padding: 14px;
+    border-radius: 10px;
   }
-  .friend-card {
-    padding: 12px;
-    border-radius: 12px;
-  }
-  .input {
-    width: 100%;
-    min-width: 0;
-  }
-  .btn {
-    width: 100%;
-  }
+  .friend-card { padding: 10px; border-radius: 10px; }
+  .input { width: 100%; min-width: 0; }
+  .btn { width: 100%; }
   .friend-table th,
-  .friend-table td {
-    padding: 8px 10px;
-    font-size: 12px;
-  }
+  .friend-table td { padding: 8px 10px; font-size: 11px; }
 }
 </style> 

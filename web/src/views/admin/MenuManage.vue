@@ -191,12 +191,12 @@ function toggleSubMenu(menuId) {
 }
 
 .menu-header {
-  background: linear-gradient(135deg, #1e293b 0%, #334155 100%);
-  border-radius: 16px;
-  padding: 24px 28px;
-  margin-bottom: 20px;
-  color: white;
-  box-shadow: 0 4px 24px rgba(0, 0, 0, 0.08);
+  background: #1E1E1E;
+  border: 1px solid rgba(255,255,255,0.04);
+  border-radius: 14px;
+  padding: 18px 24px;
+  margin-bottom: 16px;
+  color: #F5F5F7;
   width: 100%;
   text-align: center;
   box-sizing: border-box;
@@ -208,159 +208,148 @@ function toggleSubMenu(menuId) {
 }
 
 .page-title {
-  font-size: 1.1rem;
-  font-weight: 600;
+  font-size: 0.95rem;
+  font-weight: 500;
   margin: 0;
-  opacity: 0.9;
+  opacity: 0.50;
 }
 
 .menu-add {
   display: flex;
-  gap: 10px;
+  gap: 8px;
   align-items: center;
   justify-content: center;
   flex-wrap: wrap;
 }
 
 .menu-content {
-  background: white;
-  border-radius: 16px;
-  box-shadow: 0 2px 16px rgba(0, 0, 0, 0.04);
+  background: #1E1E1E;
+  border: 1px solid rgba(255,255,255,0.04);
+  border-radius: 14px;
   overflow: hidden;
   width: 100%;
 }
 
-.menu-list {
-  padding: 0;
-}
+.menu-list { padding: 0; }
 
 .menu-item {
-  border-bottom: 1px solid #f1f5f9;
+  border-bottom: 1px solid rgba(255,255,255,0.03);
   transition: all 0.2s ease;
 }
-.menu-item:last-child {
-  border-bottom: none;
-}
-.menu-item:hover {
-  background: #fafbfc;
-}
+.menu-item:last-child { border-bottom: none; }
+.menu-item:hover { background: rgba(255,255,255,0.01); }
 
-/* ========== 主菜单行 ========== */
 .main-menu {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  padding: 18px 28px;
-  background: white;
+  padding: 16px 24px;
 }
 
 .menu-info {
   display: flex;
   align-items: center;
-  gap: 14px;
+  gap: 12px;
   flex: 1;
 }
 
 .menu-icon {
-  width: 38px;
-  height: 38px;
-  background: linear-gradient(135deg, #3b82f6, #6366f1);
-  border-radius: 10px;
+  width: 34px;
+  height: 34px;
+  background: rgba(91,141,239,0.12);
+  border-radius: 8px;
   display: flex;
   align-items: center;
   justify-content: center;
-  color: white;
+  color: #5B8DEF;
   flex-shrink: 0;
-  font-size: 16px;
+  font-size: 14px;
 }
 
 .menu-name-input {
-  font-size: 1rem;
-  font-weight: 600;
+  font-size: 0.95rem;
+  font-weight: 500;
   border: 1.5px solid transparent;
   background: transparent;
-  padding: 6px 10px;
+  padding: 5px 8px;
   border-radius: 6px;
-  color: #1e293b;
-  min-width: 160px;
+  color: rgba(245,245,247,0.85);
+  min-width: 140px;
   transition: all 0.2s ease;
 }
 .menu-name-input:focus {
   outline: none;
-  border-color: #3b82f6;
-  background: #f8fafc;
+  border-color: rgba(91,141,239,0.20);
+  background: rgba(255,255,255,0.03);
 }
 
 .menu-order {
   display: flex;
   align-items: center;
-  gap: 6px;
+  gap: 4px;
 }
 .order-label {
-  font-size: 13px;
-  color: #94a3b8;
+  font-size: 11px;
+  color: rgba(245,245,247,0.30);
   font-weight: 500;
 }
 
 .menu-actions {
   display: flex;
-  gap: 6px;
+  gap: 4px;
 }
 
 /* ========== 子菜单区域 ========== */
 .sub-menu-section {
-  background: #f8fafc;
-  border-top: 1px solid #e2e8f0;
+  background: rgba(255,255,255,0.02);
+  border-top: 1px solid rgba(255,255,255,0.03);
   max-height: 0;
   overflow: hidden;
   transition: max-height 0.35s ease;
 }
-.sub-menu-section.expanded {
-  max-height: 1000px;
-}
+.sub-menu-section.expanded { max-height: 1000px; }
 
 .sub-menu-header {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  padding: 8px 28px;
-  background: #f1f5f9;
-  border-bottom: 1px solid #e2e8f0;
+  padding: 8px 24px;
+  background: rgba(255,255,255,0.02);
+  border-bottom: 1px solid rgba(255,255,255,0.03);
 }
 
 .sub-menu-title {
   display: flex;
   align-items: center;
-  gap: 8px;
-  font-weight: 600;
-  color: #475569;
-  font-size: 13px;
+  gap: 6px;
+  font-weight: 500;
+  color: rgba(245,245,247,0.40);
+  font-size: 12px;
 }
 
 .sub-menu-list {
-  padding: 12px 28px 12px 44px;
+  padding: 10px 24px 10px 40px;
   position: relative;
 }
 .sub-menu-list::before {
   content: '';
   position: absolute;
-  left: 28px;
+  left: 24px;
   top: 0;
   bottom: 0;
-  width: 2px;
-  background: #e2e8f0;
+  width: 1.5px;
+  background: rgba(255,255,255,0.06);
 }
 
 .sub-menu-item {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  padding: 8px 16px;
-  background: white;
-  border-radius: 10px;
-  margin-bottom: 4px;
-  box-shadow: 0 1px 4px rgba(0, 0, 0, 0.02);
-  border: 1px solid #e2e8f0;
+  padding: 7px 14px;
+  background: rgba(255,255,255,0.02);
+  border-radius: 8px;
+  margin-bottom: 3px;
+  border: 1px solid rgba(255,255,255,0.04);
   transition: all 0.2s ease;
   position: relative;
 }
@@ -369,53 +358,51 @@ function toggleSubMenu(menuId) {
   position: absolute;
   left: -16px;
   top: 50%;
-  width: 12px;
-  height: 2px;
-  background: #cbd5e1;
+  width: 10px;
+  height: 1.5px;
+  background: rgba(255,255,255,0.08);
   transform: translateY(-50%);
 }
 .sub-menu-item:hover {
-  box-shadow: 0 2px 12px rgba(0, 0, 0, 0.04);
-  border-color: #cbd5e1;
+  border-color: rgba(91,141,239,0.10);
+  background: rgba(255,255,255,0.03);
 }
-.sub-menu-item:last-child {
-  margin-bottom: 0;
-}
+.sub-menu-item:last-child { margin-bottom: 0; }
 
 .sub-menu-info {
   display: flex;
   align-items: center;
-  gap: 10px;
+  gap: 8px;
   flex: 1;
 }
 
 .sub-menu-icon {
-  width: 30px;
-  height: 30px;
-  background: linear-gradient(135deg, #10b981, #059669);
-  border-radius: 8px;
+  width: 26px;
+  height: 26px;
+  background: rgba(91,141,239,0.10);
+  border-radius: 6px;
   display: flex;
   align-items: center;
   justify-content: center;
-  color: white;
+  color: rgba(91,141,239,0.50);
   flex-shrink: 0;
-  font-size: 14px;
+  font-size: 12px;
 }
 
 .sub-menu-name-input {
-  font-size: 14px;
+  font-size: 13px;
   border: 1.5px solid transparent;
   background: transparent;
-  padding: 5px 8px;
+  padding: 4px 6px;
   border-radius: 6px;
-  color: #374151;
-  min-width: 130px;
+  color: rgba(245,245,247,0.70);
+  min-width: 110px;
   transition: all 0.2s ease;
 }
 .sub-menu-name-input:focus {
   outline: none;
-  border-color: #10b981;
-  background: #f0fdf4;
+  border-color: rgba(91,141,239,0.18);
+  background: rgba(255,255,255,0.03);
 }
 
 .sub-menu-actions {
@@ -426,12 +413,12 @@ function toggleSubMenu(menuId) {
 .empty-sub-menu {
   padding: 20px;
   text-align: center;
-  color: #94a3b8;
+  color: rgba(245,245,247,0.25);
 }
 .empty-sub-menu p {
-  color: #10b981;
-  margin: 0 0 12px;
-  font-size: 14px;
+  color: rgba(245,245,247,0.35);
+  margin: 0 0 10px;
+  font-size: 13px;
 }
 
 /* ========== 通用按钮 ========== */
@@ -439,10 +426,10 @@ function toggleSubMenu(menuId) {
   display: inline-flex;
   align-items: center;
   gap: 6px;
-  padding: 8px 16px;
+  padding: 7px 14px;
   border: none;
   border-radius: 8px;
-  font-size: 0.88rem;
+  font-size: 0.83rem;
   font-weight: 500;
   cursor: pointer;
   transition: all 0.2s ease;
@@ -451,156 +438,120 @@ function toggleSubMenu(menuId) {
 }
 
 .btn-primary {
-  background: #3b82f6;
-  color: white;
+  background: rgba(91,141,239,0.50);
+  color: #F5F5F7;
 }
 .btn-primary:hover {
-  background: #2563eb;
+  background: #5B8DEF;
   transform: translateY(-1px);
-  box-shadow: 0 4px 12px rgba(59, 130, 246, 0.25);
+  box-shadow: 0 4px 12px rgba(91,141,239,0.20);
 }
 
 .btn-outline {
   background: transparent;
-  color: #3b82f6;
-  border: 1.5px solid #3b82f6;
+  color: rgba(91,141,239,0.50);
+  border: 1.5px solid rgba(91,141,239,0.20);
 }
 .btn-outline:hover {
-  background: #3b82f6;
-  color: white;
+  background: rgba(91,141,239,0.10);
+  color: #5B8DEF;
+  border-color: rgba(91,141,239,0.30);
 }
 
 .btn-danger {
-  background: #fee2e2;
-  color: #ef4444;
+  background: rgba(239,68,68,0.08);
+  color: rgba(239,68,68,0.65);
 }
 .btn-danger:hover {
-  background: #ef4444;
-  color: #fff;
-  box-shadow: 0 4px 12px rgba(239, 68, 68, 0.2);
+  background: rgba(239,68,68,0.12);
+  color: #ef4444;
 }
 
 .btn-icon {
-  width: 34px;
-  height: 34px;
+  width: 30px;
+  height: 30px;
   padding: 0;
   justify-content: center;
-  border-radius: 8px;
+  border-radius: 6px;
 }
-
-.btn-icon.expand-btn {
-  width: 34px;
-}
+.btn-icon.expand-btn { width: 30px; }
 
 .btn-sm {
-  padding: 5px 10px;
-  font-size: 0.8rem;
+  padding: 4px 8px;
+  font-size: 0.78rem;
 }
-.btn-icon.btn-sm {
-  width: 30px;
-  height: 28px;
-}
+.btn-icon.btn-sm { width: 28px; height: 26px; }
 
 /* ========== 输入框 ========== */
 .input {
-  padding: 10px 14px;
-  border: 1.5px solid #e2e8f0;
+  padding: 9px 12px;
+  border: 1.5px solid rgba(255,255,255,0.06);
   border-radius: 8px;
-  font-size: 0.95rem;
-  background: white;
-  color: #1e293b;
+  font-size: 0.9rem;
+  background: rgba(255,255,255,0.03);
+  color: #F5F5F7;
   transition: all 0.2s ease;
-  min-width: 200px;
-  height: 38px;
+  min-width: 180px;
+  height: 36px;
   box-sizing: border-box;
 }
 .input:focus {
   outline: none;
-  border-color: #3b82f6;
-  box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.08);
+  border-color: rgba(91,141,239,0.25);
+  background: rgba(255,255,255,0.05);
+  box-shadow: 0 0 0 2px rgba(91,141,239,0.06);
 }
-.input::placeholder {
-  color: #94a3b8;
-}
+.input::placeholder { color: rgba(245,245,247,0.20); }
 
 .order-input {
-  width: 52px;
-  padding: 5px 6px;
-  border: 1.5px solid #e2e8f0;
+  width: 48px;
+  padding: 4px 4px;
+  border: 1.5px solid rgba(255,255,255,0.06);
   border-radius: 6px;
   text-align: center;
-  font-size: 14px;
-  height: 32px;
+  font-size: 13px;
+  height: 30px;
   box-sizing: border-box;
+  background: rgba(255,255,255,0.02);
+  color: rgba(245,245,247,0.60);
 }
 .order-input:focus {
   outline: none;
-  border-color: #3b82f6;
-  box-shadow: 0 0 0 2px rgba(59, 130, 246, 0.08);
+  border-color: rgba(91,141,239,0.20);
+  box-shadow: 0 0 0 2px rgba(91,141,239,0.04);
 }
 
 /* ========== 响应式 ========== */
 @media (max-width: 768px) {
-  .menu-manage {
-    width: 100%;
-  }
-  .menu-header {
-    padding: 18px 16px;
-    border-radius: 12px;
-  }
-  .page-title {
-    font-size: 1rem;
-  }
-  .menu-add {
-    flex-direction: column;
-    gap: 8px;
-  }
-  .input {
-    min-width: 0;
-    width: 100%;
-  }
+  .menu-manage { width: 100%; }
+  .menu-header { padding: 16px; border-radius: 10px; }
+  .page-title { font-size: 0.9rem; }
+  .menu-add { flex-direction: column; gap: 8px; }
+  .input { min-width: 0; width: 100%; }
   .main-menu {
-    padding: 16px;
+    padding: 14px;
     flex-direction: column;
     align-items: stretch;
-    gap: 12px;
-  }
-  .menu-info {
-    flex-wrap: wrap;
     gap: 10px;
   }
-  .menu-name-input {
-    min-width: 0;
-  }
-  .menu-actions {
-    justify-content: flex-start;
-  }
+  .menu-info { flex-wrap: wrap; gap: 8px; }
+  .menu-name-input { min-width: 0; }
+  .menu-actions { justify-content: flex-start; }
   .sub-menu-header {
-    padding: 10px 16px;
+    padding: 8px 14px;
     flex-direction: column;
-    gap: 8px;
+    gap: 6px;
     align-items: stretch;
   }
-  .sub-menu-list {
-    padding: 10px 16px 10px 28px;
-  }
-  .sub-menu-list::before {
-    left: 16px;
-  }
-  .sub-menu-item::before {
-    left: -12px;
-    width: 8px;
-  }
+  .sub-menu-list { padding: 8px 14px 8px 28px; }
+  .sub-menu-list::before { left: 14px; }
+  .sub-menu-item::before { left: -14px; width: 8px; }
   .sub-menu-item {
     flex-direction: column;
     align-items: stretch;
     gap: 8px;
   }
-  .sub-menu-info {
-    flex-wrap: wrap;
-  }
-  .sub-menu-name-input {
-    min-width: 0;
-  }
+  .sub-menu-info { flex-wrap: wrap; }
+  .sub-menu-name-input { min-width: 0; }
 }
 </style> 
