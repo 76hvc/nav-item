@@ -1,7 +1,7 @@
 <template>
   <div class="container card-grid" :class="animationClass">
-    <div v-for="(card, index) in cards" :key="card.id" 
-         class="link-item" 
+    <div v-for="(card, index) in cards" :key="card.id"
+         class="link-item"
          :style="getCardStyle(index)">
       <a :href="card.url" target="_blank" :title="getTooltip(card)">
         <img class="link-icon" :src="getLogo(card)" alt="" @error="onImgError($event, card)" loading="lazy">
@@ -42,7 +42,7 @@ function triggerAnimation() {
   const randomIndex = Math.floor(Math.random() * animations.length);
   animationType.value = animations[randomIndex];
   animationClass.value = `animate-${animationType.value}`;
-  
+
   // 动画结束后清除类名
   setTimeout(() => {
     animationClass.value = '';
@@ -52,7 +52,7 @@ function triggerAnimation() {
 // 获取卡片样式（用于延迟动画）
 function getCardStyle(index) {
   if (!animationClass.value) return {};
-  
+
   // 在移动设备上不使用延迟动画
   const isMobile = window.innerWidth <= 480;
   if (isMobile) {
@@ -60,7 +60,7 @@ function getCardStyle(index) {
       animationDelay: '0s'
     };
   }
-  
+
   if (animationType.value === 'slideUp') {
     // 从下往上：按索引顺序延迟
     return {
@@ -115,7 +115,7 @@ function getCardStyle(index) {
       animationDelay: `${(row + col) * 0.06}s`
     };
   }
-  
+
   return {};
 }
 
@@ -176,7 +176,7 @@ function truncate(str) {
   border: 1px solid rgba(255,255,255,0.04);
   border-radius: 14px;
   padding: 0;
-  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
   box-shadow: 0 2px 12px rgba(0,0,0,0.20);
   text-align: center;
   min-height: 85px;
@@ -186,12 +186,26 @@ function truncate(str) {
   justify-content: center;
   align-items: center;
   overflow: hidden;
+  position: relative;
+}
+.link-item::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  border-radius: 14px;
+  opacity: 0;
+  transition: opacity 0.3s;
+  background: linear-gradient(135deg, rgba(91,141,239,0.04), rgba(91,141,239,0.01));
+  pointer-events: none;
 }
 .link-item:hover {
   background: rgba(255,255,255,0.05);
-  border-color: rgba(91,141,239,0.12);
-  transform: translateY(-3px);
-  box-shadow: 0 8px 24px rgba(0,0,0,0.35);
+  border-color: rgba(91,141,239,0.14);
+  transform: translateY(-4px);
+  box-shadow: 0 12px 32px rgba(0,0,0,0.40), 0 0 0 1px rgba(91,141,239,0.05);
+}
+.link-item:hover::before {
+  opacity: 1;
 }
 .link-item a {
   text-decoration: none;
@@ -205,17 +219,19 @@ function truncate(str) {
   height: 100%;
   padding: 0 6px;
   box-sizing: border-box;
+  position: relative;
+  z-index: 1;
 }
 .link-icon {
   width: 26px;
   height: 26px;
   margin: 4px auto;
   object-fit: contain;
-  border-radius: 4px;
-  transition: transform 0.3s ease;
+  border-radius: 6px;
+  transition: transform 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
 }
 .link-item:hover .link-icon {
-  transform: scale(1.12);
+  transform: scale(1.15);
 }
 .link-text {
   padding: 0 2px;
@@ -231,12 +247,16 @@ function truncate(str) {
   white-space: normal;
   line-height: 1.2;
   min-height: 1.4em;
-  color: rgba(245,245,247,0.75);
+  color: rgba(245,245,247,0.72);
+  transition: color 0.2s;
+}
+.link-item:hover .link-text {
+  color: rgba(245,245,247,0.92);
 }
 
 /* ========== 动画样式 ========== */
 .animate-slideUp .link-item {
-  animation: slideUpIn 0.6s ease-out forwards;
+  animation: slideUpIn 0.6s cubic-bezier(0.16, 1, 0.3, 1) forwards;
   opacity: 0;
   transform: translateY(30px);
 }
@@ -246,7 +266,7 @@ function truncate(str) {
 }
 
 .animate-radial .link-item {
-  animation: radialIn 0.5s ease-out forwards;
+  animation: radialIn 0.5s cubic-bezier(0.34, 1.56, 0.64, 1) forwards;
   opacity: 0;
   transform: scale(0.3);
 }
@@ -266,7 +286,7 @@ function truncate(str) {
 }
 
 .animate-slideLeft .link-item {
-  animation: slideLeftIn 0.6s ease-out forwards;
+  animation: slideLeftIn 0.6s cubic-bezier(0.16, 1, 0.3, 1) forwards;
   opacity: 0;
   transform: translateX(-50px);
 }
@@ -276,7 +296,7 @@ function truncate(str) {
 }
 
 .animate-slideRight .link-item {
-  animation: slideRightIn 0.6s ease-out forwards;
+  animation: slideRightIn 0.6s cubic-bezier(0.16, 1, 0.3, 1) forwards;
   opacity: 0;
   transform: translateX(50px);
 }
@@ -286,7 +306,7 @@ function truncate(str) {
 }
 
 .animate-convergeIn .link-item {
-  animation: convergeIn 0.7s ease-out forwards;
+  animation: convergeIn 0.7s cubic-bezier(0.16, 1, 0.3, 1) forwards;
   opacity: 0;
 }
 .animate-convergeIn .link-item:nth-child(6n+1),
@@ -318,7 +338,7 @@ function truncate(str) {
 }
 
 .animate-flipIn .link-item {
-  animation: flipIn 0.7s ease-out forwards;
+  animation: flipIn 0.7s cubic-bezier(0.16, 1, 0.3, 1) forwards;
   opacity: 0;
   transform: rotateY(-90deg);
 }

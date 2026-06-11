@@ -2,7 +2,7 @@
   <div class="card-manage">
     <div class="card-header">
       <div class="header-content">
-        <h2 class="page-title">管理网站导航卡片，支持主菜单和子菜单分类</h2>
+        <h2 class="page-title">卡片管理 · 支持主菜单和子菜单分类</h2>
       </div>
       <div class="card-add">
         <select v-model="selectedMenuId" class="input narrow" @change="onMenuChange">
@@ -18,7 +18,7 @@
           <input v-model="newCardLogo" placeholder="logo链接(可选)" class="input wide" />
           <div v-if="fetchingIcon" class="fetching-loader"></div>
         </div>
-        <button class="btn" @click="addCard">
+        <button class="btn btn-primary" @click="addCard">
           <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
             <path d="M12 5v14M5 12h14"/>
           </svg>
@@ -62,11 +62,11 @@
 
 <script setup>
 import { ref, onMounted, watch, computed } from 'vue';
-import { 
-  getMenus, 
-  getCards, 
-  addCard as apiAddCard, 
-  updateCard as apiUpdateCard, 
+import {
+  getMenus,
+  getCards,
+  addCard as apiAddCard,
+  updateCard as apiUpdateCard,
   deleteCard as apiDeleteCard,
   fetchIcon
 } from '../../api';
@@ -137,11 +137,11 @@ async function addCard() {
     return;
   }
   try {
-    await apiAddCard({ 
-      menu_id: Number(selectedMenuId.value), 
+    await apiAddCard({
+      menu_id: Number(selectedMenuId.value),
       sub_menu_id: selectedSubMenuId.value ? Number(selectedSubMenuId.value) : null,
-      title: newCardTitle.value, 
-      url: newCardUrl.value, 
+      title: newCardTitle.value,
+      url: newCardUrl.value,
       logo_url: newCardLogo.value || '',
       desc: '',
       order: 0
@@ -188,12 +188,10 @@ async function deleteCard(id) {
 .card-header {
   background: #1E1E1E;
   border: 1px solid rgba(255,255,255,0.04);
-  border-radius: 14px;
+  border-radius: 16px;
   padding: 18px 24px;
   margin-bottom: 16px;
-  color: #F5F5F7;
   width: 100%;
-  text-align: center;
   box-sizing: border-box;
 }
 
@@ -203,10 +201,10 @@ async function deleteCard(id) {
 }
 
 .page-title {
-  font-size: 0.95rem;
+  font-size: 0.9rem;
   font-weight: 500;
   margin: 0;
-  opacity: 0.50;
+  color: rgba(245,245,247,0.45);
 }
 
 .card-add {
@@ -221,7 +219,7 @@ async function deleteCard(id) {
 .card-card {
   background: #1E1E1E;
   border: 1px solid rgba(255,255,255,0.04);
-  border-radius: 14px;
+  border-radius: 16px;
   overflow-x: auto;
   width: 100%;
 }
@@ -238,14 +236,14 @@ async function deleteCard(id) {
   text-align: left;
   border-bottom: 1px solid rgba(255,255,255,0.03);
   white-space: nowrap;
-  color: rgba(245,245,247,0.65);
+  color: rgba(245,245,247,0.60);
   font-size: 13px;
 }
 
 .card-table th {
   background: rgba(255,255,255,0.02);
   font-weight: 600;
-  color: rgba(245,245,247,0.40);
+  color: rgba(245,245,247,0.35);
   font-size: 11px;
   text-transform: uppercase;
   letter-spacing: 0.6px;
@@ -285,7 +283,6 @@ async function deleteCard(id) {
   color: rgba(245,245,247,0.20);
 }
 .input.narrow { width: 120px; }
-.input.medium { width: 140px; }
 .input.wide { width: 180px; }
 
 .logo-input-wrapper {
@@ -314,13 +311,14 @@ async function deleteCard(id) {
 .table-input {
   width: 100%;
   min-width: 40px;
-  padding: 5px 6px;
+  padding: 6px 8px;
   border-radius: 6px;
   border: 1.5px solid transparent;
   background: transparent;
-  color: rgba(245,245,247,0.75);
+  color: rgba(245,245,247,0.72);
   font-size: 13px;
   transition: all 0.2s ease;
+  box-sizing: border-box;
 }
 .table-input:hover {
   background: rgba(255,255,255,0.03);
@@ -343,8 +341,6 @@ async function deleteCard(id) {
   padding: 8px 16px;
   border: none;
   border-radius: 8px;
-  background: rgba(91,141,239,0.50);
-  color: #F5F5F7;
   cursor: pointer;
   font-weight: 500;
   font-size: 0.85rem;
@@ -355,7 +351,12 @@ async function deleteCard(id) {
   white-space: nowrap;
   height: 36px;
 }
-.btn:hover {
+
+.btn-primary {
+  background: rgba(91,141,239,0.50);
+  color: #F5F5F7;
+}
+.btn-primary:hover {
   background: #5B8DEF;
   transform: translateY(-1px);
   box-shadow: 0 4px 12px rgba(91,141,239,0.20);
@@ -370,8 +371,8 @@ async function deleteCard(id) {
 }
 
 .btn-danger {
-  background: rgba(239,68,68,0.10);
-  color: rgba(239,68,68,0.70);
+  background: rgba(239,68,68,0.08);
+  color: rgba(239,68,68,0.65);
 }
 .btn-danger:hover {
   background: rgba(239,68,68,0.15);
@@ -381,11 +382,11 @@ async function deleteCard(id) {
 
 @media (max-width: 768px) {
   .card-manage { width: 100%; }
-  .card-header { padding: 14px; border-radius: 10px; }
-  .page-title { font-size: 0.9rem; }
+  .card-header { padding: 14px; border-radius: 12px; }
+  .page-title { font-size: 0.85rem; }
   .card-add { flex-direction: column; gap: 8px; }
-  .input.narrow, .input.medium, .input.wide { width: 100%; }
+  .input.narrow, .input.wide { width: 100%; }
   .card-table th, .card-table td { padding: 8px 10px; font-size: 11px; }
   .order-input { width: 50px; }
 }
-</style> 
+</style>

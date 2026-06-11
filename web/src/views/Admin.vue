@@ -1,7 +1,9 @@
 <template>
   <div v-if="!isLoggedIn" class="login-container">
     <div class="login-card">
-      <h2 class="login-title">后台管理登录</h2>
+      <div class="login-decoration"></div>
+      <h2 class="login-title">后台管理</h2>
+      <p class="login-subtitle">Nav-Item 管理系统</p>
       <div class="login-form">
         <input v-model="username" type="text" placeholder="用户名" class="login-input" @keyup.enter="handleLogin" />
         <div class="password-input-wrapper">
@@ -13,65 +15,90 @@
             @keyup.enter="handleLogin"
           />
           <span class="toggle-password" @click="showPassword = !showPassword">
-            <svg v-if="showPassword" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#2566d8" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M1 12s4-7 11-7 11 7 11 7-4 7-11 7S1 12 1 12z"/><circle cx="12" cy="12" r="3"/></svg>
-            <svg v-else width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#2566d8" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M17.94 17.94A10.94 10.94 0 0 1 12 19c-7 0-11-7-11-7a21.77 21.77 0 0 1 5.06-6.06"/><path d="M1 1l22 22"/><path d="M9.53 9.53A3 3 0 0 0 12 15a3 3 0 0 0 2.47-5.47"/></svg>
+            <svg v-if="showPassword" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M1 12s4-7 11-7 11 7 11 7-4 7-11 7S1 12 1 12z"/><circle cx="12" cy="12" r="3"/></svg>
+            <svg v-else width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M17.94 17.94A10.94 10.94 0 0 1 12 19c-7 0-11-7-11-7a21.77 21.77 0 0 1 5.06-6.06"/><path d="M1 1l22 22"/><path d="M9.53 9.53A3 3 0 0 0 12 15a3 3 0 0 0 2.47-5.47"/></svg>
           </span>
         </div>
-        <div class="login-buttons">
-          <button @click="goHome" class="back-btn">
-            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-              <path d="M19 12H5M12 19l-7-7 7-7"/>
-            </svg>
-            返回首页
-          </button>
-          <button @click="handleLogin" class="login-btn" :disabled="loading">
-            {{ loading ? '登录中...' : '登录' }}
-          </button>
-        </div>
+        <button @click="handleLogin" class="login-btn" :disabled="loading">
+          {{ loading ? '登录中...' : '登录' }}
+        </button>
+        <button @click="goHome" class="back-btn">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M19 12H5M12 19l-7-7 7-7"/>
+          </svg>
+          返回首页
+        </button>
         <p v-if="loginError" class="login-error">{{ loginError }}</p>
       </div>
     </div>
   </div>
-  
+
   <div v-else class="admin-layout">
-    <aside class="admin-sider" :class="{ open: siderOpen }" @click.self="closeSider">
-      <div class="logo clickable" @click="page='welcome'; closeSider()"><span class="logo-icon">◆</span> Admin</div>
-      <ul class="menu-list">
-        <li :class="{active: page==='menu'}" @click="page='menu'; closeSider()"><span class="menu-icon">⊞</span> 栏目管理</li>
-        <li :class="{active: page==='card'}" @click="page='card'; closeSider()"><span class="menu-icon">⊡</span> 卡片管理</li>
-        <li :class="{active: page==='ad'}" @click="page='ad'; closeSider()"><span class="menu-icon">⊟</span> 广告管理</li>
-        <li :class="{active: page==='friend'}" @click="page='friend'; closeSider()"><span class="menu-icon">⇲</span> 友链管理</li>
-        <li :class="{active: page==='user'}" @click="page='user'; closeSider()"><span class="menu-icon">◎</span> 用户管理</li>
-        <li :class="{active: page==='tools'}" @click="page='tools'; closeSider()"><span class="menu-icon">⚙</span> 工具箱</li>
-      </ul>
+    <aside class="admin-sider" :class="{ open: siderOpen }">
+      <!-- 遮罩层 -->
+      <div class="sider-overlay" @click="closeSider"></div>
+      <div class="sider-inner">
+        <div class="logo" @click="page='welcome'; closeSider()">
+          <span class="logo-icon">
+            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><rect x="3" y="3" width="7" height="7" rx="1"/><rect x="14" y="3" width="7" height="7" rx="1"/><rect x="3" y="14" width="7" height="7" rx="1"/><rect x="14" y="14" width="7" height="7" rx="1"/></svg>
+          </span>
+          Admin
+        </div>
+        <ul class="menu-list">
+          <li :class="{active: page==='menu'}" @click="page='menu'; closeSider()">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 3h7v7H3zM14 3h7v7h-7zM3 14h7v7H3zM14 14h7v7h-7z"/></svg>
+            栏目管理
+          </li>
+          <li :class="{active: page==='card'}" @click="page='card'; closeSider()">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="4" width="20" height="16" rx="2"/><path d="M2 10h20"/></svg>
+            卡片管理
+          </li>
+          <li :class="{active: page==='ad'}" @click="page='ad'; closeSider()">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="3" width="20" height="14" rx="2"/><path d="M8 21h8"/><path d="M12 17v4"/></svg>
+            广告管理
+          </li>
+          <li :class="{active: page==='friend'}" @click="page='friend'; closeSider()">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"/><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"/></svg>
+            友链管理
+          </li>
+          <li :class="{active: page==='user'}" @click="page='user'; closeSider()">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="8" r="4"/><path d="M20 21a8 8 0 1 0-16 0"/></svg>
+            用户管理
+          </li>
+          <li :class="{active: page==='tools'}" @click="page='tools'; closeSider()">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14.7 6.3a1 1 0 0 0 0 1.4l1.6 1.6a1 1 0 0 0 1.4 0l3.77-3.77a6 6 0 0 1-7.94 7.94l-6.91 6.91a2.12 2.12 0 0 1-3-3l6.91-6.91a6 6 0 0 1 7.94-7.94l-3.76 3.76z"/></svg>
+            工具箱
+          </li>
+        </ul>
+      </div>
     </aside>
     <main class="admin-main">
       <div class="admin-header">
         <button class="menu-toggle" @click="toggleSider">
-          &#9776;
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 12h18M3 6h18M3 18h18"/></svg>
         </button>
         <div class="header-title">{{ pageTitle }}</div>
         <div class="header-actions">
           <span class="home-icon" @click="goHome" title="进入主页">
-            <svg width="24" height="24" viewBox="0 0 24 24" fill="none"><path d="M3 10.5L12 4l9 6.5V20a1 1 0 0 1-1 1h-4a1 1 0 0 1-1-1v-4h-4v4a1 1 0 0 1-1 1H4a1 1 0 0 1-1-1V10.5z" stroke="#2566d8" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+            <svg width="22" height="22" viewBox="0 0 24 24" fill="none"><path d="M3 10.5L12 4l9 6.5V20a1 1 0 0 1-1 1h-4a1 1 0 0 1-1-1v-4h-4v4a1 1 0 0 1-1 1H4a1 1 0 0 1-1-1V10.5z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
           </span>
           <button class="btn logout-btn" @click="logout">退出登录</button>
         </div>
       </div>
       <div class="admin-content">
         <div v-if="page==='welcome'" class="welcome-page">
-          <h2 class="welcome-title">欢迎您进入 Nav-Item 后台管理系统</h2>
+          <h2 class="welcome-title">欢迎回来</h2>
           <div class="welcome-cards">
             <div class="welcome-card">
-              <div class="welcome-icon time-icon">
-                <svg width="32" height="32" viewBox="0 0 24 24" fill="none"><circle cx="12" cy="12" r="10" stroke="#1abc9c" stroke-width="2"/><path d="M12 6v6l4 2" stroke="#1abc9c" stroke-width="2" stroke-linecap="round"/></svg>
+              <div class="welcome-icon">
+                <svg width="28" height="28" viewBox="0 0 24 24" fill="none"><circle cx="12" cy="12" r="10" stroke="currentColor" stroke-width="1.5"/><path d="M12 6v6l4 2" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg>
               </div>
               <div class="welcome-label">上次登录时间</div>
               <div class="welcome-value">{{ lastLoginTime || '--' }}</div>
             </div>
             <div class="welcome-card">
-              <div class="welcome-icon ip-icon">
-                <svg width="32" height="32" viewBox="0 0 24 24" fill="none"><circle cx="12" cy="12" r="10" stroke="#1abc9c" stroke-width="2"/><path d="M12 8a4 4 0 1 1 0 8 4 4 0 0 1 0-8z" stroke="#1abc9c" stroke-width="2"/><circle cx="12" cy="12" r="2" fill="#1abc9c"/></svg>
+              <div class="welcome-icon">
+                <svg width="28" height="28" viewBox="0 0 24 24" fill="none"><circle cx="12" cy="12" r="10" stroke="currentColor" stroke-width="1.5"/><path d="M12 8a4 4 0 1 1 0 8 4 4 0 0 1 0-8z" stroke="currentColor" stroke-width="1.5"/><circle cx="12" cy="12" r="2" fill="currentColor"/></svg>
               </div>
               <div class="welcome-label">上次登录IP</div>
               <div class="welcome-value">{{ lastLoginIp || '--' }}</div>
@@ -129,7 +156,6 @@ onMounted(() => {
   const token = localStorage.getItem('token');
   isLoggedIn.value = !!token;
   if (isLoggedIn.value) {
-    // 拉取用户信息
     fetchLastLoginInfo();
   }
 });
@@ -151,10 +177,10 @@ async function handleLogin() {
     loginError.value = '请输入用户名和密码';
     return;
   }
-  
+
   loading.value = true;
   loginError.value = '';
-  
+
   try {
     const response = await login(username.value, password.value);
     if (response.data.token) {
@@ -197,7 +223,6 @@ function closeSider() {
   align-items: center;
   min-height: 100vh;
   background: #121212;
-  font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
   position: relative;
   overflow: hidden;
 }
@@ -220,12 +245,13 @@ function closeSider() {
 .login-card {
   background: #1E1E1E;
   border: 1px solid rgba(255,255,255,0.06);
-  border-radius: 18px;
+  border-radius: 20px;
   box-shadow: 0 25px 80px rgba(0,0,0,0.50);
   padding: 0 36px 36px;
   width: 400px;
   max-width: 90%;
   position: relative;
+  overflow: hidden;
   animation: cardAppear 0.5s ease;
 }
 @keyframes cardAppear {
@@ -233,26 +259,43 @@ function closeSider() {
   to { opacity: 1; transform: translateY(0) scale(1); }
 }
 
+.login-decoration {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 3px;
+  background: linear-gradient(90deg, transparent, rgba(91,141,239,0.40), #5B8DEF, rgba(91,141,239,0.40), transparent);
+}
+
 .login-title {
   text-align: center;
   font-size: 1.5rem;
-  font-weight: 600;
+  font-weight: 700;
   color: #F5F5F7;
-  margin-bottom: 24px;
-  padding-top: 32px;
-  letter-spacing: 0.3px;
+  margin-bottom: 4px;
+  padding-top: 36px;
+  letter-spacing: 0.5px;
+}
+
+.login-subtitle {
+  text-align: center;
+  font-size: 13px;
+  color: rgba(245,245,247,0.30);
+  margin: 0 0 28px;
+  font-weight: 400;
 }
 
 .login-form {
   display: flex;
   flex-direction: column;
-  gap: 16px;
+  gap: 14px;
 }
 
 .login-input {
   padding: 12px 16px;
   border: 1.5px solid rgba(255,255,255,0.08);
-  border-radius: 10px;
+  border-radius: 12px;
   font-size: 14px;
   background: rgba(255,255,255,0.04);
   color: #F5F5F7;
@@ -263,77 +306,13 @@ function closeSider() {
   transition: all 0.2s ease;
 }
 .login-input::placeholder {
-  color: rgba(245,245,247,0.30);
+  color: rgba(245,245,247,0.25);
 }
 .login-input:focus {
   outline: none;
   border-color: rgba(91,141,239,0.30);
   background: rgba(255,255,255,0.06);
   box-shadow: 0 0 0 3px rgba(91,141,239,0.06);
-}
-
-.login-buttons {
-  display: flex;
-  gap: 10px;
-  align-items: center;
-}
-
-.back-btn {
-  background: rgba(255,255,255,0.04);
-  color: rgba(245,245,247,0.55);
-  border: 1.5px solid rgba(255,255,255,0.06);
-  border-radius: 10px;
-  padding: 12px 16px;
-  font-size: 14px;
-  font-weight: 500;
-  cursor: pointer;
-  transition: all 0.2s;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  gap: 8px;
-  flex: 1;
-}
-.back-btn:hover {
-  background: rgba(255,255,255,0.06);
-  color: rgba(245,245,247,0.80);
-  border-color: rgba(255,255,255,0.10);
-}
-
-.login-btn {
-  background: rgba(91,141,239,0.60);
-  color: #F5F5F7;
-  border: none;
-  border-radius: 10px;
-  padding: 12px;
-  font-size: 14px;
-  font-weight: 600;
-  cursor: pointer;
-  transition: all 0.2s;
-  flex: 2;
-}
-.login-btn:hover:not(:disabled) {
-  background: #5B8DEF;
-  transform: translateY(-1px);
-  box-shadow: 0 4px 16px rgba(91,141,239,0.25);
-}
-.login-btn:disabled {
-  background: rgba(255,255,255,0.06);
-  color: rgba(245,245,247,0.25);
-  cursor: not-allowed;
-  transform: none;
-  box-shadow: none;
-}
-
-.login-error {
-  color: #ef4444;
-  text-align: center;
-  margin: 0;
-  font-size: 13px;
-  background: rgba(239,68,68,0.08);
-  padding: 8px 12px;
-  border-radius: 8px;
-  border: 1px solid rgba(239,68,68,0.12);
 }
 
 .password-input-wrapper {
@@ -355,14 +334,89 @@ function closeSider() {
   background: none;
   border: none;
   cursor: pointer;
-  color: rgba(91,141,239,0.60);
+  color: rgba(245,245,247,0.30);
   margin: 0;
   padding: 0;
   z-index: 2;
   transition: color 0.2s;
 }
 .toggle-password:hover {
-  color: #5B8DEF;
+  color: rgba(245,245,247,0.60);
+}
+
+.login-btn {
+  background: linear-gradient(135deg, rgba(91,141,239,0.60), rgba(91,141,239,0.40));
+  color: #F5F5F7;
+  border: none;
+  border-radius: 12px;
+  padding: 12px;
+  font-size: 15px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
+  margin-top: 4px;
+  position: relative;
+  overflow: hidden;
+}
+.login-btn::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(135deg, #5B8DEF, #7BA4F9);
+  opacity: 0;
+  transition: opacity 0.3s;
+  border-radius: 12px;
+}
+.login-btn:hover:not(:disabled) {
+  transform: translateY(-1px);
+  box-shadow: 0 6px 20px rgba(91,141,239,0.25);
+}
+.login-btn:hover:not(:disabled)::before {
+  opacity: 1;
+}
+.login-btn:disabled {
+  background: rgba(255,255,255,0.06);
+  color: rgba(245,245,247,0.25);
+  cursor: not-allowed;
+  transform: none;
+  box-shadow: none;
+}
+.login-btn span {
+  position: relative;
+  z-index: 1;
+}
+
+.back-btn {
+  background: rgba(255,255,255,0.03);
+  color: rgba(245,245,247,0.45);
+  border: 1px solid rgba(255,255,255,0.06);
+  border-radius: 12px;
+  padding: 10px 16px;
+  font-size: 13px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.2s;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  width: 100%;
+}
+.back-btn:hover {
+  background: rgba(255,255,255,0.05);
+  color: rgba(245,245,247,0.70);
+  border-color: rgba(255,255,255,0.10);
+}
+
+.login-error {
+  color: #ef4444;
+  text-align: center;
+  margin: 0;
+  font-size: 13px;
+  background: rgba(239,68,68,0.08);
+  padding: 8px 12px;
+  border-radius: 10px;
+  border: 1px solid rgba(239,68,68,0.12);
 }
 
 /* ========== 后台布局 ========== */
@@ -370,98 +424,109 @@ function closeSider() {
   display: flex;
   min-height: 100vh;
   background: #121212;
-  font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
 }
 
 /* ========== 侧边栏 ========== */
 .admin-sider {
-  width: 220px;
-  background: #1A1A1E;
-  color: #F5F5F7;
-  display: flex;
-  flex-direction: column;
-  padding-top: 0;
+  width: 240px;
+  flex-shrink: 0;
+  z-index: 100;
+}
+
+.sider-inner {
+  width: 240px;
   position: fixed;
   top: 0;
   left: 0;
   height: 100vh;
-  z-index: 100;
-  overflow-y: auto;
+  background: #16161a;
+  display: flex;
+  flex-direction: column;
   border-right: 1px solid rgba(255,255,255,0.04);
+  overflow-y: auto;
+}
+
+.sider-overlay {
+  display: none;
 }
 
 .logo {
-  font-size: 1.3rem;
+  font-size: 1.2rem;
   font-weight: 700;
-  text-align: center;
-  padding: 22px 20px 18px;
-  letter-spacing: 1px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 22px 24px 18px;
+  letter-spacing: 0.5px;
   color: #F5F5F7;
   cursor: pointer;
   user-select: none;
-  transition: color 0.2s;
   border-bottom: 1px solid rgba(255,255,255,0.04);
+  transition: color 0.2s;
 }
-.logo.clickable:hover {
+.logo:hover {
   color: #5B8DEF;
 }
 .logo-icon {
   color: #5B8DEF;
-  margin-right: 4px;
+  display: flex;
+  align-items: center;
 }
 
 .menu-list {
   list-style: none;
-  padding: 10px 0;
+  padding: 12px 10px;
   margin: 0;
   flex: 1;
 }
 .menu-list li {
-  padding: 12px 20px;
-  margin: 2px 10px;
+  padding: 10px 14px;
+  margin: 2px 0;
   cursor: pointer;
   font-size: 13px;
-  border-radius: 8px;
+  border-radius: 10px;
   transition: all 0.2s ease;
-  color: rgba(245,245,247,0.45);
+  color: rgba(245,245,247,0.40);
   font-weight: 500;
   display: flex;
   align-items: center;
   gap: 10px;
 }
+.menu-list li svg {
+  width: 18px;
+  height: 18px;
+  flex-shrink: 0;
+  opacity: 0.5;
+}
 .menu-list li:hover {
   background: rgba(255,255,255,0.04);
-  color: rgba(245,245,247,0.70);
+  color: rgba(245,245,247,0.65);
+}
+.menu-list li:hover svg {
+  opacity: 0.7;
 }
 .menu-list li.active {
   background: rgba(91,141,239,0.10);
   color: #5B8DEF;
   font-weight: 600;
 }
-.menu-icon {
-  font-size: 16px;
-  opacity: 0.7;
-}
-.menu-list li.active .menu-icon {
+.menu-list li.active svg {
   opacity: 1;
+  color: #5B8DEF;
 }
 
 /* ========== 主内容区 ========== */
 .admin-main {
   flex: 1;
-  background: #121212;
-  padding: 64px 0 0 220px;
   min-width: 0;
-  overflow-x: auto;
   display: flex;
   flex-direction: column;
-  align-items: stretch;
+  padding-top: 64px;
 }
 
 /* ========== 顶栏 ========== */
 .admin-header {
   display: flex;
-  justify-content: center;
   align-items: center;
   height: 64px;
   padding: 0 32px;
@@ -470,7 +535,7 @@ function closeSider() {
   -webkit-backdrop-filter: blur(12px);
   position: fixed;
   top: 0;
-  left: 220px;
+  left: 240px;
   right: 0;
   z-index: 99;
   border-bottom: 1px solid rgba(255,255,255,0.04);
@@ -479,10 +544,10 @@ function closeSider() {
 .header-title {
   flex: 1;
   text-align: center;
-  font-size: 1.05rem;
+  font-size: 1rem;
   font-weight: 500;
   letter-spacing: 0.5px;
-  color: rgba(245,245,247,0.60);
+  color: rgba(245,245,247,0.55);
 }
 
 .header-actions {
@@ -498,17 +563,17 @@ function closeSider() {
   border-radius: 8px;
   transition: all 0.2s;
   padding: 8px;
-  color: rgba(245,245,247,0.35);
+  color: rgba(245,245,247,0.30);
 }
 .home-icon:hover {
   background: rgba(255,255,255,0.04);
-  color: rgba(245,245,247,0.70);
+  color: rgba(245,245,247,0.65);
 }
 
 .btn.logout-btn {
-  background: rgba(239,68,68,0.08);
-  color: rgba(239,68,68,0.70);
-  border: 1px solid rgba(239,68,68,0.12);
+  background: rgba(239,68,68,0.06);
+  color: rgba(239,68,68,0.60);
+  border: 1px solid rgba(239,68,68,0.10);
   border-radius: 8px;
   padding: 7px 16px;
   font-size: 13px;
@@ -517,8 +582,9 @@ function closeSider() {
   transition: all 0.2s;
 }
 .btn.logout-btn:hover {
-  background: rgba(239,68,68,0.15);
+  background: rgba(239,68,68,0.12);
   color: #ef4444;
+  border-color: rgba(239,68,68,0.20);
 }
 
 /* ========== 内容区 ========== */
@@ -527,7 +593,7 @@ function closeSider() {
   display: flex;
   flex-direction: column;
   align-items: center;
-  padding: 24px 24px 0;
+  padding: 28px 28px 0;
 }
 
 /* ========== 底部版权 ========== */
@@ -537,12 +603,12 @@ function closeSider() {
   padding: 2rem 0 1.5rem;
 }
 .admin-copyright {
-  color: rgba(245,245,247,0.20);
+  color: rgba(245,245,247,0.18);
   font-size: 12px;
   margin: 0;
 }
 .admin-footer .footer-link {
-  color: rgba(245,245,247,0.25);
+  color: rgba(245,245,247,0.22);
   text-decoration: none;
   transition: color 0.2s;
 }
@@ -560,7 +626,7 @@ function closeSider() {
 }
 .welcome-title {
   text-align: center;
-  font-size: 1.3rem;
+  font-size: 1.4rem;
   font-weight: 600;
   color: #F5F5F7;
   margin-bottom: 32px;
@@ -575,19 +641,19 @@ function closeSider() {
 .welcome-card {
   background: #1E1E1E;
   border: 1px solid rgba(255,255,255,0.04);
-  border-radius: 16px;
+  border-radius: 18px;
   box-shadow: 0 2px 16px rgba(0,0,0,0.20);
-  padding: 24px 32px;
+  padding: 28px 32px;
   min-width: 220px;
   display: flex;
   flex-direction: column;
   align-items: flex-start;
-  transition: all 0.2s ease;
+  transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
 }
 .welcome-card:hover {
   border-color: rgba(91,141,239,0.10);
-  box-shadow: 0 8px 28px rgba(0,0,0,0.30);
-  transform: translateY(-2px);
+  box-shadow: 0 8px 32px rgba(0,0,0,0.30);
+  transform: translateY(-3px);
 }
 .welcome-icon {
   width: 44px;
@@ -598,11 +664,11 @@ function closeSider() {
   align-items: center;
   justify-content: center;
   margin-bottom: 14px;
+  color: #5B8DEF;
 }
-.welcome-icon svg { opacity: 0.8; }
 .welcome-label {
   font-size: 13px;
-  color: rgba(245,245,247,0.45);
+  color: rgba(245,245,247,0.40);
   margin-bottom: 6px;
   font-weight: 500;
 }
@@ -633,29 +699,41 @@ function closeSider() {
 }
 
 @media (max-width: 768px) {
-  .admin-sider {
+  .sider-inner {
     width: 75vw;
     max-width: 280px;
     transform: translateX(-100%);
     transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
     box-shadow: 4px 0 24px rgba(0,0,0,0.35);
   }
-  .admin-sider.open {
+  .admin-sider.open .sider-inner {
     transform: translateX(0);
   }
+  .sider-overlay {
+    display: block;
+    position: fixed;
+    inset: 0;
+    background: rgba(0,0,0,0.50);
+    opacity: 0;
+    visibility: hidden;
+    transition: all 0.3s;
+  }
+  .admin-sider.open .sider-overlay {
+    opacity: 1;
+    visibility: visible;
+  }
   .admin-main {
-    padding: 56px 0 0 0 !important;
+    padding-top: 56px;
   }
   .admin-header {
-    left: 0 !important;
-    width: 100vw !important;
-    padding: 0 12px !important;
+    left: 0;
+    width: 100vw;
+    padding: 0 12px;
     height: 56px;
   }
   .header-title {
-    font-size: 0.95rem !important;
-    text-align: left !important;
-    margin-left: 0 !important;
+    font-size: 0.9rem;
+    text-align: left;
     white-space: nowrap;
     overflow: hidden;
     text-overflow: ellipsis;
@@ -673,7 +751,6 @@ function closeSider() {
     background: rgba(255,255,255,0.04);
     border: 1px solid rgba(255,255,255,0.06);
     border-radius: 8px;
-    font-size: 1.3rem;
     cursor: pointer;
     color: rgba(245,245,247,0.50);
     z-index: 300;
@@ -684,7 +761,7 @@ function closeSider() {
     background: rgba(255,255,255,0.06);
   }
   .admin-content {
-    padding: 16px 12px 0;
+    padding: 20px 16px 0;
   }
   .welcome-page {
     margin-top: 24px;
@@ -693,9 +770,9 @@ function closeSider() {
     gap: 16px;
   }
   .welcome-card {
-    padding: 18px 20px;
+    padding: 20px 22px;
     min-width: 0;
     width: 100%;
   }
 }
-</style> 
+</style>

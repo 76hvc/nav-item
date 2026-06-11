@@ -1,26 +1,23 @@
 <template>
   <div class="user-manage">
-    <div class="user-header">
-    </div>
-    
     <div class="user-card">
       <div class="password-section">
         <h3 class="section-title">修改密码</h3>
         <div class="password-form">
           <div class="form-group">
-            <label>当前密码：</label>
+            <label>当前密码</label>
             <input v-model="oldPassword" type="password" placeholder="请输入当前密码" class="input" />
           </div>
           <div class="form-group">
-            <label>新密码：</label>
+            <label>新密码</label>
             <input v-model="newPassword" type="password" placeholder="请输入新密码" class="input" />
           </div>
           <div class="form-group">
-            <label>确认新密码：</label>
+            <label>确认新密码</label>
             <input v-model="confirmPassword" type="password" placeholder="请再次输入新密码" class="input" />
           </div>
           <div class="form-actions">
-            <button @click="handleChangePassword" class="btn" :disabled="loading">
+            <button @click="handleChangePassword" class="btn btn-primary" :disabled="loading">
               {{ loading ? '修改中...' : '修改密码' }}
             </button>
           </div>
@@ -57,20 +54,20 @@ async function handleChangePassword() {
     showMessage('请填写所有密码字段', 'error');
     return;
   }
-  
+
   if (newPassword.value !== confirmPassword.value) {
     showMessage('两次输入的新密码不一致', 'error');
     return;
   }
-  
+
   if (newPassword.value.length < 6) {
     showMessage('新密码长度至少6位', 'error');
     return;
   }
-  
+
   loading.value = true;
   message.value = '';
-  
+
   try {
     await changePassword(oldPassword.value, newPassword.value);
     showMessage('密码修改成功', 'success');
@@ -89,7 +86,7 @@ function showMessage(text, type) {
   messageType.value = type;
   if (text === '密码修改成功' && type === 'success') {
     setTimeout(() => {
-      message.value = '2秒后自动退出登录,请使用新密码重新登录...';
+      message.value = '2秒后自动退出登录，请使用新密码重新登录...';
       setTimeout(() => {
         localStorage.removeItem('token');
         window.location.reload();
@@ -113,8 +110,8 @@ function showMessage(text, type) {
 .user-card {
   background: #1E1E1E;
   border: 1px solid rgba(255,255,255,0.04);
-  border-radius: 16px;
-  padding: 24px 28px;
+  border-radius: 18px;
+  padding: 28px 32px;
 }
 
 .section-title {
@@ -122,8 +119,8 @@ function showMessage(text, type) {
   font-size: 1.1rem;
   font-weight: 600;
   color: #F5F5F7;
-  margin-bottom: 20px;
-  padding-bottom: 10px;
+  margin: 0 0 24px;
+  padding-bottom: 14px;
   border-bottom: 1px solid rgba(255,255,255,0.04);
 }
 
@@ -137,14 +134,14 @@ function showMessage(text, type) {
 }
 
 .form-group {
-  margin-bottom: 16px;
+  margin-bottom: 18px;
 }
 
 .form-group label {
   display: block;
   margin-bottom: 6px;
   font-weight: 500;
-  color: rgba(245,245,247,0.55);
+  color: rgba(245,245,247,0.50);
   font-size: 13px;
 }
 
@@ -173,17 +170,20 @@ function showMessage(text, type) {
 }
 
 .btn {
-  background: rgba(91,141,239,0.50);
-  color: #F5F5F7;
+  padding: 10px 28px;
   border: none;
   border-radius: 10px;
-  padding: 10px 28px;
   cursor: pointer;
   font-size: 0.9rem;
   font-weight: 500;
   transition: all 0.2s;
 }
-.btn:hover:not(:disabled) {
+
+.btn-primary {
+  background: rgba(91,141,239,0.50);
+  color: #F5F5F7;
+}
+.btn-primary:hover:not(:disabled) {
   background: #5B8DEF;
   transform: translateY(-1px);
   box-shadow: 0 4px 12px rgba(91,141,239,0.20);
@@ -216,8 +216,8 @@ function showMessage(text, type) {
 
 @media (max-width: 768px) {
   .user-manage { width: 100%; }
-  .user-card { padding: 16px; border-radius: 12px; }
+  .user-card { padding: 18px 20px; border-radius: 14px; }
   .section-title { font-size: 1rem; }
   .btn { width: 100%; }
 }
-</style> 
+</style>

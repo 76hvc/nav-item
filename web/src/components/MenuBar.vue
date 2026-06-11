@@ -1,8 +1,8 @@
 <template>
   <nav class="menu-bar">
-    <div 
-      v-for="menu in menus" 
-      :key="menu.id" 
+    <div
+      v-for="menu in menus"
+      :key="menu.id"
       class="menu-item"
       @mouseenter="showSubMenu(menu.id)"
       @mouseleave="hideSubMenu(menu.id)"
@@ -11,17 +11,18 @@
         @click="$emit('select', menu)"
         :class="{active: menu.id === activeId}"
       >
+        <span class="menu-dot" :class="{ 'dot-active': menu.id === activeId }"></span>
         <span class="menu-label">{{ menu.name }}</span>
       </button>
-      
+
       <!-- 二级菜单 -->
-      <div 
-        v-if="menu.subMenus && menu.subMenus.length > 0" 
+      <div
+        v-if="menu.subMenus && menu.subMenus.length > 0"
         class="sub-menu"
         :class="{ 'show': hoveredMenuId === menu.id }"
       >
-        <button 
-          v-for="subMenu in menu.subMenus" 
+        <button
+          v-for="subMenu in menu.subMenus"
           :key="subMenu.id"
           @click="$emit('select', subMenu, menu)"
           :class="{active: subMenu.id === activeSubMenuId}"
@@ -37,10 +38,10 @@
 <script setup>
 import { ref } from 'vue';
 
-const props = defineProps({ 
-  menus: Array, 
+const props = defineProps({
+  menus: Array,
   activeId: Number,
-  activeSubMenuId: Number 
+  activeSubMenuId: Number
 });
 
 const hoveredMenuId = ref(null);
@@ -55,7 +56,7 @@ function hideSubMenu(menuId) {
     if (hoveredMenuId.value === menuId) {
       hoveredMenuId.value = null;
     }
-  }, 100);
+  }, 150);
 }
 </script>
 
@@ -76,19 +77,34 @@ function hideSubMenu(menuId) {
 .menu-bar button {
   background: rgba(255,255,255,0.03);
   border: 1px solid rgba(255,255,255,0.04);
-  color: rgba(245,245,247,0.55);
+  color: rgba(245,245,247,0.50);
   font-size: 14px;
   font-weight: 500;
   padding: 0.5rem 1.4rem;
   cursor: pointer;
-  transition: all 0.25s ease;
+  transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
   border-radius: 10px;
   letter-spacing: 0.5px;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.menu-dot {
+  width: 5px;
+  height: 5px;
+  border-radius: 50%;
+  background: rgba(255,255,255,0.10);
+  transition: all 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+.dot-active {
+  background: #5B8DEF;
+  box-shadow: 0 0 6px rgba(91,141,239,0.40);
 }
 
 .menu-bar button:hover {
   color: rgba(245,245,247,0.80);
-  background: rgba(255,255,255,0.05);
+  background: rgba(255,255,255,0.06);
   border-color: rgba(255,255,255,0.08);
   transform: translateY(-1px);
 }
@@ -102,21 +118,21 @@ function hideSubMenu(menuId) {
 /* ========== 二级菜单 ========== */
 .sub-menu {
   position: absolute;
-  top: calc(100% + 6px);
+  top: calc(100% + 8px);
   left: 50%;
-  transform: translateX(-50%) translateY(-4px);
-  background: rgba(25,25,30,0.92);
-  backdrop-filter: blur(16px);
-  -webkit-backdrop-filter: blur(16px);
+  transform: translateX(-50%) translateY(-6px);
+  background: rgba(22,22,26,0.92);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
   border-radius: 12px;
   min-width: 120px;
   opacity: 0;
   visibility: hidden;
-  transition: all 0.2s ease;
+  transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
   z-index: 1000;
-  box-shadow: 0 8px 32px rgba(0,0,0,0.45);
+  box-shadow: 0 8px 32px rgba(0,0,0,0.50);
   border: 1px solid rgba(255,255,255,0.06);
-  padding: 5px;
+  padding: 6px;
 }
 
 .sub-menu.show {
@@ -132,7 +148,7 @@ function hideSubMenu(menuId) {
   padding: 0.45rem 1.2rem !important;
   border: none !important;
   background: transparent !important;
-  color: rgba(245,245,247,0.55) !important;
+  color: rgba(245,245,247,0.50) !important;
   font-size: 13px !important;
   font-weight: 400 !important;
   cursor: pointer !important;
@@ -141,12 +157,12 @@ function hideSubMenu(menuId) {
   text-shadow: none !important;
   line-height: 1.5 !important;
   letter-spacing: 0.3px !important;
+  transform: none !important;
 }
 
 .sub-menu-item:hover {
   background: rgba(91,141,239,0.10) !important;
   color: rgba(245,245,247,0.85) !important;
-  transform: none !important;
 }
 
 .sub-menu-item.active {
@@ -175,4 +191,4 @@ function hideSubMenu(menuId) {
     padding: 0.3rem 0.8rem !important;
   }
 }
-</style> 
+</style>

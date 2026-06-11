@@ -2,7 +2,7 @@
   <div class="menu-manage">
     <div class="menu-header">
       <div class="header-content">
-        <h2 class="page-title">管理主菜单和子菜单</h2>
+        <h2 class="page-title">栏目管理 · 管理主菜单和子菜单</h2>
       </div>
       <div class="menu-add">
         <input v-model="newMenuName" placeholder="请输入主菜单名称" class="input" />
@@ -14,7 +14,7 @@
         </button>
       </div>
     </div>
-    
+
     <div class="menu-content">
       <div class="menu-list">
         <div v-for="menu in menus" :key="menu.id" class="menu-item">
@@ -22,7 +22,7 @@
           <div class="main-menu">
             <div class="menu-info">
               <div class="menu-icon">
-                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
                   <path d="M3 3h18v18H3zM9 9h6v6H9z"/>
                 </svg>
               </div>
@@ -35,7 +35,7 @@
             <div class="menu-actions">
               <button class="btn btn-icon expand-btn" @click="toggleSubMenu(menu.id)" :title="menu.showSubMenu ? '收起子菜单' : '展开子菜单'">
                 <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                  <path d="m6 9 6 6 6-6"/>
+                  <path d="m9 18 6-6-6-6"/>
                 </svg>
               </button>
               <button class="btn btn-danger btn-icon" @click="deleteMenu(menu.id)" title="删除主菜单">
@@ -46,13 +46,13 @@
               </button>
             </div>
           </div>
-          
+
           <!-- 子菜单区域 -->
           <div class="sub-menu-section" :class="{ 'expanded': menu.showSubMenu }">
             <div class="sub-menu-header">
               <div class="sub-menu-title">
-                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                  <path d="M9 11H1l8-8 8 8h-8v8z"/>
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                  <path d="M4 6h16M4 12h16M4 18h16"/>
                 </svg>
                 子菜单 ({{ menu.subMenus?.length || 0 }})
               </div>
@@ -63,12 +63,12 @@
                 添加子菜单
               </button>
             </div>
-            
+
             <div class="sub-menu-list" v-if="menu.subMenus && menu.subMenus.length > 0">
               <div v-for="subMenu in menu.subMenus" :key="subMenu.id" class="sub-menu-item">
                 <div class="sub-menu-info">
                   <div class="sub-menu-icon">
-                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
                       <path d="M4 6h16M4 12h16M4 18h16"/>
                     </svg>
                   </div>
@@ -87,11 +87,8 @@
                 </div>
               </div>
             </div>
-            
+
             <div v-else class="empty-sub-menu">
-              <!-- <svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1">
-              <path d="M9 11H1l8-8 8 8h-8v8z"/>
-              </svg> -->
               <p>暂无子菜单</p>
               <button class="btn btn-sm btn-outline" @click="addSubMenu(menu.id)">添加第一个子菜单</button>
             </div>
@@ -104,10 +101,10 @@
 
 <script setup>
 import { ref, onMounted } from 'vue';
-import { 
-  getMenus, 
-  addMenu as apiAddMenu, 
-  updateMenu as apiUpdateMenu, 
+import {
+  getMenus,
+  addMenu as apiAddMenu,
+  updateMenu as apiUpdateMenu,
   deleteMenu as apiDeleteMenu,
   addSubMenu as apiAddSubMenu,
   updateSubMenu as apiUpdateSubMenu,
@@ -123,7 +120,7 @@ async function loadMenus() {
   const res = await getMenus();
   menus.value = res.data.map(menu => ({
     ...menu,
-    showSubMenu: false // 添加展开状态
+    showSubMenu: false
   }));
 }
 
@@ -152,11 +149,11 @@ async function addSubMenu(menuId) {
   const menu = menus.value.find(m => m.id === menuId);
   const subMenuName = prompt('请输入子菜单名称：');
   if (!subMenuName?.trim()) return;
-  
+
   const maxOrder = menu.subMenus?.length
     ? Math.max(...menu.subMenus.map(sm => sm.order || 0))
     : 0;
-    
+
   await apiAddSubMenu(menuId, { name: subMenuName.trim(), order: maxOrder + 1 });
   loadMenus();
 }
@@ -193,12 +190,10 @@ function toggleSubMenu(menuId) {
 .menu-header {
   background: #1E1E1E;
   border: 1px solid rgba(255,255,255,0.04);
-  border-radius: 14px;
+  border-radius: 16px;
   padding: 18px 24px;
   margin-bottom: 16px;
-  color: #F5F5F7;
   width: 100%;
-  text-align: center;
   box-sizing: border-box;
 }
 
@@ -208,10 +203,10 @@ function toggleSubMenu(menuId) {
 }
 
 .page-title {
-  font-size: 0.95rem;
+  font-size: 0.9rem;
   font-weight: 500;
   margin: 0;
-  opacity: 0.50;
+  color: rgba(245,245,247,0.45);
 }
 
 .menu-add {
@@ -225,7 +220,7 @@ function toggleSubMenu(menuId) {
 .menu-content {
   background: #1E1E1E;
   border: 1px solid rgba(255,255,255,0.04);
-  border-radius: 14px;
+  border-radius: 16px;
   overflow: hidden;
   width: 100%;
 }
@@ -256,14 +251,13 @@ function toggleSubMenu(menuId) {
 .menu-icon {
   width: 34px;
   height: 34px;
-  background: rgba(91,141,239,0.12);
+  background: rgba(91,141,239,0.10);
   border-radius: 8px;
   display: flex;
   align-items: center;
   justify-content: center;
   color: #5B8DEF;
   flex-shrink: 0;
-  font-size: 14px;
 }
 
 .menu-name-input {
@@ -273,7 +267,7 @@ function toggleSubMenu(menuId) {
   background: transparent;
   padding: 5px 8px;
   border-radius: 6px;
-  color: rgba(245,245,247,0.85);
+  color: rgba(245,245,247,0.82);
   min-width: 140px;
   transition: all 0.2s ease;
 }
@@ -290,7 +284,7 @@ function toggleSubMenu(menuId) {
 }
 .order-label {
   font-size: 11px;
-  color: rgba(245,245,247,0.30);
+  color: rgba(245,245,247,0.28);
   font-weight: 500;
 }
 
@@ -323,7 +317,7 @@ function toggleSubMenu(menuId) {
   align-items: center;
   gap: 6px;
   font-weight: 500;
-  color: rgba(245,245,247,0.40);
+  color: rgba(245,245,247,0.38);
   font-size: 12px;
 }
 
@@ -379,14 +373,13 @@ function toggleSubMenu(menuId) {
 .sub-menu-icon {
   width: 26px;
   height: 26px;
-  background: rgba(91,141,239,0.10);
+  background: rgba(91,141,239,0.08);
   border-radius: 6px;
   display: flex;
   align-items: center;
   justify-content: center;
   color: rgba(91,141,239,0.50);
   flex-shrink: 0;
-  font-size: 12px;
 }
 
 .sub-menu-name-input {
@@ -395,7 +388,7 @@ function toggleSubMenu(menuId) {
   background: transparent;
   padding: 4px 6px;
   border-radius: 6px;
-  color: rgba(245,245,247,0.70);
+  color: rgba(245,245,247,0.68);
   min-width: 110px;
   transition: all 0.2s ease;
 }
@@ -459,8 +452,8 @@ function toggleSubMenu(menuId) {
 }
 
 .btn-danger {
-  background: rgba(239,68,68,0.08);
-  color: rgba(239,68,68,0.65);
+  background: rgba(239,68,68,0.07);
+  color: rgba(239,68,68,0.60);
 }
 .btn-danger:hover {
   background: rgba(239,68,68,0.12);
@@ -477,7 +470,7 @@ function toggleSubMenu(menuId) {
 .btn-icon.expand-btn { width: 30px; }
 
 .btn-sm {
-  padding: 4px 8px;
+  padding: 4px 10px;
   font-size: 0.78rem;
 }
 .btn-icon.btn-sm { width: 28px; height: 26px; }
@@ -505,7 +498,7 @@ function toggleSubMenu(menuId) {
 
 .order-input {
   width: 48px;
-  padding: 4px 4px;
+  padding: 4px;
   border: 1.5px solid rgba(255,255,255,0.06);
   border-radius: 6px;
   text-align: center;
@@ -513,7 +506,7 @@ function toggleSubMenu(menuId) {
   height: 30px;
   box-sizing: border-box;
   background: rgba(255,255,255,0.02);
-  color: rgba(245,245,247,0.60);
+  color: rgba(245,245,247,0.58);
 }
 .order-input:focus {
   outline: none;
@@ -524,8 +517,8 @@ function toggleSubMenu(menuId) {
 /* ========== 响应式 ========== */
 @media (max-width: 768px) {
   .menu-manage { width: 100%; }
-  .menu-header { padding: 16px; border-radius: 10px; }
-  .page-title { font-size: 0.9rem; }
+  .menu-header { padding: 16px; border-radius: 12px; }
+  .page-title { font-size: 0.85rem; }
   .menu-add { flex-direction: column; gap: 8px; }
   .input { min-width: 0; width: 100%; }
   .main-menu {
@@ -554,4 +547,4 @@ function toggleSubMenu(menuId) {
   .sub-menu-info { flex-wrap: wrap; }
   .sub-menu-name-input { min-width: 0; }
 }
-</style> 
+</style>

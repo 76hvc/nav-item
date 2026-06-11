@@ -1,14 +1,14 @@
 <template>
   <div class="home-container">
     <div class="menu-bar-fixed">
-      <MenuBar 
-        :menus="menus" 
-        :activeId="activeMenu?.id" 
+      <MenuBar
+        :menus="menus"
+        :activeId="activeMenu?.id"
         :activeSubMenuId="activeSubMenu?.id"
         @select="selectMenu"
       />
     </div>
-    
+
     <div class="search-section">
       <div class="search-box-wrapper">
         <div class="search-engine-select">
@@ -20,15 +20,15 @@
           </button>
         </div>
         <div class="search-container">
-          <input 
-            v-model="searchQuery" 
-            type="text" 
-            :placeholder="selectedEngine.placeholder" 
+          <input
+            v-model="searchQuery"
+            type="text"
+            :placeholder="selectedEngine.placeholder"
             class="search-input"
             @keyup.enter="handleSearch"
           />
           <button v-if="searchQuery" class="clear-btn" @click="clearSearch" aria-label="清空" title="clear">
-            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2"><path d="M18 6L6 18M6 6l12 12"></path></svg>
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 6L6 18M6 6l12 12"></path></svg>
           </button>
           <button @click="handleSearch" class="search-btn" title="search">
             <svg width="20" height="20" viewBox="0 0 24 24" fill="none">
@@ -38,7 +38,7 @@
         </div>
       </div>
     </div>
-    
+
     <!-- 左侧广告条 -->
     <div v-if="leftAds.length" class="ad-space-fixed left-ad-fixed">
       <a v-for="ad in leftAds" :key="ad.id" :href="ad.url" target="_blank">
@@ -51,9 +51,9 @@
         <img :src="ad.img" alt="广告" />
       </a>
     </div>
-    
+
     <CardGrid :cards="filteredCards"/>
-    
+
     <footer class="footer">
       <div class="footer-content">
         <button @click="showFriendLinks = true" class="friend-link-btn">
@@ -80,17 +80,17 @@
         </div>
         <div class="modal-body">
           <div class="friend-links-grid">
-            <a 
-              v-for="friend in friendLinks" 
-              :key="friend.id" 
-              :href="friend.url" 
-              target="_blank" 
+            <a
+              v-for="friend in friendLinks"
+              :key="friend.id"
+              :href="friend.url"
+              target="_blank"
               class="friend-link-card"
             >
               <div class="friend-link-logo">
-                <img 
-                  v-if="friend.logo" 
-                  :src="friend.logo" 
+                <img
+                  v-if="friend.logo"
+                  :src="friend.logo"
                   :alt="friend.title"
                   @error="handleLogoError"
                 />
@@ -170,7 +170,7 @@ function clearSearch() {
 
 const filteredCards = computed(() => {
   if (!searchQuery.value) return cards.value;
-  return cards.value.filter(card => 
+  return cards.value.filter(card =>
     card.title.toLowerCase().includes(searchQuery.value.toLowerCase()) ||
     card.url.toLowerCase().includes(searchQuery.value.toLowerCase())
   );
@@ -187,7 +187,7 @@ onMounted(async () => {
   const adRes = await getAds();
   leftAds.value = adRes.data.filter(ad => ad.position === 'left');
   rightAds.value = adRes.data.filter(ad => ad.position === 'right');
-  
+
   const friendRes = await getFriends();
   friendLinks.value = friendRes.data;
 });
@@ -282,24 +282,28 @@ function handleLogoError(event) {
   z-index: 2;
 }
 .engine-btn {
-  border: 1px solid rgba(255,255,255,0.04);
+  border: 1px solid transparent;
   background: rgba(255,255,255,0.04);
-  color: rgba(245,245,247,0.50);
+  color: rgba(240,240,242,0.45);
   font-size: 0.78rem;
-  padding: 4px 12px;
-  border-radius: 8px;
+  padding: 5px 14px;
+  border-radius: 20px;
   cursor: pointer;
-  transition: all 0.25s ease;
+  transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
   letter-spacing: 0.3px;
+  font-weight: 500;
+  position: relative;
 }
 .engine-btn.active {
-  color: #F5F5F7;
-  background: rgba(91,141,239,0.15);
-  border-color: rgba(91,141,239,0.20);
+  color: #fff;
+  background: rgba(91,141,239,0.12);
+  border-color: rgba(91,141,239,0.25);
+  box-shadow: 0 0 12px rgba(91,141,239,0.10);
 }
 .engine-btn:hover:not(.active) {
-  color: rgba(245,245,247,0.75);
-  background: rgba(255,255,255,0.06);
+  color: rgba(240,240,242,0.75);
+  background: rgba(255,255,255,0.07);
+  border-color: rgba(255,255,255,0.06);
 }
 
 /* ========== 搜索框 ========== */
@@ -307,34 +311,34 @@ function handleLogoError(event) {
   display: flex;
   align-items: center;
   background: rgba(255,255,255,0.05);
-  border-radius: 14px;
-  padding: 0.2rem 0.2rem 0.2rem 1rem;
-  box-shadow: 0 2px 16px rgba(0,0,0,0.30);
-  backdrop-filter: blur(10px);
-  -webkit-backdrop-filter: blur(10px);
+  border-radius: 16px;
+  padding: 0.2rem 0.2rem 0.2rem 1.2rem;
+  box-shadow: 0 2px 20px rgba(0,0,0,0.35);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
   border: 1px solid rgba(255,255,255,0.06);
   max-width: 480px;
   width: 92%;
   position: relative;
-  transition: all 0.3s ease;
+  transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
 }
 .search-container:focus-within {
   background: rgba(255,255,255,0.07);
-  border-color: rgba(91,141,239,0.15);
-  box-shadow: 0 2px 20px rgba(0,0,0,0.35), 0 0 0 1px rgba(91,141,239,0.08);
+  border-color: rgba(91,141,239,0.20);
+  box-shadow: 0 2px 24px rgba(0,0,0,0.40), 0 0 0 1px rgba(91,141,239,0.12);
 }
 
 .search-input {
   flex: 1;
   border: none;
   background: transparent;
-  padding: 0.45rem 0.5rem;
+  padding: 0.5rem 0.5rem;
   font-size: 1.1rem;
   color: #F5F5F7;
   outline: none;
 }
 .search-input::placeholder {
-  color: rgba(245,245,247,0.30);
+  color: rgba(245,245,247,0.28);
 }
 
 .clear-btn {
@@ -347,30 +351,48 @@ function handleLogoError(event) {
   align-items: center;
   padding: 6px;
   border-radius: 50%;
-  color: rgba(245,245,247,0.30);
+  color: rgba(245,245,247,0.28);
   transition: all 0.2s;
 }
 .clear-btn:hover {
-  background: rgba(255,255,255,0.06);
+  background: rgba(255,255,255,0.08);
   color: rgba(245,245,247,0.70);
 }
 
 .search-btn {
-  background: rgba(91,141,239,0.60);
+  background: linear-gradient(135deg, rgba(91,141,239,0.70), rgba(91,141,239,0.50));
   color: #F5F5F7;
   border: none;
-  border-radius: 10px;
-  width: 40px;
-  height: 40px;
+  border-radius: 12px;
+  width: 42px;
+  height: 42px;
   display: flex;
   align-items: center;
   justify-content: center;
   cursor: pointer;
-  transition: all 0.25s ease;
+  transition: all 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
+  position: relative;
+  overflow: hidden;
+}
+.search-btn::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(135deg, #5B8DEF, #7BA4F9);
+  opacity: 0;
+  transition: opacity 0.3s;
+  border-radius: 12px;
 }
 .search-btn:hover {
-  background: #5B8DEF;
-  transform: scale(1.04);
+  transform: scale(1.06);
+  box-shadow: 0 4px 16px rgba(91,141,239,0.30);
+}
+.search-btn:hover::before {
+  opacity: 1;
+}
+.search-btn svg {
+  position: relative;
+  z-index: 1;
 }
 
 /* ========== 首页容器 ========== */
@@ -398,7 +420,7 @@ function handleLogoError(event) {
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  padding: 2rem 0 1.5rem;
+  padding: 2.5rem 0 1.5rem;
   position: relative;
   z-index: 2;
 }
@@ -431,10 +453,10 @@ function handleLogoError(event) {
   display: block;
   border-radius: 12px;
   overflow: hidden;
-  transition: transform 0.25s ease;
+  transition: transform 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
 }
 .ad-space-fixed a:hover {
-  transform: scale(1.04);
+  transform: scale(1.06) translateY(-2px);
 }
 .ad-space-fixed img {
   width: 100%;
@@ -452,7 +474,7 @@ function handleLogoError(event) {
 .footer {
   margin-top: auto;
   text-align: center;
-  padding: 1.5rem 0 2rem;
+  padding: 2rem 0 2.5rem;
   position: relative;
   z-index: 2;
 }
@@ -472,16 +494,18 @@ function handleLogoError(event) {
   border: 1px solid rgba(255,255,255,0.06);
   color: rgba(245,245,247,0.50);
   cursor: pointer;
-  transition: all 0.25s ease;
+  transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
   font-size: 13px;
-  padding: 6px 16px;
+  padding: 7px 18px;
   border-radius: 20px;
+  font-weight: 500;
 }
 .friend-link-btn:hover {
-  color: rgba(245,245,247,0.80);
+  color: rgba(245,245,247,0.85);
   background: rgba(91,141,239,0.08);
-  border-color: rgba(91,141,239,0.15);
-  transform: translateY(-1px);
+  border-color: rgba(91,141,239,0.18);
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(91,141,239,0.10);
 }
 
 .copyright {
@@ -510,15 +534,15 @@ function handleLogoError(event) {
   align-items: center;
   justify-content: center;
   z-index: 1000;
-  backdrop-filter: blur(6px);
-  -webkit-backdrop-filter: blur(6px);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
   animation: fadeIn 0.2s ease;
 }
 
 .modal-content {
   background: #1E1E1E;
   border: 1px solid rgba(255,255,255,0.06);
-  border-radius: 18px;
+  border-radius: 20px;
   width: 55rem;
   max-width: 92vw;
   max-height: 85vh;
@@ -526,7 +550,7 @@ function handleLogoError(event) {
   flex-direction: column;
   box-shadow: 0 25px 80px rgba(0,0,0,0.50);
   overflow: hidden;
-  animation: scaleIn 0.25s ease;
+  animation: scaleIn 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
 }
 
 .modal-header {
@@ -580,14 +604,14 @@ function handleLogoError(event) {
   border-radius: 14px;
   text-decoration: none;
   color: inherit;
-  transition: all 0.25s ease;
+  transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
   border: 1px solid rgba(255,255,255,0.04);
 }
 .friend-link-card:hover {
-  transform: translateY(-2px);
+  transform: translateY(-3px);
   background: rgba(255,255,255,0.05);
   border-color: rgba(91,141,239,0.12);
-  box-shadow: 0 6px 20px rgba(0,0,0,0.25);
+  box-shadow: 0 8px 24px rgba(0,0,0,0.30);
 }
 
 .friend-link-logo {
@@ -651,11 +675,11 @@ function handleLogoError(event) {
 
 @media (max-width: 768px) {
   .home-container { padding-top: 60px; }
-  .search-section { padding: 1.5rem 0 1rem; }
+  .search-section { padding: 2rem 0 1rem; }
   .search-container { width: 94%; padding: 0.15rem 0.15rem 0.15rem 0.8rem; }
-  .search-input { font-size: 1rem; padding: 0.3rem 0.4rem; }
-  .search-btn { width: 36px; height: 36px; }
-  .footer { padding: 1rem 0 1.5rem; }
+  .search-input { font-size: 1rem; padding: 0.35rem 0.4rem; }
+  .search-btn { width: 38px; height: 38px; border-radius: 10px; }
+  .footer { padding: 1.5rem 0 2rem; }
   .footer-content { gap: 16px; flex-direction: column; }
   .friend-link-btn { font-size: 0.7rem; padding: 5px 12px; }
   .copyright { font-size: 0.65rem; }
