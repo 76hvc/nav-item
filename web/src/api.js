@@ -35,18 +35,6 @@ export const uploadLogo = (file) => {
   return Promise.reject('Upload not supported on Cloudflare Pages version');
 };
 
-// 广告API
-export const getAds = () => axios.get(`${BASE}/ads`);
-export const addAd = (data) => axios.post(`${BASE}/ads`, data, { headers: authHeaders() });
-export const updateAd = (id, data) => axios.put(`${BASE}/ads/${id}`, data, { headers: authHeaders() });
-export const deleteAd = (id) => axios.delete(`${BASE}/ads/${id}`, { headers: authHeaders() });
-
-// 友链API
-export const getFriends = () => axios.get(`${BASE}/friends`);
-export const addFriend = (data) => axios.post(`${BASE}/friends`, data, { headers: authHeaders() });
-export const updateFriend = (id, data) => axios.put(`${BASE}/friends/${id}`, data, { headers: authHeaders() });
-export const deleteFriend = (id) => axios.delete(`${BASE}/friends/${id}`, { headers: authHeaders() });
-
 export const fetchIcon = (url) => axios.get(`${BASE}/fetch-icon`, { params: { url } });
 
 // 用户API

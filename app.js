@@ -6,8 +6,6 @@ const menuRoutes = require('./routes/menu');
 const cardRoutes = require('./routes/card');
 const uploadRoutes = require('./routes/upload');
 const authRoutes = require('./routes/auth');
-const adRoutes = require('./routes/ad');
-const friendRoutes = require('./routes/friend');
 const userRoutes = require('./routes/user');
 const compression = require('compression');
 const app = express();
@@ -37,8 +35,6 @@ app.use('/api/menus', menuRoutes);
 app.use('/api/cards', cardRoutes);
 app.use('/api/upload', uploadRoutes);
 app.use('/api', authRoutes);
-app.use('/api/ads', adRoutes);
-app.use('/api/friends', friendRoutes);
 app.use('/api/users', userRoutes);
 
 app.listen(PORT, () => {

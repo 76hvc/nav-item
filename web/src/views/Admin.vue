@@ -53,14 +53,6 @@
             <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="4" width="20" height="16" rx="2"/><path d="M2 10h20"/></svg>
             卡片管理
           </li>
-          <li :class="{active: page==='ad'}" @click="page='ad'; closeSider()">
-            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="3" width="20" height="14" rx="2"/><path d="M8 21h8"/><path d="M12 17v4"/></svg>
-            广告管理
-          </li>
-          <li :class="{active: page==='friend'}" @click="page='friend'; closeSider()">
-            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"/><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"/></svg>
-            友链管理
-          </li>
           <li :class="{active: page==='user'}" @click="page='user'; closeSider()">
             <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="8" r="4"/><path d="M20 21a8 8 0 1 0-16 0"/></svg>
             用户管理
@@ -107,8 +99,6 @@
         </div>
         <MenuManage v-if="page==='menu'" />
         <CardManage v-if="page==='card'" />
-        <AdManage v-if="page==='ad'" />
-        <FriendLinkManage v-if="page==='friend'" />
         <UserManage v-if="page==='user'" />
         <ToolBox v-if="page==='tools'" />
       </div>
@@ -124,8 +114,6 @@ import { ref, computed, onMounted } from 'vue';
 import { login } from '../api';
 import MenuManage from './admin/MenuManage.vue';
 import CardManage from './admin/CardManage.vue';
-import AdManage from './admin/AdManage.vue';
-import FriendLinkManage from './admin/FriendLinkManage.vue';
 import UserManage from './admin/UserManage.vue';
 import ToolBox from './admin/ToolBox.vue';
 
@@ -144,8 +132,6 @@ const pageTitle = computed(() => {
   switch (page.value) {
     case 'menu': return '栏目管理';
     case 'card': return '卡片管理';
-    case 'ad': return '广告管理';
-    case 'friend': return '友链管理';
     case 'user': return '用户管理';
     case 'tools': return '工具箱';
     default: return '';

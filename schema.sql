@@ -38,19 +38,3 @@ CREATE TABLE IF NOT EXISTS users (
   password TEXT NOT NULL
 );
 CREATE INDEX IF NOT EXISTS idx_users_username ON users(username);
-
-CREATE TABLE IF NOT EXISTS ads (
-  id INTEGER PRIMARY KEY AUTOINCREMENT,
-  position TEXT NOT NULL,
-  img TEXT NOT NULL,
-  url TEXT NOT NULL
-);
-CREATE INDEX IF NOT EXISTS idx_ads_position ON ads(position);
-
-CREATE TABLE IF NOT EXISTS friends (
-  id INTEGER PRIMARY KEY AUTOINCREMENT,
-  title TEXT NOT NULL,
-  url TEXT NOT NULL,
-  logo TEXT
-);
-CREATE INDEX IF NOT EXISTS idx_friends_title ON friends(title);

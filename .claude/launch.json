@@ -1,0 +1,17 @@
+{
+  "version": "0.0.1",
+  "configurations": [
+    {
+      "name": "前端 (Vite)",
+      "runtimeExecutable": "npm",
+      "runtimeArgs": ["run", "dev", "--prefix", "web"],
+      "port": 5173
+    },
+    {
+      "name": "后端 (Express)",
+      "runtimeExecutable": "node",
+      "runtimeArgs": ["app.js"],
+      "port": 3000
+    }
+  ]
+}
