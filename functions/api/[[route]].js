@@ -164,7 +164,51 @@ app.delete('/cards/:id', authMiddleware, async (c) => {
   return c.json({ success: true });
 });
 
-// User Routes
+// Ads Routes
+app.get('/ads', async (c) => {
+  const { results: data } = await c.env.DB.prepare('SELECT * FROM ads').all();
+  return c.json(data);
+});
+
+app.post('/ads', authMiddleware, async (c) => {
+  const { position, img, url } = await c.req.json();
+  const result = await c.env.DB.prepare('INSERT INTO ads (position, img, url) VALUES (?, ?, ?)').bind(position, img, url).run();
+  return c.json({ id: result.meta.last_row_id });
+});
+
+app.delete('/ads/:id', authMiddleware, async (c) => {
+  const id = c.req.param('id');
+  await c.env.DB.prepare('DELETE FROM ads WHERE id=?').bind(id).run();
+  return c.json({ success: true });
+});
+
+// Friends Routes
+app.get('/friends', async (c) => {
+  const { results: data } = await c.env.DB.prepare('SELECT * FROM friends').all();
+  return c.json(data);
+});
+
+app.post('/friends', authMiddleware, async (c) => {
+  const { title, url, logo } = await c.req.json();
+  const result = await c.env.DB.prepare('INSERT INTO friends (title, url, logo) VALUES (?, ?, ?)').bind(title, url, logo).run();
+  return c.json({ id: result.meta.last_row_id });
+});
+
+app.put('/friends/:id', authMiddleware, async (c) => {
+  const id = c.req.param('id');
+  const { title, url, logo } = await c.req.json();
+  await c.env.DB.prepare('UPDATE friends SET title=?, url=?, logo=? WHERE id=?').bind(title, url, logo, id).run();
+  return c.json({ success: true });
+});
+
+app.delete('/friends/:id', authMiddleware, async (c) => {
+  const id = c.req.param('id');
+  await c.env.DB.prepare('DELETE FROM friends WHERE id=?').bind(id).run();
+  return c.json({ success: true });
+});
+
+// Icon Fetcher API
+// Get all menus and submenus for quick add
 app.get('/quick-add/menus', async (c) => {
   const { results: menus } = await c.env.DB.prepare('SELECT id, name FROM menus ORDER BY "order"').all();
   const { results: subMenus } = await c.env.DB.prepare('SELECT id, menu_id, name FROM sub_menus ORDER BY "order"').all();

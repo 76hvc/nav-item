@@ -52,6 +52,20 @@ db.serialize(() => {
     password TEXT NOT NULL
   )`);
   db.run(`CREATE INDEX IF NOT EXISTS idx_users_username ON users(username)`);
+  db.run(`CREATE TABLE IF NOT EXISTS ads (
+    id INTEGER PRIMARY KEY AUTOINCREMENT,
+    position TEXT NOT NULL, -- left/right
+    img TEXT NOT NULL,
+    url TEXT NOT NULL
+  )`);
+  db.run(`CREATE INDEX IF NOT EXISTS idx_ads_position ON ads(position)`);
+  db.run(`CREATE TABLE IF NOT EXISTS friends (
+    id INTEGER PRIMARY KEY AUTOINCREMENT,
+    title TEXT NOT NULL,
+    url TEXT NOT NULL,
+    logo TEXT
+  )`);
+  db.run(`CREATE INDEX IF NOT EXISTS idx_friends_title ON friends(title)`);
 
   // 检查菜单表是否为空，若为空则插入默认菜单
   db.get('SELECT COUNT(*) as count FROM menus', (err, row) => {
