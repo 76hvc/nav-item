@@ -1,17 +1,18 @@
 /* ========== 设计 Token ========== */
 :root {
-  --bg-base: #0d0d0f;
-  --bg-raised: #18181b;
-  --bg-overlay: #212125;
-  --bg-hover: #2a2a2e;
-  --text-primary: #f0f0f2;
-  --text-secondary: rgba(240,240,242,0.60);
-  --text-tertiary: rgba(240,240,242,0.28);
-  --border-subtle: rgba(255,255,255,0.05);
-  --border-default: rgba(255,255,255,0.08);
-  --accent: #5b8def;
-  --accent-soft: rgba(91,141,239,0.12);
-  --accent-glow: rgba(91,141,239,0.25);
+  color-scheme: dark;
+  --bg-base: #0d0f12;
+  --bg-raised: #15181d;
+  --bg-overlay: #1b1f25;
+  --bg-hover: #20252c;
+  --text-primary: #f2f4f7;
+  --text-secondary: rgba(242,244,247,0.64);
+  --text-tertiary: rgba(242,244,247,0.34);
+  --border-subtle: rgba(255,255,255,0.055);
+  --border-default: rgba(255,255,255,0.09);
+  --accent: #6f91e8;
+  --accent-soft: rgba(111,145,232,0.13);
+  --accent-glow: rgba(111,145,232,0.25);
   --danger: #ef4444;
   --danger-soft: rgba(239,68,68,0.10);
   --success: #22c55e;
@@ -29,6 +30,12 @@
 }
 
 /* ========== 字体优化 ========== */
+html {
+  min-width: 320px;
+  min-height: 100%;
+  background: var(--bg-base);
+}
+
 body {
   margin: 0;
   padding: 0;
@@ -39,7 +46,22 @@ body {
   -moz-osx-font-smoothing: grayscale;
   text-rendering: optimizeLegibility;
   color: var(--text-primary);
-  overflow-y: overlay;
+  min-width: 320px;
+  min-height: 100vh;
+  overflow-y: auto;
+}
+
+*, *::before, *::after { box-sizing: border-box; }
+button, input, select, textarea { font: inherit; }
+img { max-width: 100%; }
+
+button:focus-visible,
+a:focus-visible,
+input:focus-visible,
+select:focus-visible,
+textarea:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 3px;
 }
 
 /* ========== 自定义滚动条 ========== */
@@ -79,4 +101,12 @@ body {
 /* ========== 通用过渡 ========== */
 * {
   -webkit-tap-highlight-color: transparent;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
 }

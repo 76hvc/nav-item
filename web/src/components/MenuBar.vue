@@ -8,8 +8,11 @@
       @mouseleave="hideSubMenu(menu.id)"
     >
       <button
-        @click="$emit('select', menu)"
+        type="button"
+        @click="selectMainMenu(menu)"
         :class="{active: menu.id === activeId}"
+        :aria-haspopup="menu.subMenus?.length ? 'menu' : undefined"
+        :aria-expanded="menu.subMenus?.length ? hoveredMenuId === menu.id : undefined"
       >
         <span class="menu-dot" :class="{ 'dot-active': menu.id === activeId }"></span>
         <span class="menu-label">{{ menu.name }}</span>
@@ -24,7 +27,8 @@
         <button
           v-for="subMenu in menu.subMenus"
           :key="subMenu.id"
-          @click="$emit('select', subMenu, menu)"
+          type="button"
+          @click="selectSubMenu(subMenu, menu)"
           :class="{active: subMenu.id === activeSubMenuId}"
           class="sub-menu-item"
         >
@@ -38,11 +42,13 @@
 <script setup>
 import { ref } from 'vue';
 
-const props = defineProps({
-  menus: Array,
+defineProps({
+  menus: { type: Array, default: () => [] },
   activeId: Number,
   activeSubMenuId: Number
 });
+
+const emit = defineEmits(['select']);
 
 const hoveredMenuId = ref(null);
 
@@ -58,6 +64,18 @@ function hideSubMenu(menuId) {
     }
   }, 150);
 }
+
+function selectMainMenu(menu) {
+  emit('select', menu);
+  if (menu.subMenus?.length && window.matchMedia('(hover: none)').matches) {
+    hoveredMenuId.value = hoveredMenuId.value === menu.id ? null : menu.id;
+  }
+}
+
+function selectSubMenu(subMenu, menu) {
+  emit('select', subMenu, menu);
+  hoveredMenuId.value = null;
+}
 </script>
 
 <style scoped>
@@ -65,9 +83,11 @@ function hideSubMenu(menuId) {
   display: flex;
   justify-content: center;
   flex-wrap: wrap;
-  padding: 0 0.5rem;
+  max-width: 76rem;
+  margin: 0 auto;
+  padding: 0 1rem;
   position: relative;
-  gap: 3px;
+  gap: 7px;
 }
 
 .menu-item {
@@ -75,16 +95,17 @@ function hideSubMenu(menuId) {
 }
 
 .menu-bar button {
-  background: rgba(255,255,255,0.03);
-  border: 1px solid rgba(255,255,255,0.04);
-  color: rgba(245,245,247,0.50);
-  font-size: 14px;
-  font-weight: 500;
-  padding: 0.5rem 1.4rem;
+  min-height: 42px;
+  background: var(--bg-raised);
+  border: 1px solid var(--border-subtle);
+  color: var(--text-secondary);
+  font-size: 13px;
+  font-weight: 600;
+  padding: 0.58rem 1.35rem;
   cursor: pointer;
   transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
-  border-radius: 10px;
-  letter-spacing: 0.5px;
+  border-radius: 12px;
+  letter-spacing: 0.1px;
   display: flex;
   align-items: center;
   gap: 6px;
@@ -94,25 +115,26 @@ function hideSubMenu(menuId) {
   width: 5px;
   height: 5px;
   border-radius: 50%;
-  background: rgba(255,255,255,0.10);
+  background: rgba(255,255,255,0.12);
   transition: all 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
 }
 .dot-active {
-  background: #5B8DEF;
-  box-shadow: 0 0 6px rgba(91,141,239,0.40);
+  background: var(--accent);
+  box-shadow: 0 0 8px var(--accent-glow);
 }
 
 .menu-bar button:hover {
-  color: rgba(245,245,247,0.80);
-  background: rgba(255,255,255,0.06);
-  border-color: rgba(255,255,255,0.08);
+  color: var(--text-primary);
+  background: var(--bg-overlay);
+  border-color: var(--border-default);
   transform: translateY(-1px);
 }
 
 .menu-bar button.active {
-  color: #F5F5F7;
-  background: rgba(91,141,239,0.10);
-  border-color: rgba(91,141,239,0.15);
+  color: var(--text-primary);
+  background: var(--accent-soft);
+  border-color: rgba(111,145,232,0.28);
+  box-shadow: inset 0 0 0 1px rgba(111,145,232,0.04);
 }
 
 /* ========== 二级菜单 ========== */
@@ -121,17 +143,17 @@ function hideSubMenu(menuId) {
   top: calc(100% + 8px);
   left: 50%;
   transform: translateX(-50%) translateY(-6px);
-  background: rgba(22,22,26,0.92);
+  background: rgba(21,24,29,0.96);
   backdrop-filter: blur(20px);
   -webkit-backdrop-filter: blur(20px);
   border-radius: 12px;
-  min-width: 120px;
+  min-width: 132px;
   opacity: 0;
   visibility: hidden;
   transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
   z-index: 1000;
-  box-shadow: 0 8px 32px rgba(0,0,0,0.50);
-  border: 1px solid rgba(255,255,255,0.06);
+  box-shadow: 0 18px 44px rgba(0,0,0,0.48);
+  border: 1px solid var(--border-default);
   padding: 6px;
 }
 
@@ -161,26 +183,28 @@ function hideSubMenu(menuId) {
 }
 
 .sub-menu-item:hover {
-  background: rgba(91,141,239,0.10) !important;
-  color: rgba(245,245,247,0.85) !important;
+  background: var(--accent-soft) !important;
+  color: var(--text-primary) !important;
 }
 
 .sub-menu-item.active {
-  background: rgba(91,141,239,0.15) !important;
-  color: #F5F5F7 !important;
+  background: rgba(111,145,232,0.18) !important;
+  color: var(--text-primary) !important;
   font-weight: 500 !important;
 }
 
 /* ========== 响应式 ========== */
 @media (max-width: 768px) {
   .menu-bar {
-    gap: 3px;
-    padding: 0 0.3rem;
+    justify-content: flex-start;
+    gap: 6px;
+    padding: 0 0.8rem;
   }
   .menu-bar button {
     font-size: 12px;
-    padding: 0.3rem 0.65rem;
-    border-radius: 8px;
+    min-height: 36px;
+    padding: 0.36rem 0.75rem;
+    border-radius: 9px;
   }
   .sub-menu {
     min-width: 100px;
