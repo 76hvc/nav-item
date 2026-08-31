@@ -348,9 +348,12 @@ app.put('/cards/:id', authMiddleware, async c => {
 });
 
 app.delete('/cards/:id', authMiddleware, async c => {
-  await c.env.DB.prepare('DELETE FROM cards WHERE id = ?')
+  const result = await c.env.DB.prepare('DELETE FROM cards WHERE id = ?')
     .bind(positiveId(c.req.param('id'))).run();
-  return c.json({ success: true });
+  if (!result.meta?.changes) {
+    return c.json({ message: '站点不存在或已经被删除' }, 404);
+  }
+  return c.json({ success: true, deleted: result.meta.changes });
 });
 
 app.get('/ads', async c => {

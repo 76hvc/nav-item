@@ -120,8 +120,8 @@
 </template>
 
 <script setup>
-import { ref, computed, onMounted } from 'vue';
-import { login } from '../api';
+import { ref, computed, onMounted, onBeforeUnmount } from 'vue';
+import { login, AUTH_EXPIRED_EVENT } from '../api';
 import MenuManage from './admin/MenuManage.vue';
 import CardManage from './admin/CardManage.vue';
 import AdManage from './admin/AdManage.vue';
@@ -152,21 +152,37 @@ const pageTitle = computed(() => {
   }
 });
 
-onMounted(() => {
+onMounted(async () => {
+  window.addEventListener(AUTH_EXPIRED_EVENT, handleAuthExpired);
   const token = localStorage.getItem('token');
   isLoggedIn.value = !!token;
   if (isLoggedIn.value) {
-    fetchLastLoginInfo();
+    await fetchLastLoginInfo();
   }
 });
+
+onBeforeUnmount(() => {
+  window.removeEventListener(AUTH_EXPIRED_EVENT, handleAuthExpired);
+});
+
+function handleAuthExpired(event) {
+  localStorage.removeItem('token');
+  isLoggedIn.value = false;
+  page.value = 'welcome';
+  loginError.value = event?.detail?.message || '登录状态已过期，请重新登录';
+}
+
 async function fetchLastLoginInfo() {
   try {
     const res = await fetch('/api/users/me', { headers: { Authorization: `Bearer ${localStorage.getItem('token')}` } });
-    if (res.ok) {
-      const data = await res.json();
-      lastLoginTime.value = data.last_login_time || '';
-      lastLoginIp.value = data.last_login_ip || '';
+    const data = await res.json().catch(() => ({}));
+    if (res.status === 401) {
+      handleAuthExpired({ detail: { message: data.message } });
+      return;
     }
+    if (!res.ok) throw new Error(data.message || '获取用户信息失败');
+    lastLoginTime.value = data.last_login_time || '';
+    lastLoginIp.value = data.last_login_ip || '';
   } catch (error) {
     console.error('获取用户信息失败:', error);
   }
@@ -199,6 +215,7 @@ async function handleLogin() {
 function logout() {
   localStorage.removeItem('token');
   isLoggedIn.value = false;
+  page.value = 'welcome';
   username.value = '';
   password.value = '';
   loginError.value = '';

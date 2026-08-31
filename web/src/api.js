@@ -1,5 +1,29 @@
 import axios from 'axios';
 const BASE = '/api';
+export const AUTH_EXPIRED_EVENT = 'nav-item:auth-expired';
+
+axios.interceptors.response.use(
+  response => response,
+  error => {
+    const headers = error.config?.headers;
+    const authorization = headers?.Authorization || headers?.get?.('Authorization');
+
+    if (error.response?.status === 401 && authorization && typeof window !== 'undefined') {
+      localStorage.removeItem('token');
+      window.dispatchEvent(new CustomEvent(AUTH_EXPIRED_EVENT, {
+        detail: {
+          message: error.response?.data?.message || '登录状态已过期，请重新登录'
+        }
+      }));
+    }
+
+    return Promise.reject(error);
+  }
+);
+
+export function getApiErrorMessage(error, fallback = '请求失败，请稍后重试') {
+  return error.response?.data?.message || error.response?.data?.error || error.message || fallback;
+}
 
 export const login = (username, password) => axios.post(`${BASE}/login`, { username, password });
 
@@ -52,4 +76,4 @@ export const fetchIcon = (url) => axios.get(`${BASE}/fetch-icon`, { params: { ur
 // 用户API
 export const getUserProfile = () => axios.get(`${BASE}/users/profile`, { headers: authHeaders() });
 export const changePassword = (oldPassword, newPassword) => axios.put(`${BASE}/users/password`, { oldPassword, newPassword }, { headers: authHeaders() });
-export const getUsers = () => axios.get(`${BASE}/users`, { headers: authHeaders() }); 
+export const getUsers = () => axios.get(`${BASE}/users`, { headers: authHeaders() });

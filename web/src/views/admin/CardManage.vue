@@ -46,7 +46,13 @@
             <td><input v-model="card.desc" @blur="updateCard(card)" class="table-input" placeholder="描述（可选）" /></td>
             <td><input v-model.number="card.order" type="number" @blur="updateCard(card)" class="table-input order-input" /></td>
             <td>
-              <button class="btn btn-danger btn-icon" @click="deleteCard(card.id)" title="删除">
+              <button
+                class="btn btn-danger btn-icon"
+                :disabled="deletingCardId === card.id"
+                :aria-label="`删除站点 ${card.title}`"
+                @click="deleteCard(card)"
+                title="删除"
+              >
                 <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
                   <path d="M3 6h18M8 6V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6"/>
                   <path d="M10 11v6M14 11v6"/>
@@ -68,7 +74,8 @@ import {
   addCard as apiAddCard,
   updateCard as apiUpdateCard,
   deleteCard as apiDeleteCard,
-  fetchIcon
+  fetchIcon,
+  getApiErrorMessage
 } from '../../api';
 
 const menus = ref([]);
@@ -79,6 +86,8 @@ const newCardTitle = ref('');
 const newCardUrl = ref('');
 const newCardLogo = ref('');
 const fetchingIcon = ref(false);
+const deletingCardId = ref(null);
+let loadRequestId = 0;
 
 const currentSubMenus = computed(() => {
   if (!selectedMenuId.value) return [];
@@ -112,8 +121,11 @@ function onSubMenuChange() {
 
 async function loadCards() {
   if (!selectedMenuId.value) return;
+  const requestId = ++loadRequestId;
   const res = await getCards(selectedMenuId.value, selectedSubMenuId.value || null);
-  cards.value = res.data;
+  if (requestId === loadRequestId) {
+    cards.value = res.data;
+  }
 }
 
 async function autoFetchIcon() {
@@ -169,9 +181,19 @@ async function updateCard(card) {
   loadCards();
 }
 
-async function deleteCard(id) {
-  await apiDeleteCard(id);
-  loadCards();
+async function deleteCard(card) {
+  if (!confirm(`确定要删除“${card.title}”吗？`)) return;
+
+  deletingCardId.value = card.id;
+  try {
+    await apiDeleteCard(card.id);
+    ++loadRequestId;
+    cards.value = cards.value.filter(item => item.id !== card.id);
+  } catch (error) {
+    alert(`删除失败：${getApiErrorMessage(error)}`);
+  } finally {
+    deletingCardId.value = null;
+  }
 }
 </script>
 
@@ -282,6 +304,14 @@ async function deleteCard(id) {
 .input::placeholder {
   color: rgba(245,245,247,0.20);
 }
+select.input {
+  color-scheme: dark;
+  background-color: #1E1E1E;
+}
+select.input option {
+  color: #F5F5F7;
+  background-color: #1E1E1E;
+}
 .input.narrow { width: 120px; }
 .input.wide { width: 180px; }
 
@@ -368,6 +398,12 @@ async function deleteCard(id) {
   padding: 0;
   justify-content: center;
   border-radius: 6px;
+}
+
+.btn:disabled {
+  cursor: wait;
+  opacity: 0.5;
+  transform: none;
 }
 
 .btn-danger {
