@@ -2,10 +2,12 @@ import { createRouter, createWebHistory } from 'vue-router';
 
 const Home = () => import('./views/Home.vue');
 const Admin = () => import('./views/Admin.vue');
+const QuickAdd = () => import('./views/QuickAdd.vue');
 
 const routes = [
   { path: '/', component: Home },
-  { path: '/admin', component: Admin }
+  { path: '/admin', component: Admin },
+  { path: '/quick-add', component: QuickAdd }
 ];
 
 const router = createRouter({
@@ -13,4 +15,4 @@ const router = createRouter({
   routes
 });
 
-export default router; 
+export default router;

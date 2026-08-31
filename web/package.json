@@ -3,8 +3,8 @@
   "version": "1.0.0",
   "author": "eooce",
   "description": "nav-item-frontend",
-  "repository": "https://github.com/eooce/nav-item",
-  "license": "MIT",
+  "repository": "https://github.com/76hvc/nav-item",
+  "license": "Apache-2.0",
   "scripts": {
     "dev": "vite --host",
     "build": "vite build"
@@ -19,6 +19,6 @@
     "vite": "^7.0.6"
   },
   "engines": {
-    "node": ">=14"
+    "node": ">=20.19"
   }
 }
