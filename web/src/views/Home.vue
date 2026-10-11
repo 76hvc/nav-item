@@ -4,9 +4,7 @@
       <MenuBar
         :menus="menus"
         :theme="theme"
-        :petal-motion-enabled="motionEnabled"
         @toggle-theme="toggleTheme"
-        @toggle-petal-motion="togglePetalMotion"
         :activeId="activeMenu?.id"
         :activeSubMenuId="activeSubMenu?.id"
         @select="selectMenu"
@@ -69,7 +67,6 @@ import CardGrid from '../components/CardGrid.vue';
 
 const menus = ref([]);
 const THEME_STORAGE_KEY = 'nav-item-theme';
-const PETAL_MOTION_STORAGE_KEY = 'nav-item-petal-motion';
 
 function readSavedTheme() {
   try {
@@ -80,20 +77,7 @@ function readSavedTheme() {
 }
 
 const theme = ref(readSavedTheme());
-function readSavedPetalMotion() {
-  try {
-    return localStorage.getItem(PETAL_MOTION_STORAGE_KEY) !== 'off';
-  } catch {
-    return true;
-  }
-}
-
-const motionEnabled = ref(readSavedPetalMotion());
 let stopSakura = null;
-function syncSakura() {
-  if (stopSakura) { stopSakura(); stopSakura = null; }
-  if (motionEnabled.value) stopSakura = mountSakura();
-}
 
 function toggleTheme() {
   theme.value = theme.value === 'day' ? 'night' : 'day';
@@ -104,15 +88,6 @@ function toggleTheme() {
   }
 }
 
-function togglePetalMotion() {
-  motionEnabled.value = !motionEnabled.value;
-  syncSakura();
-  try {
-    localStorage.setItem(PETAL_MOTION_STORAGE_KEY, motionEnabled.value ? 'on' : 'off');
-  } catch {
-    // Animation control still works for this page when storage is unavailable.
-  }
-}
 
 const activeMenu = ref(null);
 const activeSubMenu = ref(null);
@@ -173,7 +148,9 @@ const filteredCards = computed(() => {
 });
 
 onMounted(async () => {
-  syncSakura();
+  if (!window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+    stopSakura = mountSakura();
+  }
   const res = await getMenus();
   menus.value = res.data;
   if (menus.value.length) {

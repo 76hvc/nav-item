@@ -41,23 +41,10 @@
     </div>
 
     <button
-      class="theme-switcher petal-switcher"
-      type="button"
-      :aria-label="petalMotionEnabled ? '关闭樱花飘落' : '开启樱花飘落'"
-      :aria-pressed="petalMotionEnabled"
-      :title="petalMotionEnabled ? '关闭樱花动画' : '开启樱花动画'"
-      @click="$emit('toggle-petal-motion')"
-    >
-      <span class="petal-switcher-icon" aria-hidden="true">🌸</span>
-      <span class="theme-switcher-label">{{ petalMotionEnabled ? '樱花开' : '樱花关' }}</span>
-    </button>
-
-    <button
       class="theme-switcher"
       type="button"
       :aria-label="theme === 'day' ? '切换到夜景主题' : '切换到日景主题'"
       :aria-pressed="theme === 'night'"
-      :title="theme === 'day' ? '切换到夜景' : '切换到日景'"
       @click="$emit('toggle-theme')"
     >
       <svg v-if="theme === 'day'" viewBox="0 0 24 24" aria-hidden="true" focusable="false">
@@ -67,7 +54,6 @@
         <circle cx="12" cy="12" r="3.7" />
         <path d="M12 2v2m0 16v2M4.93 4.93l1.42 1.42m11.3 11.3 1.42 1.42M2 12h2m16 0h2M4.93 19.07l1.42-1.42m11.3-11.3 1.42-1.42" />
       </svg>
-      <span class="theme-switcher-label">{{ theme === 'day' ? '夜景' : '日景' }}</span>
     </button>
   </nav>
 </template>
@@ -75,14 +61,13 @@
 <script setup>
 import { ref } from 'vue';
 
-const emit = defineEmits(['select', 'toggle-theme', 'toggle-petal-motion']);
+const emit = defineEmits(['select', 'toggle-theme']);
 
 const props = defineProps({
   menus: Array,
   activeId: Number,
   activeSubMenuId: Number,
-  theme: { type: String, default: 'day' },
-  petalMotionEnabled: { type: Boolean, default: true }
+  theme: { type: String, default: 'day' }
 });
 
 const hoveredMenuId = ref(null);
@@ -331,7 +316,6 @@ function closeSubMenu() {
   z-index: 101;
 }
 
-.menu-bar .petal-switcher { right: 7.1rem; }
 
 .menu-bar .theme-switcher:hover {
   color: var(--accent, #d85c8b);
@@ -359,13 +343,11 @@ function closeSubMenu() {
 }
 
 @media (max-width: 768px) {
-  .menu-bar { padding: 0 6.4rem 0 0.3rem; }
+  .menu-bar { padding: 0 3rem 0 0.3rem; }
   .menu-bar .theme-switcher { top: 0; right: 0.4rem; padding: 0.45rem 0.6rem; }
-  .menu-bar .petal-switcher { right: 3rem; }
 }
 
 @media (max-width: 480px) {
-  .menu-bar .theme-switcher-label { display: none; }
   .menu-bar .theme-switcher { width: 36px; height: 36px; padding: 0; }
 }
 </style>
