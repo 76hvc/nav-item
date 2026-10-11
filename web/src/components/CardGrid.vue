@@ -37,6 +37,14 @@ watch(() => props.cards, (newCards, oldCards) => {
 
 // 触发动画
 function triggerAnimation() {
+  const reduceMotion = window.matchMedia?.('(prefers-reduced-motion: reduce)')?.matches ?? false;
+  const lowMemory = (navigator.deviceMemory || 4) <= 2;
+  const fewCores = (navigator.hardwareConcurrency || 4) <= 2;
+  if (reduceMotion || lowMemory || fewCores) {
+    animationClass.value = '';
+    return;
+  }
+
   // 随机选择动画类型，替换bounceIn为convergeIn
   const animations = ['slideUp', 'radial', 'fadeIn', 'slideLeft', 'slideRight', 'convergeIn', 'flipIn'];
   const randomIndex = Math.floor(Math.random() * animations.length);
@@ -367,6 +375,41 @@ function truncate(str) {
     animation: none;
     opacity: 1;
     transform: none;
+  }
+}
+/* Theme-aware card surfaces inherit the active home palette. */
+.link-item {
+  background: var(--surface-soft, rgba(255,255,255,0.03));
+  border-color: var(--border-subtle, rgba(255,255,255,0.04));
+  box-shadow: var(--shadow-sm, 0 2px 12px rgba(0,0,0,0.20));
+}
+
+.link-item::before {
+  background: linear-gradient(135deg, var(--accent-wash, rgba(216,92,139,0.06)), transparent);
+}
+
+.link-item:hover {
+  background: var(--surface-hover, rgba(255,255,255,0.05));
+  border-color: var(--accent-border, rgba(216,92,139,0.20));
+  box-shadow: var(--shadow-lg, 0 12px 32px rgba(0,0,0,0.30));
+}
+
+.link-item a { color: var(--text-primary, #F5F5F7); }
+.link-text { color: var(--text-secondary, rgba(245,245,247,0.72)); }
+.link-item:hover .link-text { color: var(--text-primary, rgba(245,245,247,0.92)); }
+
+.link-item:focus-within {
+  outline: 3px solid var(--accent, #d85c8b);
+  outline-offset: 3px;
+  z-index: 2;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .card-grid .link-item,
+  .card-grid .link-item::before,
+  .card-grid .link-item .link-icon {
+    animation: none !important;
+    transition: none !important;
   }
 }
 </style>
