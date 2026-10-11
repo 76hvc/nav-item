@@ -1,6 +1,6 @@
 <template>
-  <div class="home-container" :data-theme="theme" :data-motion="motionEnabled ? 'enabled' : 'disabled'">
-    <div class="petal-layer" :data-motion="motionEnabled ? 'enabled' : 'disabled'" aria-hidden="true">
+  <div class="home-container" :data-theme="theme">
+    <div v-if="motionEnabled" class="petal-layer" aria-hidden="true">
       <span
         v-for="petal in petals"
         :key="petal.id"
@@ -18,7 +18,9 @@
       <MenuBar
         :menus="menus"
         :theme="theme"
+        :petal-motion-enabled="motionEnabled"
         @toggle-theme="toggleTheme"
+        @toggle-petal-motion="togglePetalMotion"
         :activeId="activeMenu?.id"
         :activeSubMenuId="activeSubMenu?.id"
         @select="selectMenu"
@@ -133,6 +135,7 @@ import CardGrid from '../components/CardGrid.vue';
 
 const menus = ref([]);
 const THEME_STORAGE_KEY = 'nav-item-theme';
+const PETAL_MOTION_STORAGE_KEY = 'nav-item-petal-motion';
 
 function readSavedTheme() {
   try {
@@ -143,7 +146,15 @@ function readSavedTheme() {
 }
 
 const theme = ref(readSavedTheme());
-const motionEnabled = ref(false);
+function readSavedPetalMotion() {
+  try {
+    return localStorage.getItem(PETAL_MOTION_STORAGE_KEY) !== 'off';
+  } catch {
+    return true;
+  }
+}
+
+const motionEnabled = ref(readSavedPetalMotion());
 const petals = Array.from({ length: 16 }, (_, index) => ({
   id: index,
   style: {
@@ -166,11 +177,13 @@ function toggleTheme() {
   }
 }
 
-function supportsPetalMotion() {
-  const prefersReducedMotion = window.matchMedia?.('(prefers-reduced-motion: reduce)')?.matches ?? false;
-  const lowMemory = (navigator.deviceMemory || 4) <= 2;
-  const fewCores = (navigator.hardwareConcurrency || 4) <= 2;
-  return !prefersReducedMotion && !lowMemory && !fewCores;
+function togglePetalMotion() {
+  motionEnabled.value = !motionEnabled.value;
+  try {
+    localStorage.setItem(PETAL_MOTION_STORAGE_KEY, motionEnabled.value ? 'on' : 'off');
+  } catch {
+    // Animation control still works for this page when storage is unavailable.
+  }
 }
 
 const activeMenu = ref(null);
@@ -234,7 +247,6 @@ const filteredCards = computed(() => {
 });
 
 onMounted(async () => {
-  motionEnabled.value = supportsPetalMotion();
   const res = await getMenus();
   menus.value = res.data;
   if (menus.value.length) {
@@ -864,7 +876,6 @@ function handleLogoError(event) {
 }
 
 .sakura-petal svg { display: block; width: 100%; height: auto; overflow: visible; }
-.petal-layer[data-motion="disabled"] .sakura-petal { animation: none; }
 .sakura-petal svg > path:first-child { fill: currentColor; }
 .sakura-petal .petal-vein {
   fill: none;
@@ -982,7 +993,6 @@ function handleLogoError(event) {
 }
 
 @media (prefers-reduced-motion: reduce) {
-  .petal-layer .sakura-petal { animation: none !important; }
   .home-container *,
   .home-container *::before,
   .home-container *::after { scroll-behavior: auto !important; }

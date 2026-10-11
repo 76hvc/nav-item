@@ -41,6 +41,18 @@
     </div>
 
     <button
+      class="theme-switcher petal-switcher"
+      type="button"
+      :aria-label="petalMotionEnabled ? '关闭樱花飘落' : '开启樱花飘落'"
+      :aria-pressed="petalMotionEnabled"
+      :title="petalMotionEnabled ? '关闭樱花动画' : '开启樱花动画'"
+      @click="$emit('toggle-petal-motion')"
+    >
+      <span class="petal-switcher-icon" aria-hidden="true">🌸</span>
+      <span class="theme-switcher-label">{{ petalMotionEnabled ? '樱花开' : '樱花关' }}</span>
+    </button>
+
+    <button
       class="theme-switcher"
       type="button"
       :aria-label="theme === 'day' ? '切换到夜景主题' : '切换到日景主题'"
@@ -63,13 +75,14 @@
 <script setup>
 import { ref } from 'vue';
 
-const emit = defineEmits(['select', 'toggle-theme']);
+const emit = defineEmits(['select', 'toggle-theme', 'toggle-petal-motion']);
 
 const props = defineProps({
   menus: Array,
   activeId: Number,
   activeSubMenuId: Number,
-  theme: { type: String, default: 'day' }
+  theme: { type: String, default: 'day' },
+  petalMotionEnabled: { type: Boolean, default: true }
 });
 
 const hoveredMenuId = ref(null);
@@ -318,6 +331,8 @@ function closeSubMenu() {
   z-index: 101;
 }
 
+.menu-bar .petal-switcher { right: 7.1rem; }
+
 .menu-bar .theme-switcher:hover {
   color: var(--accent, #d85c8b);
   background: var(--accent-soft, rgba(216,92,139,0.12));
@@ -344,8 +359,9 @@ function closeSubMenu() {
 }
 
 @media (max-width: 768px) {
-  .menu-bar { padding: 0 3.8rem 0 0.3rem; }
+  .menu-bar { padding: 0 6.4rem 0 0.3rem; }
   .menu-bar .theme-switcher { top: 0; right: 0.4rem; padding: 0.45rem 0.6rem; }
+  .menu-bar .petal-switcher { right: 3rem; }
 }
 
 @media (max-width: 480px) {
