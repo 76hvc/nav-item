@@ -1,6 +1,6 @@
 <template>
   <div class="home-container" :data-theme="theme" :data-motion="motionEnabled ? 'enabled' : 'disabled'">
-    <div v-if="motionEnabled" class="petal-layer" aria-hidden="true">
+    <div class="petal-layer" :data-motion="motionEnabled ? 'enabled' : 'disabled'" aria-hidden="true">
       <span
         v-for="petal in petals"
         :key="petal.id"
@@ -144,15 +144,16 @@ function readSavedTheme() {
 
 const theme = ref(readSavedTheme());
 const motionEnabled = ref(false);
-const petals = Array.from({ length: 8 }, (_, index) => ({
+const petals = Array.from({ length: 16 }, (_, index) => ({
   id: index,
   style: {
-    '--petal-left': `${(index * 29 + 7) % 98}%`,
+    '--petal-left': `${(index * 37 + 7) % 98}%`,
+    '--petal-top': `${(index * 31 + 5) % 92}vh`,
     '--petal-delay': `-${((index * 2.3) % 15).toFixed(1)}s`,
-    '--petal-duration': `${18 + (index % 4) * 4}s`,
-    '--petal-drift': `${(index % 2 === 0 ? 1 : -1) * (24 + (index % 3) * 14)}px`,
-    '--petal-scale': `${0.62 + (index % 4) * 0.15}`,
-    '--petal-opacity': `${0.42 + (index % 3) * 0.12}`
+    '--petal-duration': `${15 + (index % 5) * 3}s`,
+    '--petal-drift': `${(index % 2 === 0 ? 1 : -1) * (36 + (index % 4) * 16)}px`,
+    '--petal-scale': `${0.75 + (index % 4) * 0.18}`,
+    '--petal-opacity': `${0.72 + (index % 3) * 0.08}`
   }
 }));
 
@@ -845,15 +846,15 @@ function handleLogoError(event) {
   position: fixed;
   inset: 0;
   overflow: hidden;
-  z-index: 1;
+  z-index: 3;
   pointer-events: none;
 }
 
 .sakura-petal {
   position: absolute;
-  top: -12vh;
+  top: var(--petal-top);
   left: var(--petal-left);
-  width: clamp(13px, 1.45vw, 21px);
+  width: clamp(17px, 1.9vw, 28px);
   height: auto;
   color: var(--petal-color);
   opacity: var(--petal-opacity);
@@ -863,6 +864,7 @@ function handleLogoError(event) {
 }
 
 .sakura-petal svg { display: block; width: 100%; height: auto; overflow: visible; }
+.petal-layer[data-motion="disabled"] .sakura-petal { animation: none; }
 .sakura-petal svg > path:first-child { fill: currentColor; }
 .sakura-petal .petal-vein {
   fill: none;
@@ -970,17 +972,17 @@ function handleLogoError(event) {
 
 @media (max-width: 768px) {
   .home-container { background-attachment: scroll; }
-  .sakura-petal { width: 15px; }
+  .sakura-petal { width: 18px; }
   .home-container .search-container { backdrop-filter: none; -webkit-backdrop-filter: none; }
 }
 
 @media (max-width: 520px) {
-  .sakura-petal:nth-child(n + 5) { display: none; }
+  .sakura-petal:nth-child(n + 9) { display: none; }
   .home-container .search-section { padding-top: 2rem; }
 }
 
 @media (prefers-reduced-motion: reduce) {
-  .petal-layer { display: none !important; }
+  .petal-layer .sakura-petal { animation: none !important; }
   .home-container *,
   .home-container *::before,
   .home-container *::after { scroll-behavior: auto !important; }
