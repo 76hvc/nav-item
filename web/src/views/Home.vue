@@ -57,66 +57,13 @@
     </div>
 
     <CardGrid :cards="filteredCards"/>
-
-    <footer class="footer">
-      <div class="footer-content">
-        <button @click="showFriendLinks = true" class="friend-link-btn">
-          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-            <path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path>
-            <path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path>
-          </svg>
-          友情链接
-        </button>
-        <p class="copyright">Copyright © 2025 Nav-Item | <a href="https://github.com/eooce/Nav-Item" target="_blank" class="footer-link">Powered by eooce</a></p>
-      </div>
-    </footer>
-
-    <!-- 友情链接弹窗 -->
-    <div v-if="showFriendLinks" class="modal-overlay" @click="showFriendLinks = false">
-      <div class="modal-content" @click.stop>
-        <div class="modal-header">
-          <h3>友情链接</h3>
-          <button @click="showFriendLinks = false" class="close-btn">
-            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-              <path d="M18 6L6 18M6 6l12 12"></path>
-            </svg>
-          </button>
-        </div>
-        <div class="modal-body">
-          <div class="friend-links-grid">
-            <a
-              v-for="friend in friendLinks"
-              :key="friend.id"
-              :href="friend.url"
-              target="_blank"
-              class="friend-link-card"
-            >
-              <div class="friend-link-logo">
-                <img
-                  v-if="friend.logo"
-                  :src="friend.logo"
-                  :alt="friend.title"
-                  @error="handleLogoError"
-                />
-                <div v-else class="friend-link-placeholder">
-                  {{ friend.title.charAt(0) }}
-                </div>
-              </div>
-              <div class="friend-link-info">
-                <h4>{{ friend.title }}</h4>
-              </div>
-            </a>
-          </div>
-        </div>
-      </div>
-    </div>
   </div>
 </template>
 
 <script setup>
 import { ref, onMounted, onUnmounted, computed } from 'vue';
 import { mountSakura } from '../utils/sakura.js';
-import { getMenus, getCards, getAds, getFriends } from '../api';
+import { getMenus, getCards, getAds } from '../api';
 import MenuBar from '../components/MenuBar.vue';
 import CardGrid from '../components/CardGrid.vue';
 
@@ -173,8 +120,6 @@ const cards = ref([]);
 const searchQuery = ref('');
 const leftAds = ref([]);
 const rightAds = ref([]);
-const showFriendLinks = ref(false);
-const friendLinks = ref([]);
 
 // 聚合搜索配置
 const searchEngines = [
@@ -240,8 +185,6 @@ onMounted(async () => {
   leftAds.value = adRes.data.filter(ad => ad.position === 'left');
   rightAds.value = adRes.data.filter(ad => ad.position === 'right');
 
-  const friendRes = await getFriends();
-  friendLinks.value = friendRes.data;
 });
 
 onUnmounted(() => {
@@ -298,10 +241,6 @@ async function handleSearch() {
   }
 }
 
-function handleLogoError(event) {
-  event.target.style.display = 'none';
-  event.target.nextElementSibling.style.display = 'flex';
-}
 </script>
 
 <style scoped>
@@ -526,190 +465,6 @@ function handleLogoError(event) {
   border: 1px solid rgba(255,255,255,0.04);
 }
 
-/* ========== 底部 ========== */
-.footer {
-  margin-top: auto;
-  text-align: center;
-  padding: 2rem 0 2.5rem;
-  position: relative;
-  z-index: 2;
-}
-.footer-content {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  gap: 40px;
-  flex-wrap: wrap;
-}
-
-.friend-link-btn {
-  display: flex;
-  align-items: center;
-  gap: 8px;
-  background: rgba(255,255,255,0.03);
-  border: 1px solid rgba(255,255,255,0.06);
-  color: rgba(245,245,247,0.50);
-  cursor: pointer;
-  transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
-  font-size: 13px;
-  padding: 7px 18px;
-  border-radius: 20px;
-  font-weight: 500;
-}
-.friend-link-btn:hover {
-  color: rgba(245,245,247,0.85);
-  background: rgba(91,141,239,0.08);
-  border-color: rgba(91,141,239,0.18);
-  transform: translateY(-2px);
-  box-shadow: 0 4px 12px rgba(91,141,239,0.10);
-}
-
-.copyright {
-  color: rgba(245,245,247,0.35);
-  font-size: 13px;
-  margin: 0;
-}
-.footer-link {
-  color: rgba(245,245,247,0.40);
-  text-decoration: none;
-  transition: color 0.2s;
-}
-.footer-link:hover {
-  color: rgba(245,245,247,0.70);
-}
-
-/* ========== 弹窗（友链） ========== */
-.modal-overlay {
-  position: fixed;
-  top: 0;
-  left: 0;
-  right: 0;
-  bottom: 0;
-  background: rgba(0,0,0,0.65);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  z-index: 1000;
-  backdrop-filter: blur(8px);
-  -webkit-backdrop-filter: blur(8px);
-  animation: fadeIn 0.2s ease;
-}
-
-.modal-content {
-  background: #1E1E1E;
-  border: 1px solid rgba(255,255,255,0.06);
-  border-radius: 20px;
-  width: 55rem;
-  max-width: 92vw;
-  max-height: 85vh;
-  display: flex;
-  flex-direction: column;
-  box-shadow: 0 25px 80px rgba(0,0,0,0.50);
-  overflow: hidden;
-  animation: scaleIn 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
-}
-
-.modal-header {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  padding: 16px 24px;
-  border-bottom: 1px solid rgba(255,255,255,0.06);
-}
-.modal-header h3 {
-  margin: 0;
-  font-size: 1.2rem;
-  font-weight: 600;
-  color: #F5F5F7;
-  letter-spacing: 0.3px;
-}
-
-.close-btn {
-  background: none;
-  border: none;
-  cursor: pointer;
-  padding: 8px;
-  border-radius: 8px;
-  color: rgba(245,245,247,0.35);
-  transition: all 0.2s;
-}
-.close-btn:hover {
-  background: rgba(239,68,68,0.10);
-  color: #ef4444;
-}
-
-.modal-body {
-  flex: 1;
-  padding: 20px 24px;
-  overflow-y: auto;
-}
-
-/* 友链网格 */
-.friend-links-grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(110px, 1fr));
-  gap: 10px;
-}
-
-.friend-link-card {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  padding: 14px 10px 10px;
-  background: rgba(255,255,255,0.03);
-  border-radius: 14px;
-  text-decoration: none;
-  color: inherit;
-  transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
-  border: 1px solid rgba(255,255,255,0.04);
-}
-.friend-link-card:hover {
-  transform: translateY(-3px);
-  background: rgba(255,255,255,0.05);
-  border-color: rgba(91,141,239,0.12);
-  box-shadow: 0 8px 24px rgba(0,0,0,0.30);
-}
-
-.friend-link-logo {
-  width: 48px;
-  height: 48px;
-  border-radius: 12px;
-  overflow: hidden;
-  margin-bottom: 8px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  background: #252525;
-  border: 1px solid rgba(255,255,255,0.04);
-}
-.friend-link-logo img {
-  width: 100%;
-  height: 100%;
-  object-fit: contain;
-}
-.friend-link-placeholder {
-  width: 100%;
-  height: 100%;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  background: rgba(91,141,239,0.15);
-  color: #5B8DEF;
-  font-size: 18px;
-  font-weight: 600;
-  border-radius: 12px;
-}
-
-.friend-link-info h4 {
-  margin: 0;
-  font-size: 11px;
-  font-weight: 500;
-  color: rgba(245,245,247,0.60);
-  text-align: center;
-  line-height: 1.3;
-  word-break: break-all;
-}
-
 /* ========== deep 穿透 ========== */
 :deep(.menu-bar) { position: relative; z-index: 2; }
 :deep(.card-grid) { position: relative; z-index: 2; }
@@ -735,15 +490,6 @@ function handleLogoError(event) {
   .search-container { width: 94%; padding: 0.15rem 0.15rem 0.15rem 0.8rem; }
   .search-input { font-size: 1rem; padding: 0.35rem 0.4rem; }
   .search-btn { width: 38px; height: 38px; border-radius: 10px; }
-  .footer { padding: 1.5rem 0 2rem; }
-  .footer-content { gap: 16px; flex-direction: column; }
-  .friend-link-btn { font-size: 0.7rem; padding: 5px 12px; }
-  .copyright { font-size: 0.65rem; }
-  .modal-header h3 { font-size: 1.05rem; }
-  .modal-body { padding: 14px; }
-  .friend-links-grid { grid-template-columns: repeat(3, 1fr); gap: 8px; }
-  .friend-link-card { padding: 10px 6px 8px; }
-  .friend-link-logo { width: 40px; height: 40px; }
 }
 /* Sakura day and night palettes */
 .home-container {
@@ -835,7 +581,6 @@ function handleLogoError(event) {
 
 .home-container .menu-bar-fixed { z-index: 100; }
 .home-container .search-section,
-.home-container .footer,
 .home-container :deep(.card-grid) { position: relative; z-index: 2; }
 
 .home-container .engine-btn {
@@ -880,46 +625,6 @@ function handleLogoError(event) {
   border-color: var(--border-subtle);
   box-shadow: var(--shadow-md);
 }
-.home-container .friend-link-btn {
-  color: var(--text-secondary);
-  background: var(--surface-soft);
-  border-color: var(--border-default);
-}
-.home-container .friend-link-btn:hover {
-  color: var(--text-primary);
-  background: var(--accent-soft);
-  border-color: var(--accent-border);
-  box-shadow: var(--shadow-sm);
-}
-.home-container .copyright { color: var(--text-tertiary); }
-.home-container .footer-link { color: var(--text-secondary); }
-.home-container .footer-link:hover { color: var(--accent); }
-
-.home-container .modal-overlay { background: var(--overlay-backdrop); }
-.home-container .modal-content {
-  color: var(--text-primary);
-  background: var(--bg-raised);
-  border-color: var(--border-default);
-  box-shadow: var(--shadow-xl);
-}
-.home-container .modal-header { border-color: var(--border-default); }
-.home-container .modal-header h3 { color: var(--text-primary); }
-.home-container .close-btn { color: var(--text-tertiary); }
-.home-container .close-btn:hover { background: var(--accent-soft); color: var(--accent); }
-.home-container .friend-link-card {
-  color: var(--text-primary);
-  background: var(--surface-soft);
-  border-color: var(--border-subtle);
-}
-.home-container .friend-link-card:hover {
-  background: var(--surface-hover);
-  border-color: var(--accent-border);
-  box-shadow: var(--shadow-md);
-}
-.home-container .friend-link-logo { background: var(--bg-overlay); border-color: var(--border-subtle); }
-.home-container .friend-link-placeholder { background: var(--accent-soft); color: var(--accent); }
-.home-container .friend-link-info h4 { color: var(--text-secondary); }
-
 .home-container :deep(.menu-bar button:focus-visible),
 .home-container :deep(.card-grid .link-item:focus-within),
 .home-container .search-input:focus-visible,
