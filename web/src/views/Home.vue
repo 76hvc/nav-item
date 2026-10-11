@@ -1,19 +1,5 @@
 <template>
   <div class="home-container" :data-theme="theme">
-    <div v-if="motionEnabled" class="petal-layer" aria-hidden="true">
-      <span
-        v-for="petal in petals"
-        :key="petal.id"
-        class="sakura-petal"
-        :style="petal.style"
-      >
-        <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false">
-          <path d="M12 2c4 3.2 8 5.4 8 10.2 0 4.4-3.5 8.3-8 9.8-4.5-1.5-8-5.4-8-9.8C4 7.4 8 5.2 12 2Z" />
-          <path class="petal-vein" d="M6.8 12.2c2.7.5 5.3 1.1 10.4 2.1" />
-        </svg>
-      </span>
-    </div>
-
     <div class="menu-bar-fixed">
       <MenuBar
         :menus="menus"
@@ -128,7 +114,8 @@
 </template>
 
 <script setup>
-import { ref, onMounted, computed } from 'vue';
+import { ref, onMounted, onUnmounted, computed } from 'vue';
+import { mountSakura } from '../utils/sakura.js';
 import { getMenus, getCards, getAds, getFriends } from '../api';
 import MenuBar from '../components/MenuBar.vue';
 import CardGrid from '../components/CardGrid.vue';
@@ -155,18 +142,11 @@ function readSavedPetalMotion() {
 }
 
 const motionEnabled = ref(readSavedPetalMotion());
-const petals = Array.from({ length: 16 }, (_, index) => ({
-  id: index,
-  style: {
-    '--petal-left': `${(index * 37 + 7) % 98}%`,
-    '--petal-top': `${(index * 31 + 5) % 92}vh`,
-    '--petal-delay': `-${((index * 2.3) % 15).toFixed(1)}s`,
-    '--petal-duration': `${15 + (index % 5) * 3}s`,
-    '--petal-drift': `${(index % 2 === 0 ? 1 : -1) * (36 + (index % 4) * 16)}px`,
-    '--petal-scale': `${0.75 + (index % 4) * 0.18}`,
-    '--petal-opacity': `${0.72 + (index % 3) * 0.08}`
-  }
-}));
+let stopSakura = null;
+function syncSakura() {
+  if (stopSakura) { stopSakura(); stopSakura = null; }
+  if (motionEnabled.value) stopSakura = mountSakura();
+}
 
 function toggleTheme() {
   theme.value = theme.value === 'day' ? 'night' : 'day';
@@ -179,6 +159,7 @@ function toggleTheme() {
 
 function togglePetalMotion() {
   motionEnabled.value = !motionEnabled.value;
+  syncSakura();
   try {
     localStorage.setItem(PETAL_MOTION_STORAGE_KEY, motionEnabled.value ? 'on' : 'off');
   } catch {
@@ -247,6 +228,7 @@ const filteredCards = computed(() => {
 });
 
 onMounted(async () => {
+  syncSakura();
   const res = await getMenus();
   menus.value = res.data;
   if (menus.value.length) {
@@ -260,6 +242,10 @@ onMounted(async () => {
 
   const friendRes = await getFriends();
   friendLinks.value = friendRes.data;
+});
+
+onUnmounted(() => {
+  if (stopSakura) stopSakura();
 });
 
 async function selectMenu(menu, parentMenu = null) {
@@ -854,43 +840,6 @@ function handleLogoError(event) {
 .home-container .footer,
 .home-container :deep(.card-grid) { position: relative; z-index: 2; }
 
-.petal-layer {
-  position: fixed;
-  inset: 0;
-  overflow: hidden;
-  z-index: 3;
-  pointer-events: none;
-}
-
-.sakura-petal {
-  position: absolute;
-  top: var(--petal-top);
-  left: var(--petal-left);
-  width: clamp(17px, 1.9vw, 28px);
-  height: auto;
-  color: var(--petal-color);
-  opacity: var(--petal-opacity);
-  filter: drop-shadow(0 2px 3px rgba(90,55,78,0.12));
-  will-change: transform, opacity;
-  animation: sakura-fall var(--petal-duration) linear var(--petal-delay) infinite;
-}
-
-.sakura-petal svg { display: block; width: 100%; height: auto; overflow: visible; }
-.sakura-petal svg > path:first-child { fill: currentColor; }
-.sakura-petal .petal-vein {
-  fill: none;
-  stroke: rgba(255,255,255,0.72);
-  stroke-width: 0.75;
-  stroke-linecap: round;
-}
-
-@keyframes sakura-fall {
-  0% { transform: translate3d(0,-4vh,0) rotate(0deg) scale(var(--petal-scale)); opacity: 0; }
-  9% { opacity: var(--petal-opacity); }
-  88% { opacity: var(--petal-opacity); }
-  100% { transform: translate3d(var(--petal-drift),116vh,0) rotate(420deg) scale(var(--petal-scale)); opacity: 0; }
-}
-
 .home-container .engine-btn {
   color: var(--text-secondary);
   background: var(--surface-soft);
@@ -983,12 +932,10 @@ function handleLogoError(event) {
 
 @media (max-width: 768px) {
   .home-container { background-attachment: scroll; }
-  .sakura-petal { width: 18px; }
   .home-container .search-container { backdrop-filter: none; -webkit-backdrop-filter: none; }
 }
 
 @media (max-width: 520px) {
-  .sakura-petal:nth-child(n + 9) { display: none; }
   .home-container .search-section { padding-top: 2rem; }
 }
 

@@ -87,9 +87,9 @@ body {
 }
 
 @media (prefers-reduced-motion: reduce) {
-  *:not(.sakura-petal),
-  *:not(.sakura-petal)::before,
-  *:not(.sakura-petal)::after {
+  *:not(#canvas_sakura),
+  *:not(#canvas_sakura)::before,
+  *:not(#canvas_sakura)::after {
     animation-duration: 0.01ms !important;
     animation-iteration-count: 1 !important;
     scroll-behavior: auto !important;
