@@ -148,9 +148,7 @@ const filteredCards = computed(() => {
 });
 
 onMounted(async () => {
-  if (!window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
-    stopSakura = mountSakura();
-  }
+  stopSakura = mountSakura();
   const res = await getMenus();
   menus.value = res.data;
   if (menus.value.length) {
