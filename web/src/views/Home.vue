@@ -830,9 +830,7 @@ function handleLogoError(event) {
 }
 
 .home-container[data-theme="night"]::before {
-  background:
-    radial-gradient(circle at 83% 10%, rgba(255,224,238,0.1) 0 4.3rem, transparent 4.4rem),
-    radial-gradient(ellipse at 50% 0%, rgba(220,155,199,0.08), transparent 58%);
+  background: radial-gradient(ellipse at 50% 0%, rgba(220,155,199,0.08), transparent 58%);
 }
 
 .home-container .menu-bar-fixed { z-index: 100; }
