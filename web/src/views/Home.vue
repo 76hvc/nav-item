@@ -601,7 +601,6 @@ async function handleSearch() {
   box-shadow: var(--shadow-md);
 }
 .home-container :deep(.menu-bar button:focus-visible),
-.home-container :deep(.card-grid .link-item:focus-within),
 .home-container .search-input:focus-visible,
 .home-container button:focus-visible {
   outline: 3px solid var(--accent);

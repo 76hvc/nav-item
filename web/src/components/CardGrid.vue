@@ -398,10 +398,10 @@ function truncate(str) {
 .link-text { color: var(--text-secondary, rgba(245,245,247,0.72)); }
 .link-item:hover .link-text { color: var(--text-primary, rgba(245,245,247,0.92)); }
 
-.link-item:focus-within {
+.link-item a:focus-visible {
   outline: 3px solid var(--accent, #d85c8b);
-  outline-offset: 3px;
-  z-index: 2;
+  outline-offset: -3px;
+  border-radius: 14px;
 }
 
 @media (prefers-reduced-motion: reduce) {
