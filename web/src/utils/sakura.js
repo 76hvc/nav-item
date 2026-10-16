@@ -78,7 +78,9 @@ export function mountSakura() {
   const syncTheme = () => {
     const currentTheme = themeRoot?.dataset.theme === 'night' ? 'night' : 'day';
     canvas.dataset.theme = currentTheme;
-    canvas.style.filter = currentTheme === 'night' ? 'grayscale(1) brightness(1.2)' : '';
+    canvas.style.filter = currentTheme === 'night'
+      ? 'grayscale(1) brightness(1.2)'
+      : 'hue-rotate(13deg) saturate(2.6) brightness(0.92) contrast(1.12)';
   };
   syncTheme();
   resize();
