@@ -18,6 +18,11 @@ class Sakura {
     context.translate(this.x, this.y);
     context.rotate(this.r);
     context.drawImage(petalImage, 0, 0, 40 * this.s, 40 * this.s);
+    if (context.canvas.dataset.theme === 'day') {
+      context.globalCompositeOperation = 'source-atop';
+      context.fillStyle = 'rgba(198, 18, 40, 0.82)';
+      context.fillRect(0, 0, 40 * this.s, 40 * this.s);
+    }
     context.restore();
   }
 
@@ -78,9 +83,7 @@ export function mountSakura() {
   const syncTheme = () => {
     const currentTheme = themeRoot?.dataset.theme === 'night' ? 'night' : 'day';
     canvas.dataset.theme = currentTheme;
-    canvas.style.filter = currentTheme === 'night'
-      ? 'grayscale(1) brightness(1.2)'
-      : 'hue-rotate(13deg) saturate(2.6) brightness(0.92) contrast(1.12)';
+    canvas.style.filter = currentTheme === 'night' ? 'grayscale(1) brightness(1.2)' : '';
   };
   syncTheme();
   resize();
