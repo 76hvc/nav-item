@@ -629,6 +629,15 @@ async function handleSearch() {
   .home-container .search-section { padding-top: 2rem; }
 }
 
+@media (max-width: 768px) and (orientation: portrait) {
+  .home-container:not([data-theme="night"])::before {
+    background-image: url('/sakura-day-mobile.webp?v=mobile-pink-20261016');
+    background-position: center center;
+    background-size: cover;
+    background-repeat: no-repeat;
+  }
+}
+
 @media (prefers-reduced-motion: reduce) {
   .home-container *,
   .home-container *::before,
