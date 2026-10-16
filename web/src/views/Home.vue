@@ -636,6 +636,16 @@ async function handleSearch() {
     background-size: cover;
     background-repeat: no-repeat;
   }
+
+  .home-container[data-theme="night"]::before {
+    background-image:
+      radial-gradient(circle at 29% 23%, rgba(226,232,245,0.12), transparent 17rem),
+      linear-gradient(180deg, rgba(7,7,10,0.02), rgba(7,7,10,0.16)),
+      url('/sakura-night-mobile.webp?v=mobile-night-20261016');
+    background-position: center center;
+    background-size: auto, auto, cover;
+    background-repeat: no-repeat;
+  }
 }
 
 @media (prefers-reduced-motion: reduce) {
