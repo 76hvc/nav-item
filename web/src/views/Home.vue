@@ -499,10 +499,11 @@ async function handleSearch() {
   color: var(--text-primary);
   color-scheme: light;
   background-color: var(--bg-base);
-  background-image:
-    radial-gradient(circle at 12% 12%, var(--bg-wash-a), transparent 31rem),
-    radial-gradient(circle at 88% 9%, var(--bg-wash-b), transparent 34rem),
-    linear-gradient(135deg, var(--bg-base), var(--bg-end));
+  background-image: url('/sakura-day.gif');
+  background-size: cover;
+  background-position: center center;
+  background-repeat: no-repeat;
+  background-attachment: fixed;
   overflow-x: hidden;
 }
 
@@ -551,7 +552,7 @@ async function handleSearch() {
   inset: 0;
   z-index: 0;
   pointer-events: none;
-  background: radial-gradient(ellipse at 50% 0%, rgba(255,255,255,0.22), transparent 56%);
+  background: none;
 }
 
 .home-container[data-theme="night"]::before {
