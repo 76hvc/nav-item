@@ -499,7 +499,7 @@ async function handleSearch() {
   color: var(--text-primary);
   color-scheme: light;
   background-color: var(--bg-base);
-  background-image: url('/sakura-day.webp?v=5d08dc6');
+  background-image: url('/sakura-day.webp?v=soft-pink-20261016');
   background-size: cover;
   background-position: center center;
   background-repeat: no-repeat;
