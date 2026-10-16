@@ -507,38 +507,42 @@ async function handleSearch() {
 }
 
 .home-container[data-theme="night"] {
-  --bg-base: #17131c;
-  --bg-raised: rgba(38,29,46,0.94);
-  --bg-overlay: #2a2033;
-  --surface-soft: rgba(47,36,56,0.76);
-  --surface-hover: rgba(63,48,74,0.9);
-  --text-primary: #f7edf4;
-  --text-secondary: rgba(247,237,244,0.74);
-  --text-tertiary: rgba(247,237,244,0.5);
+  --bg-base: #0b0b0d;
+  --bg-raised: rgba(25,25,29,0.94);
+  --bg-overlay: #242428;
+  --surface-soft: rgba(28,28,33,0.82);
+  --surface-hover: rgba(45,45,51,0.92);
+  --text-primary: #f3f3f5;
+  --text-secondary: rgba(243,243,245,0.76);
+  --text-tertiary: rgba(243,243,245,0.52);
   --border-subtle: rgba(255,255,255,0.08);
   --border-default: rgba(255,255,255,0.14);
   --border-strong: rgba(255,255,255,0.24);
-  --accent: #f28caf;
-  --accent-light: #ffb5ca;
-  --accent-soft: rgba(242,140,175,0.16);
-  --accent-wash: rgba(242,140,175,0.07);
-  --accent-border: rgba(242,140,175,0.32);
-  --accent-glow: rgba(242,140,175,0.25);
-  --overlay-backdrop: rgba(8,6,12,0.7);
+  --accent: #d7d9df;
+  --accent-light: #f0f2f7;
+  --accent-soft: rgba(220,225,236,0.14);
+  --accent-wash: rgba(220,225,236,0.07);
+  --accent-border: rgba(220,225,236,0.3);
+  --accent-glow: rgba(220,225,236,0.22);
+  --overlay-backdrop: rgba(5,5,7,0.76);
   --shadow-sm: 0 2px 12px rgba(0,0,0,0.2);
   --shadow-md: 0 8px 24px rgba(0,0,0,0.25);
   --shadow-lg: 0 12px 32px rgba(0,0,0,0.34);
   --shadow-xl: 0 25px 80px rgba(0,0,0,0.55);
-  --bg-wash-a: rgba(143,72,118,0.24);
-  --bg-wash-b: rgba(88,73,136,0.23);
-  --bg-end: #1e1726;
-  --petal-color: #f49abb;
+  --bg-wash-a: rgba(205,207,215,0.16);
+  --bg-wash-b: rgba(133,135,144,0.12);
+  --bg-end: #09090d;
+  --petal-color: #e8eaf0;
   color-scheme: dark;
-  background-color: var(--bg-base);
+  background-color: #08080b;
   background-image:
-    radial-gradient(circle at 12% 12%, var(--bg-wash-a), transparent 31rem),
-    radial-gradient(circle at 88% 9%, var(--bg-wash-b), transparent 34rem),
-    linear-gradient(135deg, var(--bg-base), var(--bg-end));
+    linear-gradient(180deg, rgba(7,7,10,0.1) 0%, rgba(7,7,10,0.24) 48%, rgba(7,7,10,0.78) 100%),
+    linear-gradient(90deg, rgba(6,6,9,0.18), rgba(6,6,9,0.28)),
+    url('/sakura-night.webp');
+  background-size: cover;
+  background-position: center top;
+  background-repeat: no-repeat;
+  background-attachment: fixed;
 }
 
 .home-container::before {
@@ -551,7 +555,15 @@ async function handleSearch() {
 }
 
 .home-container[data-theme="night"]::before {
-  background: radial-gradient(ellipse at 50% 0%, rgba(220,155,199,0.08), transparent 58%);
+  background:
+    radial-gradient(circle at 29% 23%, rgba(226,232,245,0.12), transparent 17rem),
+    linear-gradient(180deg, rgba(7,7,10,0.02), rgba(7,7,10,0.12));
+  animation: moonlit-breath 9s ease-in-out infinite;
+}
+
+@keyframes moonlit-breath {
+  0%, 100% { opacity: 0.62; }
+  50% { opacity: 1; }
 }
 
 .home-container .menu-bar-fixed { z-index: 100; }

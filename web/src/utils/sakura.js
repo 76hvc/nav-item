@@ -74,8 +74,18 @@ export function mountSakura() {
     position: 'fixed', left: '0', top: '0', zIndex: '3',
     pointerEvents: 'none', width: '100vw', height: '100vh'
   });
+  const themeRoot = document.querySelector('.home-container');
+  const syncTheme = () => {
+    const currentTheme = themeRoot?.dataset.theme === 'night' ? 'night' : 'day';
+    canvas.dataset.theme = currentTheme;
+    canvas.style.filter = currentTheme === 'night' ? 'grayscale(1) brightness(1.2)' : '';
+  };
+  syncTheme();
   resize();
   document.body.appendChild(canvas);
+
+  const themeObserver = themeRoot ? new MutationObserver(syncTheme) : null;
+  themeObserver?.observe(themeRoot, { attributes: true, attributeFilter: ['data-theme'] });
 
   const count = window.innerWidth <= 520 ? 8
     : (navigator.connection?.saveData || (navigator.hardwareConcurrency && navigator.hardwareConcurrency <= 4) ? 10 : 15);
@@ -85,16 +95,49 @@ export function mountSakura() {
     if (petalImage.complete && petalImage.naturalWidth) petal.draw(context);
     return petal;
   });
+  const moteCount = window.innerWidth <= 520 ? 12
+    : (navigator.connection?.saveData || (navigator.hardwareConcurrency && navigator.hardwareConcurrency <= 4) ? 18 : 34);
+  const moonMotes = Array.from({ length: moteCount }, () => ({
+    x: Math.random() * canvas.width,
+    y: Math.random() * canvas.height,
+    radius: 0.35 + Math.random() * 0.85,
+    opacity: 0.14 + Math.random() * 0.35,
+    speed: 0.08 + Math.random() * 0.22,
+    drift: (Math.random() - 0.5) * 0.12,
+    phase: Math.random() * Math.PI * 2,
+    twinkle: 0.0005 + Math.random() * 0.001
+  }));
 
   let frameId = 0;
   let disposed = false;
   let started = false;
-  function drawFrame() {
+  function drawFrame(timestamp = performance.now()) {
     if (disposed || document.hidden) return;
     context.clearRect(0, 0, canvas.width, canvas.height);
     for (const petal of petals) {
       petal.update(canvas.width, canvas.height);
       if (petalImage.complete && petalImage.naturalWidth) petal.draw(context);
+    }
+    if (canvas.dataset.theme === 'night') {
+      context.save();
+      context.fillStyle = '#f4f5fa';
+      for (const mote of moonMotes) {
+        mote.y -= mote.speed;
+        mote.x += mote.drift;
+        if (mote.y < -2) {
+          mote.y = canvas.height + 2;
+          mote.x = Math.random() * canvas.width;
+        }
+        if (mote.x < -2) mote.x = canvas.width + 2;
+        if (mote.x > canvas.width + 2) mote.x = -2;
+
+        const shimmer = 0.62 + 0.38 * Math.sin(timestamp * mote.twinkle + mote.phase);
+        context.globalAlpha = mote.opacity * shimmer;
+        context.beginPath();
+        context.arc(mote.x, mote.y, mote.radius, 0, Math.PI * 2);
+        context.fill();
+      }
+      context.restore();
     }
     frameId = window.requestAnimationFrame(drawFrame);
   }
@@ -127,6 +170,7 @@ export function mountSakura() {
     window.removeEventListener('resize', onResize);
     document.removeEventListener('visibilitychange', onVisibilityChange);
     petalImage.removeEventListener('load', onImageLoad);
+    themeObserver?.disconnect();
     canvas.remove();
   };
 }
